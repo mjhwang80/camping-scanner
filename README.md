@@ -2,11 +2,15 @@ cd camping-scanner
 
 # venv 생성
 
-python -m venv venv
+python -m venv .venv
 
 # 가상환경 활성화(Windows)
 
 #.\venv\Scripts\activate
+
+#mac
+source .venv/bin/activate
+deactivate
 
 pip install fastapi uvicorn playwright jinja2
 
@@ -24,3 +28,11 @@ pip install websockets
 pip install apscheduler
 pip install pytest pytest-asyncio pytest-mock
 pip install lxml
+
+## GIT 사용법
+
+git init
+
+git add .
+git commit -m "first commit"
+git branch -M main

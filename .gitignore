@@ -12,6 +12,8 @@ venv/
 .venv/
 env/
 
+*.log
+
 # 3. 빌드 및 배포 관련 (PyInstaller 등)
 build/
 dist/
