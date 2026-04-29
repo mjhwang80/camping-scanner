@@ -4,17 +4,17 @@ server:
 
 telegram:
   use_yn: "Y"
-  token: "5626123915:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk"
+  token: "5626123915-sZo-gBk"
   chat_ids: # 여러 명의 ID를 리스트로 관리
-    - "5616601566"
+    - "561666"
 
 info:
-  email: "hmjkor@gmail.com"
-  birthday: "800622"
-  name: "황명진"
-  nickname: "명진"
+  email: "hmjkocom"
+  birthday: "8622"
+  name: "ffffeee진"
+  nickname: "fff"
   phone: "010-1234-5678"
-  car_number: "283구2941"
+  car_number: "28fffff1141"
   member_teen: 0
   member_adult: 2
   member_child: 0
