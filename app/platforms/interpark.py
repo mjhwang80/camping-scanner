@@ -1,0 +1,133 @@
+from fastapi import params
+import httpx
+import asyncio
+from bs4 import BeautifulSoup
+import pprint  # Java의 Pretty Printer (Jackson 등) 역할
+import re
+from datetime import datetime, timedelta
+
+import logging
+
+from .base import CampingMonitor
+from core.notifier import notifier
+
+from core.websocket_manager import ws_manager
+
+# 로거 가져오기
+logger = logging.getLogger("camping.interpark")
+
+
+class InterparkMonitor: 
+
+    def __init__(self):
+        # 생성자에서는 파라미터를 받지 않고 공통 설정만 초기화합니다.
+        self.headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...",
+            "Accept": "application/json, text/javascript, */*; q=0.01"
+        }
+
+    
+
+    async def check_availability(self, params: dict):
+        """
+        스케줄러가 호출할 때 params를 넘겨줍니다.
+        params 예: {"camp_id": "22016459", "date": "2026-04-28", ...}
+        """
+
+        
+
+        print(f"[*] {params['camp_id']} 인터파크 조회 중...")
+
+        camp_id = params.get("camp_id")
+        uuid = params.get("watchUuid")
+        req_date = params.get("date")
+        stay_days = params.get("stay_day", "")
+
+        # 1. 문자열을 datetime 객체로 변환
+        start_dt = datetime.strptime(req_date, "%Y-%m-%d")
+        logger.info(f"[*] 인터파크 감시 시작 - 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박정보: {stay_days}")
+
+        #감시 사이트 대상
+        target_site_codes = params.get("site_codes", [])
+        target_site_codes = [str(code) for code in target_site_codes]
+
+        res_dt = req_date.replace("-", "")
+        res_days = stay_days       
+
+        # URL 구성 (playSeq 포함)
+        url = f"https://api-ticketfront.interpark.com/v1/goods/{camp_id}/playSeq/PlaySeq/{stay_days}/REMAINSEAT"
+
+        print(url)
+
+        #감시 정보 전달
+        await ws_manager.broadcast({"messageType" : "monitor", "data" : {"uuid" : uuid}}) 
+
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(url, headers=self.headers, cookies={"auth": "token"})
+
+                print(response.text)
+
+                result = response.json()
+                remain_seats = result.get("data", {}).get("remainSeat", []) # 인터파크 API 응답 키 확인 필요
+
+                found_sites = []
+
+                for site in remain_seats:
+
+                    pprint.pprint(site)
+
+                    remainCnt = int(site.get("remainCnt", 0)) #잔여석
+                    seatGradeName = site.get("seatGradeName") #사이트명
+                    seatGrade = site.get("seatGrade") #사이트 고유번호
+                    
+                    if remainCnt > 0: #잔여석이 있으면.
+                        # 원하는 사이트 체크
+                        if seatGrade in target_site_codes:
+                            found_sites.append({
+                                "site_name": seatGradeName,
+                                "site_code": seatGrade
+                            })
+
+                sites_string = ""
+                if found_sites:
+                    link = f"https://tickets.interpark.com/goods/{camp_id}"
+
+                    site_names = [s['site_name'] for s in found_sites]
+                    sites_string = ", ".join(site_names)
+                
+                    msg = (
+                        f"<b>빈자리 발견!</b>\n"
+                        f"캠핑장: {params['campsiteName']}\n"
+                        f"날짜: {params['date']} ({len(res_days.split(','))}박)\n"
+                        f"구역: {sites_string}\n"
+                        f"<a href='{link}'>예약하러 가기</a>"
+                    )
+
+                    alert_msg = {
+                        "messageType" : "alert" 
+                        ,"data" : {
+                            "campseq": camp_id,
+                            "res_dt": res_dt,                           
+                            "res_days": res_days,
+                            "link" : link,
+                            "list" : found_sites
+                            }
+                    }
+
+                    # 실시간 웹소켓 알림 전송
+                    await ws_manager.broadcast(alert_msg)     
+                    
+                    # 알림 전송                
+                    await notifier.send_message(msg) 
+                    
+                    logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
+                    print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
+                
+                    return True        
+
+                return False
+                
+            except Exception as e:
+                logger.error(f"[{self.name}] 잔여석 확인 중 에러: {e}")  
+    

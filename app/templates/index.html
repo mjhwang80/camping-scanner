@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>캠핑가자 Web Admin</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="stylesheet" href="/static/css/style.css" />
+        <style></style>
+    </head>
+    <body class="flex flex-col h-screen overflow-hidden">
+        <header class="w-full h-14 bg-white border-b shadow-sm flex items-center justify-between px-6 z-20">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-tent text-indigo-600 text-xl"></i>
+                <h1 class="text-xl font-black text-slate-800">
+                    캠핑가자
+                    <span class="text-slate-400 text-xs font-medium">ver 1.4.2 (Py)</span>
+                </h1>
+            </div>
+
+            <!-- 우측 상단 버튼 그룹 -->
+            <div class="flex items-center space-x-2">
+                <!-- 프로그램 종료 버튼 추가 -->
+
+                <!-- 기존 햄버거 메뉴 -->
+                <button onclick="toggleMenu()" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                    <i class="fa-solid fa-bars text-xl text-slate-600"></i>
+                </button>
+
+                <button onclick="confirmShutdown()" class="flex items-center space-x-2 px-3 py-1.5 bg-white border border-red-200 text-red-600 text-xs font-black rounded-lg hover:bg-red-50 hover:border-red-300 transition-all shadow-sm" title="애플리케이션 종료">
+                    <i class="fa-solid fa-power-off"></i>
+                    <span>프로그램 종료</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex flex-1 overflow-hidden">
+            <aside class="w-64 bg-white border-r flex flex-col shadow-inner">
+                <div class="p-4 space-y-4">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-indigo-600 uppercase">Camping Platform</label>
+                        <select id="platformSelect" class="w-full p-2 text-sm font-bold bg-slate-50 rounded border-slate-300 outline-none focus:ring-2 focus:ring-indigo-500">
+                            {% for name, filename in platform_map.items() %}
+                            <option value="{{ filename }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="px-4 pb-2">
+                    <label class="text-xs font-black text-slate-400 uppercase">Camping Sites</label>
+                </div>
+                <nav class="flex-1 overflow-y-auto custom-scrollbar px-2 pb-4">
+                    <ul id="campsiteList" class="space-y-0.5 text-sm">
+                        <!--
+              <li class="p-2.5 hover:bg-indigo-50 hover:text-indigo-700 rounded cursor-pointer transition border-b border-slate-50">1) 평택 진위천유원지</li>
+              <li class="p-2.5 hover:bg-indigo-50 hover:text-indigo-700 rounded cursor-pointer transition border-b border-slate-50">2) 안성 안성맞춤캠핑장</li>
+              <li class="p-2.5 bg-indigo-600 text-white shadow-md rounded font-bold">4) 연천 한탄강오토캠핑장</li>
+              <li class="p-2.5 hover:bg-indigo-50 hover:text-indigo-700 rounded cursor-pointer transition border-b border-slate-50">13) 서울 우이동가족캠핑장</li>
+              -->
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="flex-1 flex flex-col overflow-hidden">
+                <div class="flex-1 p-4 grid grid-cols-12 gap-4 overflow-y-auto custom-scrollbar">
+                    <section id="reservationPanel" class="col-span-5 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
+                        <div class="p-3 border-b bg-slate-50 flex justify-between items-center">
+                            <h2 class="font-black text-slate-700 text-sm"><i class="fa-solid fa-pen-to-square mr-1"></i> 예약 정보</h2>
+                            <div class="space-x-1">
+                                <button class="px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded hover:bg-indigo-700" id="watchBtn">감시</button>
+                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="homePageBtn">홈페이지</button>
+                            </div>
+                        </div>
+                        <div class="p-4 space-y-4 text-sm">
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">플랫폼 :</label>
+                                <span class="font-black text-indigo-600" id="platformName"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">캠핑장 :</label>
+                                <span class="font-black text-indigo-600" id="campsiteName"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">예약일 :</label>
+                                <input type="date" value="" class="flex-1 p-1.5 border rounded" id="watchDate" />
+                            </div>
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">연박 :</label>
+                                <select class="flex-1 p-1.5 border rounded bg-white" id="dayCountSelect">
+                                    <option value="1">1박</option>
+                                    <option value="2">2박</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col space-y-2">
+                                <label class="font-bold text-slate-600 border-b pb-1">사이트 :</label>
+                                <div class="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded border border-dashed" id="siteCheckerContainer">
+                                    <!--
+                                      <label class="flex items-center"><input type="checkbox" checked class="mr-2 accent-indigo-600" /> 전체</label>
+                                      <label class="flex items-center"><input type="checkbox" checked class="mr-2 accent-indigo-600" /> 언덕야영장</label>
+                                      <label class="flex items-center"><input type="checkbox" checked class="mr-2 accent-indigo-600" /> 강변야영장</label>
+                                      <label class="flex items-center"><input type="checkbox" class="mr-2 accent-indigo-600" /> 캐라반</label>
+                                      -->
+                                </div>
+                            </div>
+                            <div class="space-y-3 pt-2 border-t">
+                                <div class="flex items-center">
+                                    <label class="w-24 font-bold text-slate-600 text-xs">최대요청주기</label>
+                                    <select class="flex-1 p-1 border rounded text-xs" id="requestInterval">
+                                        <option value="10">10초</option>
+                                        <option value="30">30초</option>
+                                        <option value="60">1분</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center">
+                                    <label class="w-24 font-bold text-slate-600 text-xs underline decoration-indigo-300">아이디</label>
+                                    <input type="text" class="flex-1 p-1 border rounded text-xs" />
+                                </div>
+                                <div class="flex items-center">
+                                    <label class="w-24 font-bold text-slate-600 text-xs underline decoration-indigo-300">비밀번호</label>
+                                    <input type="password" class="flex-1 p-1 border rounded text-xs" />
+                                </div>
+                                <div class="flex items-center justify-end">
+                                    <label class="flex items-center font-bold text-red-600 text-xs"> <input type="checkbox" class="mr-1 w-4 h-4" /> 자동 예약 요청 </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="col-span-7 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
+                        <div class="p-3 border-b bg-slate-50">
+                            <h2 class="font-black text-slate-700 text-sm"><i class="fa-solid fa-chart-line mr-1"></i> 감시 정보</h2>
+                        </div>
+                        <div class="flex-1 overflow-auto custom-scrollbar">
+                            <table class="w-full text-xs text-left border-collapse">
+                                <thead class="bg-slate-100 sticky top-0 border-b border-slate-300">
+                                    <tr class="text-slate-600">
+                                        <th class="p-2 border-r font-bold">사이트명</th>
+                                        <th class="p-2 border-r font-bold text-center">예약일</th>
+                                        <th class="p-2 border-r font-bold text-center">박수</th>
+                                        <th class="p-2 border-r font-bold text-center">요청수</th>
+                                        <th class="p-2 font-bold text-center">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y" id="monitoring-list">
+                                    <tr class="hover:bg-slate-50 EMPTY-ROW">
+                                        <td class="p-2 text-center text-green-600 font-bold italic" colspan="5">감시 중인 항목이 없습니다.</td>
+                                        <!--
+                                            <td class="p-2 border-r font-bold">연천 한탄강오토캠핑장</td>
+                                            <td class="p-2 border-r text-center">2026-05-03</td>
+                                            <td class="p-2 border-r text-center">1</td>
+                                            <td class="p-2 border-r text-center font-bold text-indigo-600">12</td>
+                                            <td class="p-2 text-center text-green-600 font-bold italic">Monitoring..</td>
+                                            -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-3 border-t bg-slate-50 flex justify-center">
+                            <button class="px-6 py-2 bg-red-50 border border-red-200 text-red-600 font-black rounded hover:bg-red-100 transition text-sm" id="stopWatchBtn">감지 중지</button>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="footer-resizer" class="h-1 bg-slate-700 hover:bg-indigo-500 cursor-ns-resize transition-colors z-30"></div>
+                <footer id="main-footer" style="height: 176px" class="bg-[#1e1e1e] text-[#d4d4d4] p-3 font-mono text-[11px] overflow-y-auto border-t-2 border-indigo-500">
+                    <div class="flex items-center justify-between mb-2 text-slate-500 border-b border-slate-800 pb-1">
+                        <span><i class="fa-solid fa-terminal mr-1"></i> LOG CONSOLE</span>
+                        <span class="text-[10px] uppercase opacity-50">v1.4.2 build 20260428</span>
+                    </div>
+                    <div class="space-y-0.5" id="log-container">
+                        <!--
+                            <p><span class="text-slate-500">[ 2026-04-28 14:23:16 INFO ]</span> - [ 연천 한탄강오토캠핑장 ] 2026-05-03 1박 예약 자리 없음</p>
+                            <p><span class="text-slate-500">[ 2026-04-28 14:23:09 INFO ]</span> - [ 연천 한탄강오토캠핑장 ] 검색 사이트 : 언덕야영장(파쇄석), 강변야영장(파쇄석)...</p>
+                            <p class="text-emerald-400 font-bold underline underline-offset-2">▶ [ 2026-04-28 14:23:00 INFO ] - 다음 감시 대기 중... (7초)</p>
+                            -->
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <div id="menuLayer" class="fixed inset-y-0 right-0 w-72 bg-white shadow-2xl z-30 p-6 hidden-layer border-l">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-lg font-black text-slate-800 italic">SYSTEM MENU</h2>
+                <button onclick="toggleMenu()" class="text-slate-400 hover:text-slate-800">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <ul class="space-y-4 font-bold text-sm text-slate-600">
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition"><i class="fa-solid fa-gear w-8 text-indigo-500"></i><span>환경 설정</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition"><i class="fa-solid fa-bell w-8 text-indigo-500"></i><span>텔레그램 봇 연동</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition border-t pt-4 mt-4"><i class="fa-solid fa-circle-info w-8 text-slate-400"></i><span>도움말 및 정보</span></li>
+            </ul>
+        </div>
+        <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 hidden"></div>
+        <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script>
+            const campsiteData = {{ campsites | tojson }};
+        </script>
+        <script src="/static/js/script.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                Comp.init();
+                Logger.init();
+                Alert.init();
+            });
+        </script>
+    </body>
+</html>

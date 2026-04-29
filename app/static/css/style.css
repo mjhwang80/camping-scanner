@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap");
+
+body {
+  font-family: "Pretendard", sans-serif;
+  background-color: #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 10px;
+}
+
+.hidden-layer {
+  transform: translateX(100%);
+}
+
+#menuLayer {
+  transition: transform 0.3s ease-in-out;
+}
+
+select,
+input {
+  border: 1px solid #d1d5db !important;
+}

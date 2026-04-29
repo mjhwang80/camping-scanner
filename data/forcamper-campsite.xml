@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <type>Forcamper</type>
+    <campsites>
+
+        <campsite>
+            <name>김포 문수골힐링캠핑장</name>
+            <code>1758</code>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="21"><![CDATA[힐링A존]]></site>
+                <site code="22"><![CDATA[힐링B존]]></site>
+                <site code="50"><![CDATA[시냇가C존]]></site>
+                <site code="51"><![CDATA[호숫가D-1]]></site>
+                <site code="52"><![CDATA[호숫가D-2]]></site>
+            </sites>
+        </campsite>
+
+    </campsites>
+</configuration>
