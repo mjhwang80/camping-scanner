@@ -1,6 +1,7 @@
 import os
 import sys
 import yaml
+import signal
 import webbrowser
 import xml.etree.ElementTree as ET
 from threading import Timer
@@ -32,6 +33,12 @@ app = FastAPI()
 @app.on_event("startup")
 async def startup_event():
     start_scheduler()
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    if scheduler.running:
+        scheduler.shutdown()
+        logger.info("[*] 스케줄러가 성공적으로 종료되었습니다.")
 
 # 1. CORS 설정 (가장 유력한 에러 원인 해결)
 app.add_middleware(
@@ -306,11 +313,16 @@ async def monitor_loop(monitor, params):
 
 @app.post("/api/shutdown")
 async def shutdown():
-    print("[*] 애플리케이션 종료 요청을 받았습니다.")
-    # 브라우저에 응답을 보낸 후 1초 뒤에 프로세스를 종료합니다.
-    # 바로 종료하면 브라우저가 응답을 못 받을 수 있기 때문입니다.
+    logger.info("[*] 애플리케이션 종료 요청을 받았습니다.")
+    
     def kill_process():
-        os.kill(os.getpid(), signal.SIGTERM)
+        # 윈도우와 리눅스 모두에서 작동하도록 SIGINT(Ctrl+C 효과)를 먼저 시도하고 안되면 SIGTERM을 보냅니다.
+        try:
+            # 윈도우의 경우 CTRL_C_EVENT를 사용할 수도 있지만 SIGTERM이 일반적입니다.
+            os.kill(os.getpid(), signal.SIGTERM)
+        except Exception as e:
+            # 강제 종료
+            os._exit(0)
         
     Timer(1.0, kill_process).start()
     return {"status": "success", "message": "프로그램을 종료합니다."}
@@ -396,3 +408,4 @@ if __name__ == "__main__":
         log_config=None, 
         workers=1
     )
+

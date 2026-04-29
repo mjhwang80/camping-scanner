@@ -1,20 +1,20 @@
 server:
-    port: 7777
-    host: "127.0.0.1"
+  port: 7779
+  host: "127.0.0.1"
 
 telegram:
-    use_yn: "Y"
-    token: "5626123915:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk"
-    chat_ids: # 여러 명의 ID를 리스트로 관리
-        - "5616601566"
+  use_yn: "Y"
+  token: "5626123915:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk"
+  chat_ids: # 여러 명의 ID를 리스트로 관리
+    - "5616601566"
 
 info:
-    email: "hmjkor@gmail.com"
-    birthday: "800622"
-    name: "황명진"
-    nickname: "명진"
-    phone: "010-1234-5678"
-    car_number: "283구2941"
-    member_teen: 0
-    member_adult: 2
-    member_child: 0
+  email: "hmjkor@gmail.com"
+  birthday: "800622"
+  name: "황명진"
+  nickname: "명진"
+  phone: "010-1234-5678"
+  car_number: "283구2941"
+  member_teen: 0
+  member_adult: 2
+  member_child: 0

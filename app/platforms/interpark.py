@@ -12,6 +12,7 @@ from .base import CampingMonitor
 from core.notifier import notifier
 
 from core.websocket_manager import ws_manager
+from core.termination_handler import handle_monitoring_stop
 
 # 로거 가져오기
 logger = logging.getLogger("camping.interpark")
@@ -123,11 +124,14 @@ class InterparkMonitor:
                     
                     logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
                     print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
+
+                    from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+                    await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
                 
                     return True        
 
                 return False
                 
             except Exception as e:
-                logger.error(f"[{self.name}] 잔여석 확인 중 에러: {e}")  
+                logger.error(f"[{params['camp_id']}] 잔여석 확인 중 에러: {e}")  
     

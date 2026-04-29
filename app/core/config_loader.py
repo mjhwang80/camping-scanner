@@ -11,7 +11,7 @@ def load_config():
     config_path = project_root / "config" / "config.yaml"
 
     if not config_path.exists():
-        raise FileNotFoundError(f"⚠️ 설정 파일을 찾을 수 없습니다: {config_path}")
+        raise FileNotFoundError(f"설정 파일을 찾을 수 없습니다: {config_path}")
 
     # 3. YAML 파일 읽기
     with open(config_path, "r", encoding="utf-8") as f:

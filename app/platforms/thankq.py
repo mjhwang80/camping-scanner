@@ -12,6 +12,7 @@ from .base import CampingMonitor
 from core.notifier import notifier
 
 from core.websocket_manager import ws_manager
+from core.termination_handler import handle_monitoring_stop
 
 # 로거 가져오기
 logger = logging.getLogger("camping.thankq")
@@ -140,12 +141,31 @@ class ThankQMonitor:
 
                 logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
                 print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
+
+                from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+                await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
                 
                 return True       
             
 
             return False
 
+    async def _stop_and_remove_ui(self, params):
+        job_id = params.get("watchUuid")
+        try:
+            from app.main import scheduler 
+            
+            # 스케줄러에서 작업 제거
+            scheduler.remove_job(job_id)
+            logger.info(f"감시 성공 종료: {job_id}")
+
+            # 웹 화면에 삭제 명령 전송
+            await ws_manager.broadcast({
+                "messageType": "remove_monitor",
+                "data": { "uuid": job_id }
+            })
+        except Exception as e:
+            logger.error(f"종료 처리 중 오류: {e}")
 
 # --- Java의 main 메서드와 같은 역할 ---
 if __name__ == "__main__":
