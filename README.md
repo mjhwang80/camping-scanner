@@ -23,12 +23,14 @@ deactivate
 ## 라이브러리 설치
 
 - pip install fastapi uvicorn playwright jinja2
+- set PLAYWRIGHT_BROWSERS_PATH=pw-browsers
 - playwright install chromium
 - pip install pyinstaller
 - pip install pyyaml
 - pip install httpx
 - pip install beautifulsoup4
 - pip install 'uvicorn[standard]'
+- pip install uvicorn uvloop httptools #위에 라인이 설치 안되면..
 - pip install websockets
 - pip install apscheduler
 - pip install pytest pytest-asyncio pytest-mock

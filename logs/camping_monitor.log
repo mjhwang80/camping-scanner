@@ -80,3 +80,260 @@
 2026-04-30 19:41:03,766 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
 2026-04-30 19:41:03,943 [INFO] camping: 서버가 정상 기동중...
 2026-04-30 19:41:13,756 [INFO] camping: [*] 스케줄러가 성공적으로 종료되었습니다.
+2026-05-01 00:19:37,527 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-05-01 00:19:37,944 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:20:02,366 [INFO] camping: [*] 스케줄러가 성공적으로 종료되었습니다.
+2026-05-01 00:30:48,444 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-05-01 00:30:48,763 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:33:07,258 [INFO] camping: [*] 스케줄러가 성공적으로 종료되었습니다.
+2026-05-01 00:33:09,971 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-05-01 00:33:10,331 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:35:13,839 [INFO] camping: Monitor started for: C27562955
+2026-05-01 00:35:50,132 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:35:50,994 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:35:50,994 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:36:10,339 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:36:22,873 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:36:23,638 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:36:23,639 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:36:57,202 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:36:57,949 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:36:57,949 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:37:29,699 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:37:30,392 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:37:30,392 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:38:00,284 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:38:00,945 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:38:00,945 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:38:31,319 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:38:32,001 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:38:32,002 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:39:04,158 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:39:05,127 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:39:05,127 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:39:10,354 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:39:34,323 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:39:35,118 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:39:35,119 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:40:09,539 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:40:10,169 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:40:10,170 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:40:43,522 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:40:44,181 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:40:44,181 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:41:18,891 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:41:19,533 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:41:19,534 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:41:52,427 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:41:53,079 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:41:53,079 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:42:10,372 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:42:27,161 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:42:27,785 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:42:27,786 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:42:58,243 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:42:58,872 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\app\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:42:58,872 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:43:07,012 [INFO] camping: [*] 스케줄러가 성공적으로 종료되었습니다.
+2026-05-01 00:48:02,638 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-05-01 00:48:03,017 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:48:39,277 [INFO] camping: Monitor started for: C27562955
+2026-05-01 00:48:39,819 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:48:40,666 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:48:40,667 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:49:11,086 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:49:11,787 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:49:11,787 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:49:45,369 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:49:46,066 [ERROR] camping.mirihae: [!] 토큰 추출 중 예외 발생: BrowserType.launch: Executable doesn't exist at C:\Users\seoeun\python\camping-scanner\pw-broswer\chromium_headless_shell-1217\chrome-headless-shell-win64\chrome-headless-shell.exe
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝
+2026-05-01 00:49:46,066 [ERROR] camping.mirihae: [!] 토큰 획득 실패로 감시를 중단합니다.
+2026-05-01 00:50:18,084 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:50:18,119 [INFO] camping: [*] 스케줄러가 성공적으로 종료되었습니다.
+2026-05-01 00:55:17,084 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-05-01 00:55:17,407 [INFO] camping: 서버가 정상 기동중...
+2026-05-01 00:55:35,439 [INFO] camping: Monitor started for: C27562955
+2026-05-01 00:55:35,946 [INFO] camping.mirihae: [*] 토큰이 없거나 만료되어 새로 요청합니다.
+2026-05-01 00:55:37,186 [INFO] camping.browser: [*] 보안 페이지 통과 시도: https://mirihae.com/pccamp/campsite/C27562955
+2026-05-01 00:55:46,786 [INFO] camping.mirihae: [*] 보안 단계 통과 및 토큰 획득 성공: 20260501005540-5765185f-b0d0-43cb-b72b-707f0043bda5
+2026-05-01 00:55:46,787 [INFO] camping.mirihae: 수집한 토큰정보 : 20260501005540-5765185f-b0d0-43cb-b72b-707f0043bda5
+2026-05-01 00:55:46,821 [INFO] camping.mirihae: [*] 미리해 감시 시작 - 캠핑장 : 포천 비둘기낭 캠핑장 캠핑장 ID: C27562955 예약일: 2026-05-19 숙박일수: 1
+2026-05-01 00:55:47,621 [INFO] camping.mirihae: [A사이트] A01 사이트 예약 가능! (ID: ITEM_000000000000998)
+2026-05-01 00:55:47,621 [INFO] camping.mirihae: [A사이트] A03 사이트 예약 가능! (ID: ITEM_000000000001000)
+2026-05-01 00:55:47,622 [INFO] camping.mirihae: [A사이트] A04 사이트 예약 가능! (ID: ITEM_000000000001001)
+2026-05-01 00:55:47,622 [INFO] camping.mirihae: [A사이트] A05 사이트 예약 가능! (ID: ITEM_000000000001002)
+2026-05-01 00:55:47,622 [INFO] camping.mirihae: [A사이트] A06 사이트 예약 가능! (ID: ITEM_000000000001003)
+2026-05-01 00:55:47,623 [INFO] camping.mirihae: [B사이트] B01 사이트 예약 가능! (ID: ITEM_000000000001008)
+2026-05-01 00:55:47,623 [INFO] camping.mirihae: [B사이트] B03 사이트 예약 가능! (ID: ITEM_000000000001010)
+2026-05-01 00:55:47,623 [INFO] camping.mirihae: [B사이트] B04 사이트 예약 가능! (ID: ITEM_000000000001011)
+2026-05-01 00:55:47,624 [INFO] camping.mirihae: [B사이트] B05 사이트 예약 가능! (ID: ITEM_000000000001012)
+2026-05-01 00:55:47,624 [INFO] camping.mirihae: [B사이트] B06 사이트 예약 가능! (ID: ITEM_000000000001013)
+2026-05-01 00:55:47,624 [INFO] camping.mirihae: [B사이트] B09 사이트 예약 가능! (ID: ITEM_000000000001016)
+2026-05-01 00:55:47,625 [INFO] camping.mirihae: [B사이트] B10 사이트 예약 가능! (ID: ITEM_000000000001017)
+2026-05-01 00:55:47,625 [INFO] camping.mirihae: [B사이트] B11 사이트 예약 가능! (ID: ITEM_000000000001018)
+2026-05-01 00:55:47,626 [INFO] camping.mirihae: [B사이트] B12 사이트 예약 가능! (ID: ITEM_000000000001019)
+2026-05-01 00:55:47,627 [INFO] camping.mirihae: [B사이트] B13 사이트 예약 가능! (ID: ITEM_000000000001020)
+2026-05-01 00:55:47,627 [INFO] camping.mirihae: [B사이트] B14 사이트 예약 가능! (ID: ITEM_000000000001021)
+2026-05-01 00:55:47,628 [INFO] camping.mirihae: [B사이트] B15 사이트 예약 가능! (ID: ITEM_000000000001022)
+2026-05-01 00:55:47,628 [INFO] camping.mirihae: [B사이트] B16 사이트 예약 가능! (ID: ITEM_000000000001023)
+2026-05-01 00:55:47,628 [INFO] camping.mirihae: [C사이트] C03 사이트 예약 가능! (ID: ITEM_000000000001026)
+2026-05-01 00:55:47,629 [INFO] camping.mirihae: [C사이트] C04 사이트 예약 가능! (ID: ITEM_000000000001027)
+2026-05-01 00:55:47,629 [INFO] camping.mirihae: [C사이트] C05 사이트 예약 가능! (ID: ITEM_000000000001028)
+2026-05-01 00:55:47,629 [INFO] camping.mirihae: [C사이트] C06 사이트 예약 가능! (ID: ITEM_000000000001029)
+2026-05-01 00:55:47,630 [INFO] camping.mirihae: [C사이트] C07 사이트 예약 가능! (ID: ITEM_000000000001030)
+2026-05-01 00:55:47,630 [INFO] camping.mirihae: [C사이트] C08 사이트 예약 가능! (ID: ITEM_000000000001031)
+2026-05-01 00:55:47,630 [INFO] camping.mirihae: [C사이트] C09 사이트 예약 가능! (ID: ITEM_000000000001032)
+2026-05-01 00:55:47,630 [INFO] camping.mirihae: [C사이트] C10 사이트 예약 가능! (ID: ITEM_000000000001033)
+2026-05-01 00:55:47,631 [INFO] camping.mirihae: [C사이트] C12 사이트 예약 가능! (ID: ITEM_000000000001035)
+2026-05-01 00:55:47,631 [INFO] camping.mirihae: [C사이트] C13 사이트 예약 가능! (ID: ITEM_000000000001036)
+2026-05-01 00:55:47,631 [INFO] camping.mirihae: [C사이트] C14 사이트 예약 가능! (ID: ITEM_000000000001037)
+2026-05-01 00:55:47,632 [INFO] camping.mirihae: [C사이트] C15 사이트 예약 가능! (ID: ITEM_000000000001038)
+2026-05-01 00:55:47,632 [INFO] camping.mirihae: [C사이트] C16 사이트 예약 가능! (ID: ITEM_000000000001039)
+2026-05-01 00:55:47,633 [INFO] camping.mirihae: [C사이트] C17 사이트 예약 가능! (ID: ITEM_000000000001040)
+2026-05-01 00:55:47,633 [INFO] camping.mirihae: [D사이트] D15 사이트 예약 가능! (ID: ITEM_000000000001061)
+2026-05-01 00:55:47,633 [INFO] camping.mirihae: [D사이트] D16 사이트 예약 가능! (ID: ITEM_000000000001062)
+2026-05-01 00:55:47,634 [INFO] camping.mirihae: [D사이트] D17 사이트 예약 가능! (ID: ITEM_000000000001063)
+2026-05-01 00:55:47,634 [INFO] camping.mirihae: [D사이트] D18 사이트 예약 가능! (ID: ITEM_000000000001064)
+2026-05-01 00:55:47,635 [INFO] camping.mirihae: [B사이트] B17 사이트 예약 가능! (ID: ITEM_000000000001105)
+2026-05-01 00:55:49,140 [INFO] camping.mirihae: 자리 체크 성공 : 200
+2026-05-01 00:55:51,631 [INFO] camping.mirihae: 티켓 정보 체크 성공 : 200
+2026-05-01 00:55:52,319 [INFO] camping.mirihae: 전체 가격 체크 성공 : 200
+2026-05-01 00:55:52,321 [ERROR] camping.mirihae: 예약 URL: https://oduck-kwon.github.io/camp/gateway.htm?gubun=gugu&tocken=20260501005540-5765185f-b0d0-43cb-b72b-707f0043bda5&selectMonth=2026-05&selectStartDate=2026-05-19&selectEndDate=2026-05-20&selectItemId=ITEM_000000000001026
+2026-05-01 00:55:53,907 [INFO] camping.notifier: 알림 발송 성공 (ID: 5616601566)
+2026-05-01 00:55:53,953 [INFO] camping.termination: [자동 종료 프로세스 시작] 포천 비둘기낭 캠핑장 (ID: Mirihae_C27562955_2026-05-19_1)
+2026-05-01 00:55:53,954 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Mirihae_C27562955_2026-05-19_1

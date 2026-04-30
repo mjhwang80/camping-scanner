@@ -15,8 +15,10 @@ __pycache__/            # 파이썬 컴파일 캐시
 logs/                   # 로컬 로그 저장소
 build/                  # 빌드 중간 파일
 dist/                   # 배포용 결과물
-pycache//               # 
+pycache/               # 
 *.spec                  # PyInstaller 설정 파일
+camping-scanner/                   
+*.zip 
 
 # 4. OS 및 에디터 관련
 .DS_Store               # macOS 관련

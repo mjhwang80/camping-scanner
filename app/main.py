@@ -36,6 +36,24 @@ from core.config_loader import load_full_config, save_config
 
 import logging
 
+
+def get_browser_path():
+    # 1. 실행 파일 환경인지 일반 파이썬 환경인지 구문
+    if getattr(sys, 'frozen', False):
+        # .exe로 실행 중일 때 (PyInstaller 환경)
+        base_path = os.path.dirname(sys.executable)
+    else:
+        # 일반 python 파일로 실행 중일 때
+        current_file_path = os.path.dirname(os.path.abspath(__file__))
+        base_path = os.path.abspath(os.path.join(current_file_path, ".."))
+
+    browser_dir = os.path.join(base_path, "pw-browsers")
+    os.environ["PLAYWRIGHT_BROWSERS_PATH"] = browser_dir
+
+    return browser_dir
+
+print(f"[*] 브라우저 경로 설정 완료: {get_browser_path()}")
+
 # 전역 객체
 app = FastAPI()
 tray_manager = None #트레이 관리자
@@ -331,7 +349,8 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         seconds=interval, 
         jitter=dynamic_jitter,       # 실행 시점마다 무작위 지연 추가
         args=[params],               # 함수에 넘길 파라미터(Map/dict)
-        id=job_id
+        id=job_id,
+        next_run_time=datetime.now() # 즉시 실행
     )
 
     # [추가] 서버 메모리에 감시 정보 저장
