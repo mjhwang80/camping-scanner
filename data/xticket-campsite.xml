@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
+    <typeName>X티켓</typeName>
     <type>Xticket</type>
     <desc>자동입력 방지로 인해 자동예약 불가능 합니다.</desc>
+    <typeOrder>10</typeOrder>
     <campsites>
         <campsite>
             <name>밀양아리랑 오토캠핑장</name>

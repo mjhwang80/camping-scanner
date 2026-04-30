@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
+    <typeName>마켓티켓</typeName>
     <type>Maketicket</type>
+    <typeOrder>10</typeOrder>
     <campsites>
         <campsite>
             <name>향남오토캠핑장</name>

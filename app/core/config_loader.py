@@ -1,21 +1,41 @@
+import os
+import sys
 import yaml
-from pathlib import Path
+
+def get_external_path(relative_path):
+    """
+    빌드된 환경에서 실행 파일(.exe)과 동일한 위치의 외부 경로를 반환합니다.
+    개발 환경에서는 프로젝트 루트를 반환합니다.
+    """
+    if hasattr(sys, '_MEIPASS'):
+        # 빌드 후: 실행 파일(.exe)이 위치한 실제 디렉토리 기준
+        exe_dir = os.path.dirname(sys.executable)
+        return os.path.join(exe_dir, relative_path)
+    
+    # 개발 시: 프로젝트 루트 기준
+    return os.path.join(os.path.abspath("."), relative_path)
+
+def get_resource_path(relative_path):
+    """실행 파일 내부(임시폴더) 또는 개발 루트에서 절대 경로를 반환합니다."""
+    if hasattr(sys, '_MEIPASS'):
+        # 빌드 후: .exe 실행 시 임시 폴더 경로 (_MEIPASS)
+        return os.path.join(sys._MEIPASS, relative_path)
+    # 개발 시: 프로젝트 루트 기준
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def load_config():
-    # 1. 현재 파일(config_loader.py)의 위치를 기준으로 프로젝트 루트 찾기
-    # app/core/config_loader.py 기준 -> parent(core) -> parent(app) -> parent(root)
-    current_path = Path(__file__).resolve()
-    project_root = current_path.parent.parent.parent
+    # 'config/config.yaml' 경로를 안전하게 계산합니다.
+    config_path = get_resource_path(os.path.join("config", "config.yaml"))
     
-    # 2. config/config.yaml 경로 생성
-    config_path = project_root / "config" / "config.yaml"
+    if not os.path.exists(config_path):
+        # 만약 빌드본 외부(실행파일과 같은 위치)의 설정파일을 우선하고 싶다면 아래 로직 추가
+        exe_dir_config = os.path.join(os.path.dirname(sys.executable), "config", "config.yaml")
+        if os.path.exists(exe_dir_config):
+            config_path = exe_dir_config
+        else:
+            raise FileNotFoundError(f"설정 파일을 찾을 수 없습니다: {config_path}")
 
-    if not config_path.exists():
-        raise FileNotFoundError(f"설정 파일을 찾을 수 없습니다: {config_path}")
-
-    # 3. YAML 파일 읽기
-    with open(config_path, "r", encoding="utf-8") as f:
+    with open(config_path, 'r', encoding='utf-8') as f:
         return yaml.safe_load(f)
 
-# 싱글톤 인스턴스처럼 활용
 CONFIG = load_config()

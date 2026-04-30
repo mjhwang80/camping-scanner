@@ -41,8 +41,8 @@
                     <div class="space-y-2">
                         <label class="text-xs font-black text-indigo-600 uppercase">Camping Platform</label>
                         <select id="platformSelect" class="w-full p-2 text-sm font-bold bg-slate-50 rounded border-slate-300 outline-none focus:ring-2 focus:ring-indigo-500">
-                            {% for name, filename in platform_map.items() %}
-                            <option value="{{ filename }}">{{ name }}</option>
+                            {% for platform in platform_list %}
+                            <option value="{{ platform.filename }}">{{ platform.typeName }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -107,9 +107,9 @@
                                 <div class="flex items-center">
                                     <label class="w-24 font-bold text-slate-600 text-xs">최대요청주기</label>
                                     <select class="flex-1 p-1 border rounded text-xs" id="requestInterval">
-                                        <option value="10">10초</option>
-                                        <option value="30">30초</option>
                                         <option value="60">1분</option>
+                                        <option value="30">30초</option>
+                                        <option value="10">10초</option>
                                     </select>
                                 </div>
                                 <div class="flex items-center">
@@ -120,8 +120,18 @@
                                     <label class="w-24 font-bold text-slate-600 text-xs underline decoration-indigo-300">비밀번호</label>
                                     <input type="password" class="flex-1 p-1 border rounded text-xs" />
                                 </div>
-                                <div class="flex items-center justify-end">
-                                    <label class="flex items-center font-bold text-red-600 text-xs"> <input type="checkbox" class="mr-1 w-4 h-4" /> 자동 예약 요청 </label>
+                                <div class="flex items-center justify-end space-x-4">
+                                    <!-- space-x-4 추가로 간격 조절 -->
+                                    <label class="flex items-center font-bold text-slate-600 text-xs cursor-pointer">
+                                        <input type="checkbox" checked id="findNextRun" class="mr-1 w-4 h-4 accent-indigo-600" />
+                                        검색 감시 종료
+                                    </label>
+
+                                    <!-- 기존 자동 예약 요청 -->
+                                    <label class="flex items-center font-bold text-red-600 text-xs cursor-pointer">
+                                        <input type="checkbox" class="mr-1 w-4 h-4" />
+                                        자동 예약 요청
+                                    </label>
                                 </div>
                             </div>
                         </div>

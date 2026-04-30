@@ -13,6 +13,7 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi import Request, HTTPException
 from platforms.thankq import ThankQMonitor
 from platforms.interpark import InterparkMonitor
+from core.config_loader import get_resource_path, get_external_path
 
 from core.logger import log_queue, logger
 from core.config_loader import CONFIG
@@ -91,17 +92,6 @@ def get_base_path():
     parent_dir = os.path.dirname(current_file_path) # app/
     root_dir = os.path.dirname(parent_dir)         # camping-scanner/
     return root_dir
-
-def get_resource_path(relative_path):
-    """
-    PyInstaller의 임시 작업 폴더(_MEIPASS)를 기준으로 절대 경로를 생성합니다.
-    Java의 ClassLoader.getResource()와 유사한 역할을 합니다.
-    """
-    if hasattr(sys, '_MEIPASS'):
-        # 빌드 후: 임시 폴더 내의 경로
-        return os.path.join(sys._MEIPASS, relative_path)
-    # 개발 환경: 프로젝트 루트 기준 (app/main.py 위치에서 상위로 이동)
-    return os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), relative_path)
 
 
 def load_campsites():
@@ -200,32 +190,50 @@ app.mount("/static", StaticFiles(directory=static_path), name="static")
 template_path = get_resource_path(os.path.join("app", "templates"))
 templates = Jinja2Templates(directory=template_path)
 
-
-#프로젝트 루트의 data 폴더 경로 계산
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(BASE_DIR, "data")
-
 # [브라우저 오픈] - 호출될 때 config를 다시 확인
 def open_browser(host, port):
     webbrowser.open(f"http://{host}:{port}")
 
-@app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
+def get_platform_info():
+    """
+    data 폴더 내의 모든 *-campsite.xml 파일을 읽어 
+    typeOrder 기준 오름차순으로 정렬된 리스트를 반환합니다.
+    """
+    base_path = get_base_path() # 기존에 정의하신 경로 계산 함수 사용
+    data_dir = os.path.join(base_path, "data")
+    platforms = []
 
-    platform_map = {
-        "인터파크": "interpark-campsite.xml",
-        "메이킹티켓": "maketicket-campsite.xml",
-        "X티켓": "xticket-campsite.xml",
-        "캠프링크": "camplink-campsite.xml",
-        "숲나들e": "foresttrip-campsite.xml",
-        "땡큐캠핑": "thankqcamping-campsite.xml",
-        "캠핑톡": "campingtalk-campsite.xml",
-        "네이버": "naver-campsite.xml",
-        "포캠퍼": "forcamper-campsite.xml",
-        "캠핏": "camfit-campsite.xml",
-        "미리해": "mirihae-campsite.xml",
-        "기타": "etc-campsite.xml"
-    }
+    if not os.path.exists(data_dir):
+        return platforms
+
+    for filename in os.listdir(data_dir):
+        if filename.endswith("-campsite.xml"):
+            file_path = os.path.join(data_dir, filename)
+            try:
+                tree = ET.parse(file_path)
+                root = tree.getroot()
+                
+                # <typeName> 및 <typeOrder> 추출
+                type_name = root.findtext('typeName', '이름 없음').strip()
+                # typeOrder가 없으면 가장 뒤로 보냄 (기본값 999)
+                type_order = int(root.findtext('typeOrder', '999').strip())
+                
+                platforms.append({
+                    "filename": filename,
+                    "typeName": type_name,
+                    "typeOrder": type_order
+                })
+            except Exception as e:
+                logger.error(f"[!] {filename} 파싱 에러: {e}")
+
+    # typeOrder 기준으로 오름차순 정렬 (1이 가장 상단)
+    platforms.sort(key=lambda x: x['typeOrder'])
+    return platforms
+
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):   
+
+    sorted_platforms = get_platform_info()
 
     campsite_list = load_campsites()
 
@@ -233,21 +241,19 @@ async def index(request: Request):
     return templates.TemplateResponse(
         request=request, 
         name="index.html", 
-        context={"request": request, "campsites": campsite_list, "platform_map": platform_map, "port": CONFIG['server']['port'] }
+        context={"request": request, "campsites": campsite_list, "platform_list": sorted_platforms, "port": CONFIG['server']['port'] }
     )
 
 
 # API: 플랫폼 변경 시 호출될 엔드포인트 (AJAX용)
 @app.get("/api/campsites/{filename}", response_class=PlainTextResponse)
 async def get_campsite_list(filename: str):
-    """
-    선택된 플랫폼의 XML 파일 원문을 읽어서 반환합니다.
-    Java의 ResponseEntity<String>과 유사합니다.
-    """
-    file_path = os.path.join(DATA_DIR, filename)
+    
+    # data/ 폴더의 경로를 빌드 환경에 맞게 계산
+    file_path = get_external_path(os.path.join("data", filename))
 
     if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail="파일을 찾을 수 없습니다.")
+        raise HTTPException(status_code=404, detail=f"파일을 찾을 수 없습니다: {file_path}")
     
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -405,6 +411,7 @@ if __name__ == "__main__":
     # 1. 실행 직전에 설정을 읽습니다.
     current_config = load_config()
     target_port = int(current_config['server']['port'])
+    target_host = current_config['server']['host']
     target_host = current_config['server']['host']
     
     # 2. 트레이 아이콘을 별도 스레드에서 실행  

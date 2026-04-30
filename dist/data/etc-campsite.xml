@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <campsites>
+        <campsite>
+            <type>Dugsan</type>
+            <name>강화 덕산국민여가캠핑장</name>
+            <homepage><![CDATA[https://www.ghss.or.kr/ttreserve/reserve/dscamp.do]]></homepage>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="INSAM">인삼마을</site>
+                <site code="SUNMU">순무마을</site>
+                <site code="YACKSSUK">약쑥마을</site>
+            </sites>
+        </campsite>
+
+         <campsite>
+            <type>Gugu</type>
+            <name>포천 비둘기낭캠핑장</name>
+             <homepage><![CDATA[https://www.pcuc.kr/open_content/reservation/camping/facilities.jsp]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="A0">A사이트</site>
+                <site code="B0">B사이트</site>
+                <site code="C0">C사이트</site>
+                <site code="D0">D사이트</site>
+                <site code="E0">E사이트</site>
+            </sites>
+            <showLoginField desc="로그인 필드 노출 여부">Y</showLoginField>
+            <isSupportAutoReservation desc="자동 예약 지원 여부">Y</isSupportAutoReservation>
+        </campsite>
+
+        <campsite>
+            <type>Sagehill</type>
+            <name>홍천 세이지힐캠핑장</name>
+            <homepage><![CDATA[http://sagehill.co.kr/]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="1">A구역</site>
+                <site code="2">B구역</site>
+                <site code="3">C구역</site>
+                <site code="4">D구역</site>
+                <site code="5">P구역(반려견동반)</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <type>Imjingak</type>
+            <name>파주 임진각평화누리캠핑장</name>
+            <homepage><![CDATA[https://imjingakcamping.co.kr/]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="ph_a">평화캠핑존</site>
+                <site code="hl">힐링캠핑존</site>
+                <site code="nr">누리캠핑존</site>
+                <site code="ec_b">에코캠핑존</site>
+                <site code="rc_a">렌탈캠핑존A</site>
+                <site code="rc_b">렌탈캠핑존B</site>
+                <site code="cv_a">카라반존A</site>
+                <site code="cv_b">카라반존B</site>
+                <site code="cv_c">카라반존C</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <type>Hwarangcamp</type>
+            <name>안산 안산화랑오토캠핑장</name>
+            <homepage><![CDATA[https://hwarangcamp.ansanuc.net/]]></homepage>
+            <maxStayDay>1</maxStayDay>
+            <sites>
+                <site code="0">오토사이트</site>
+                <site code="3">준글램핑</site>
+                <site code="1">글램핑</site>
+                <site code="2">카라반</site>
+            </sites>
+            <showLoginField desc="로그인 필드 노출 여부">Y</showLoginField>
+        </campsite>
+
+        <campsite>
+            <type>Songjiho</type>
+            <name>고성 송지호오토캠핑장</name>
+            <homepage><![CDATA[https://gwgs.ticketplay.zone/portal/index]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="1">통나무</site>
+                <site code="2">제1구역</site>
+                <site code="3">2층데크</site>
+                <site code="9">제2구역</site>
+                <site code="4">제3구역</site>
+                <site code="5">제4구역</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <type>Bongsucamp</type>
+            <name>고성 봉수대오토캠핑장</name>
+            <homepage><![CDATA[http://www.bongsucamp.com/g5/]]></homepage>
+            <maxStayDay>6</maxStayDay>
+            <sites>
+                <site code="1">캠핑장</site>
+                <site code="2">카라반4인</site>
+                <site code="3">카라반6인</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <type>Golohas</type>
+            <name>대청호 로하스캠핑장</name>
+            <homepage><![CDATA[https://golohas.kr]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="2">바비큐장</site>
+                <site code="3">글램핑</site>
+                <site code="4">캠핑장</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <type>Gtdc</type>
+            <name>강릉 연곡해변캠핑장</name>
+            <homepage><![CDATA[https://camping.gtdc.or.kr]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="A">A-구역</site>
+                <site code="B">B-구역</site>
+                <site code="C">C-구역</site>
+            </sites>
+        </campsite>
+
+    </campsites>
+</configuration>
