@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="euc-kr" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <title>gateway</title>
+        <script type="text/javascript">
+            function getQueryParams(url) {
+                let params = url.split("?")[1];
+                let pair = params.split("&");
+                let result = {};
+
+                for (let i = 0; i < pair.length; i++) {
+                    let temp = pair[i].split("=");
+
+                    result[temp[0]] = temp[1];
+                }
+                return result;
+            }
+
+            function act_gugu(params) {
+                const gateForm = document.getElementById("gate_form");
+
+                const btn1 = document.createElement("input");
+                btn1.type = "hidden";
+                btn1.name = "checkType";
+                btn1.value = "selectPin";
+
+                const btn2 = document.createElement("input");
+                btn2.type = "hidden";
+                btn2.name = "device";
+                btn2.value = "pc";
+
+                const btn3 = document.createElement("input");
+                btn3.type = "hidden";
+                btn3.name = "pageId";
+                btn3.value = "C27562955";
+
+                const btn4 = document.createElement("input");
+                btn4.type = "hidden";
+                btn4.name = "groupCode";
+                btn4.value = "pccamp";
+
+                const btn5 = document.createElement("input");
+                btn5.type = "hidden";
+                btn5.name = "tocken";
+                btn5.value = params["tocken"];
+
+                const btn6 = document.createElement("input");
+                btn6.type = "hidden";
+                btn6.name = "selectMonth";
+                btn6.value = params["selectMonth"];
+
+                const btn7 = document.createElement("input");
+                btn7.type = "hidden";
+                btn7.name = "selectStartDate";
+                btn7.value = params["selectStartDate"];
+
+                const btn8 = document.createElement("input");
+                btn8.type = "hidden";
+                btn8.name = "selectEndDate";
+                btn8.value = params["selectEndDate"];
+
+                const btn9 = document.createElement("input");
+                btn9.type = "hidden";
+                btn9.name = "selectItemId";
+                btn9.value = params["selectItemId"];
+
+                gateForm.appendChild(btn1);
+                gateForm.appendChild(btn2);
+                gateForm.appendChild(btn3);
+                gateForm.appendChild(btn4);
+                gateForm.appendChild(btn5);
+                gateForm.appendChild(btn6);
+                gateForm.appendChild(btn7);
+                gateForm.appendChild(btn8);
+                gateForm.appendChild(btn9);
+
+                gateForm.action = "https://mirihae.com/campsite/reservationForm.do";
+                gateForm.submit();
+            }
+
+            function act_ydpc(params) {
+                const gateForm = document.getElementById("gate_form");
+
+                const btn1 = document.createElement("input");
+                btn1.type = "hidden";
+                btn1.name = "pageType";
+                btn1.value = "reservation";
+
+                const btn2 = document.createElement("input");
+                btn2.type = "hidden";
+                btn2.name = "device";
+                btn2.value = "pc";
+
+                const btn3 = document.createElement("input");
+                btn3.type = "hidden";
+                btn3.name = "pageId";
+                btn3.value = "A98285584";
+
+                const btn4 = document.createElement("input");
+                btn4.type = "hidden";
+                btn4.name = "groupCode";
+                btn4.value = "ydpc";
+
+                const btn5 = document.createElement("input");
+                btn5.type = "hidden";
+                btn5.name = "tocken";
+                btn5.value = params["tocken"];
+
+                const btn6 = document.createElement("input");
+                btn6.type = "hidden";
+                btn6.name = "selectMonth";
+                btn6.value = params["selectMonth"];
+
+                const btn7 = document.createElement("input");
+                btn7.type = "hidden";
+                btn7.name = "selectStartDate";
+                btn7.value = params["selectStartDate"];
+
+                const btn8 = document.createElement("input");
+                btn8.type = "hidden";
+                btn8.name = "selectEndDate";
+                btn8.value = params["selectEndDate"];
+
+                const btn9 = document.createElement("input");
+                btn9.type = "hidden";
+                btn9.name = "selectItemId";
+                btn9.value = params["selectItemId"];
+
+                gateForm.appendChild(btn1);
+                gateForm.appendChild(btn2);
+                gateForm.appendChild(btn3);
+                gateForm.appendChild(btn4);
+                gateForm.appendChild(btn5);
+                gateForm.appendChild(btn6);
+                gateForm.appendChild(btn7);
+                gateForm.appendChild(btn8);
+                gateForm.appendChild(btn9);
+
+                gateForm.action = "https://camping.isdc.co.kr/camping/paymentForm.do";
+                gateForm.submit();
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var isParams = window.location.search ? true : false;
+
+                if (isParams == true) {
+                    var params = getQueryParams(window.location.href);
+
+                    if (params["gubun"] == "gugu") {
+                        act_gugu(params);
+                    } else if (params["gubun"] == "ydpc") {
+                        act_ydpc(params);
+                    } else {
+                        console.log("not gubun");
+                    }
+                } else {
+                    console.log("not working");
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <form id="gate_form" method="POST"></form>
+    </body>
+</html>

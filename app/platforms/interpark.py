@@ -111,7 +111,7 @@ class InterparkMonitor:
                         ,"data" : {
                             "campseq": camp_id,
                             "res_dt": res_dt,                           
-                            "res_days": res_days,
+                            "res_days": len(res_days.split(',')),
                             "link" : link,
                             "list" : found_sites
                             }

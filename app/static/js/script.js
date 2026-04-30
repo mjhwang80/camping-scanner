@@ -341,7 +341,7 @@ const Comp = {
         const watchUuid = `${type}_${campId}_${watchDate}_${stayDay}`;
 
         const findNextRunChecked = document.getElementById("findNextRun").checked;
-        const findNextRunValue = findNextRunChecked ? "Y" : "N";
+        const findNextRunValue = findNextRunChecked ? "N" : "Y";
 
         if (parent.checkExistingMonitoring(watchUuid)) {
             alert("이미 동일한 감시 항목이 존재합니다.");
@@ -355,6 +355,12 @@ const Comp = {
             return;
         }
 
+        let groupCode = "";
+        const groupCodeElement = currentCampsite.getElementsByTagName("groupCode");
+        if (groupCodeElement.length > 0) {
+            groupCode = groupCodeElement[0].textContent || "";
+        }
+
         const requestData = {
             type: type, // "THANKQ"
             campsiteName: campsiteName, // "THANKQ"
@@ -364,6 +370,7 @@ const Comp = {
             findNextRun: findNextRunValue,
             requestInterval: requestInterval, // 1
             watchUuid: watchUuid, // UUID for tracking the monitoring session
+            groupCode: groupCode, //그룹코드 하위 그룹이 있을 경우
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
             site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
         };

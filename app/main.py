@@ -11,8 +11,7 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi import Request, HTTPException
-from platforms.thankq import ThankQMonitor
-from platforms.interpark import InterparkMonitor
+
 from core.config_loader import get_resource_path, get_external_path
 
 from core.logger import log_queue, logger
@@ -20,6 +19,9 @@ from core.config_loader import CONFIG
 import httpx
 import asyncio
 
+from platforms.thankq import ThankQMonitor
+from platforms.interpark import InterparkMonitor
+from platforms.mirihae import MirihaeMonitor
 
 from core.tray_icon import TrayIcon
 
@@ -47,7 +49,7 @@ async def start_demo_logging():
     async def simulate_logging():
         while True:
             logger.info("서버가 정상 기동중...")
-            await asyncio.sleep(10)
+            await asyncio.sleep(60 * 3)
     asyncio.create_task(simulate_logging())
 
 @app.on_event("shutdown")
@@ -255,6 +257,19 @@ async def index(request: Request):
         context={"request": request, "campsites": campsite_list, "platform_list": sorted_platforms, "port": CONFIG['server']['port'] }
     )
 
+@app.get("/gateway/gugu", response_class=HTMLResponse)
+async def index(request: Request):   
+
+    sorted_platforms = get_platform_info()
+
+    campsite_list = load_campsites()
+
+    # 이제 templates 폴더 내부의 'index.html'을 찾습니다.
+    return templates.TemplateResponse(
+        request=request, 
+        name="gugu_gateway.html", 
+        context={"request": request, "port": CONFIG['server']['port'] }
+    )
 
 # API: 플랫폼 변경 시 호출될 엔드포인트 (AJAX용)
 @app.get("/api/campsites/{filename}", response_class=PlainTextResponse)
@@ -294,6 +309,8 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         monitor = ThankQMonitor()
     elif platform_type == "Interpark":
         monitor = InterparkMonitor()
+    elif platform_type == "Mirihae":
+        monitor = MirihaeMonitor()
     else:
         return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}
 

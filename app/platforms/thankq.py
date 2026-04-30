@@ -189,7 +189,7 @@ class ThankQMonitor:
         except Exception as e:
             logger.error(f"종료 처리 중 오류: {e}")
 
-# --- Java의 main 메서드와 같은 역할 ---
+
 if __name__ == "__main__":
     # 테스트용 파라미터 (Map 구조)
     test_params = {
