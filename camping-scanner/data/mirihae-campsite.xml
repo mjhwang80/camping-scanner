@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <typeName>미리해</typeName>
+    <type>Mirihae</type>
+    <typeOrder>10</typeOrder>
+    <campsites>      
+
+        <campsite>
+            <name>포천 비둘기낭 캠핑장</name>
+            <pageId>C27562955</pageId>
+            <groupCode>pccamp</groupCode>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="color1">A구역</site>
+                <site code="color2">B구역</site>
+                <site code="color3">C구역</site>
+                <site code="color4">D구역</site>
+                <site code="color5">E구역</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>이포보오토캠핑장</name>
+            <pageId>Z65332353</pageId>
+            <groupCode>epoc</groupCode>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="color1">전체</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>이포보웰빙캠핑장</name>
+            <pageId>B24626523</pageId>
+            <groupCode>epoc</groupCode>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="color1">파쇄석</site>
+                <site code="color2">데크</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>금모래캠핑장</name>
+            <pageId>Q86949745</pageId>
+            <groupCode>gsmc</groupCode>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="color4">가구역</site>
+                <site code="color5">나구역</site>
+                <site code="color6">다구역</site>
+                <site code="color1">금모래구역</site>
+                <site code="color">은모래구역</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>충주 목계솔밭캠핑장</name>
+            <pageId>L37844353</pageId>
+            <groupCode>cjcamp</groupCode>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="color1">대형(130㎡) 캐러반 사이트</site>
+                <site code="color2">중형(110㎡) 캐러반 사이트</site>
+                <site code="color3">일반 소형(80㎡)</site>
+                <site code="color4">1면 5x5m</site>
+            </sites>
+        </campsite>
+
+
+    </campsites>
+</configuration>

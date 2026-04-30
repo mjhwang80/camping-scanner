@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <typeName>네이버</typeName>
+    <type>Naver</type>
+    <typeOrder>10</typeOrder>
+    <campsites>
+
+        <campsite>
+            <name>김포 한강오토캠핑장</name>
+            <code>32848736</code>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="4882855">(캠핑장) 1~9_4</site>
+                <site code="4882868">(캠핑장) 10~17_16</site>
+                <site code="4882888">(캠핑장) 18~29_20</site>
+                <site code="4882892">(캠핑장) 18~29_24</site>
+                <site code="4882893">(캠핑장) 18~29_25</site>
+                <site code="4882903">(캠핑장) 30~41 _33</site>
+                <site code="4882906">(캠핑장) 30~41 _36</site>
+                <site code="4882910">(캠핑장) 30~41 _40</site>
+                <site code="4882924">(캠핑장) 42~51_42</site>
+                <site code="4882925">(캠핑장) 42~51_43</site>
+                <site code="4882926">(캠핑장) 42~51_44</site>
+                <site code="4882927">(캠핑장) 42~51_45</site>
+                <site code="4882928">(캠핑장) 42~51_46</site>
+                <site code="4882940">(캠핑장) 52~62_52</site>
+                <site code="4882942">(캠핑장) 52~62_54</site>
+                <site code="4882947">(캠핑장) 52~62_59</site>
+                <site code="4882948">(캠핑장) 52~62_60</site>
+                <site code="4882949">(캠핑장) 52~62_61</site>
+                <site code="4882957">(캠핑장) 63~70_66</site>
+                <site code="4882958">(캠핑장) 63~70_67</site>
+                <site code="4882961">(캠핑장) 63~70_70</site>
+                <site code="4882824">(카라반) 1月~12月_1月</site>
+                <site code="4882825">(카라반) 1月~12月_2月</site>
+                <site code="4882826">(카라반) 1月~12月_3月</site>
+                <site code="4882827">(카라반) 1月~12月_4月</site>
+                <site code="4882828">(카라반) 1月~12月_5月</site>
+                <site code="4882829">(카라반) 1月~12月_6月</site>
+                <site code="4882830">(카라반) 1月~12月_7月</site>
+                <site code="4882831">(카라반) 1月~12月_8月</site>
+                <site code="4882832">(카라반) 1月~12月_9月</site>
+                <site code="4882833">(카라반) 1月~12月_10月</site>
+                <site code="4882834">(카라반) 1月~12月_11月</site>
+                <site code="4882835">(카라반) 1月~12月_12月</site>
+                <site code="4882852">(캠핑장) 1~9_1</site>
+                <site code="4882853">(캠핑장) 1~9_2</site>
+                <site code="4882854">(캠핑장) 1~9_3</site>
+                <site code="4882856">(캠핑장) 1~9_5</site>
+                <site code="4882857">(캠핑장) 1~9_6</site>
+                <site code="4882858">(캠핑장) 1~9_7</site>
+                <site code="4882859">(캠핑장) 1~9_8</site>
+                <site code="4882862">(캠핑장) 10~17_10</site>
+                <site code="4882863">(캠핑장) 10~17_11</site>
+                <site code="4882864">(캠핑장) 10~17_12</site>
+                <site code="4882867">(캠핑장) 10~17_15</site>
+                <site code="4882869">(캠핑장) 10~17_17</site>
+                <site code="4882886">(캠핑장) 18~29_18</site>
+                <site code="4882887">(캠핑장) 18~29_19</site>
+                <site code="4882889">(캠핑장) 18~29_21</site>
+                <site code="4882890">(캠핑장) 18~29_22</site>
+                <site code="4882891">(캠핑장) 18~29_23</site>
+                <site code="4882894">(캠핑장) 18~29_26</site>
+                <site code="4882895">(캠핑장) 18~29_27</site>
+                <site code="4882896">(캠핑장) 18~29_28</site>
+                <site code="4882900">(캠핑장) 30~41 _30</site>
+                <site code="4882901">(캠핑장) 30~41 _31</site>
+                <site code="4882902">(캠핑장) 30~41 _32</site>
+                <site code="4882904">(캠핑장) 30~41 _34</site>
+                <site code="4882905">(캠핑장) 30~41 _35</site>
+                <site code="4882907">(캠핑장) 30~41 _37</site>
+                <site code="4882908">(캠핑장) 30~41 _38</site>
+                <site code="4882909">(캠핑장) 30~41 _39</site>
+                <site code="4882911">(캠핑장) 30~41 _41</site>
+                <site code="4882929">(캠핑장) 42~51_47</site>
+                <site code="4882930">(캠핑장) 42~51_48</site>
+                <site code="4882931">(캠핑장) 42~51_49</site>
+                <site code="4882932">(캠핑장) 42~51_50</site>
+                <site code="4882941">(캠핑장) 52~62_53</site>
+                <site code="4882946">(캠핑장) 52~62_58</site>
+                <site code="4882954">(캠핑장) 63~70_63</site>
+                <site code="4882955">(캠핑장) 63~70_64</site>
+                <site code="4882956">(캠핑장) 63~70_65</site>
+                <site code="4882959">(캠핑장) 63~70_68</site>
+                <site code="4882960">(캠핑장) 63~70_69</site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">넵</answer>
+                    <answer index="1">넵</answer>
+                    <answer index="2">넵</answer>
+                    <answer index="3">넵</answer>
+                    <answer index="4">넵</answer>
+                    <answer index="5">넵</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>포천 산마루캠핑장</name>
+            <code>21129983</code>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="2867701">[포천산마루]*방갈로(6평)* + 데크1동</site>
+                <site code="2867703">[포천산마루]*방갈로(8평)* + 데크1동</site>
+                <site code="4404224">[포천산마루]*컨테이너*+ 파쇄석 1동</site>
+                <site code="2867688">[포천산마루]*수영장구역* 차박가능/파쇄석</site>
+                <site code="2867709">[포천산마루]*계단데크* /차박불가</site>
+                <site code="2867675">[포천산마루]*숲속데크*/차박불가</site>
+                <site code="2867685">[포천산마루]*숲속파쇄석*/차박불가</site>
+                <site code="2867691">[포천산마루]*토굴구역, 파쇄석*</site>
+                <site code="2866985">[포천산마루]*글램핑*(오리지날)</site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">넵</answer>
+                    <answer index="1">넵</answer>
+                    <answer index="2">넵</answer>
+                    <answer index="3">넵</answer>
+                    <answer index="4">넵</answer>
+                    <answer index="5">넵</answer>
+                    <answer index="6">넵</answer>
+                    <answer index="7">1</answer>
+                    <answer index="8">넵</answer>
+                    <answer index="9">넵</answer>
+                    <answer index="10">1</answer>
+                    <answer index="11">1</answer>
+                    <answer index="12">1</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>대부도 고래숲캠핑장</name>
+            <code>36643431</code>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="5447">A1</site>
+                <site code="5448">A2</site>
+                <site code="5449">A3</site>
+                <site code="5450">A4</site>
+                <site code="5452">B1</site>
+                <site code="5453">B2</site>
+                <site code="5454">B3</site>
+                <site code="5455">B4</site>
+                <site code="5456">C1</site>
+                <site code="5457">C2</site>
+                <site code="5458">C3</site>
+                <site code="5459">C4</site>
+                <site code="5461">D1</site>
+                <site code="5462">D2</site>
+                <site code="5463">D3</site>
+                <site code="5465">D5</site>
+                <site code="5466">D6</site>
+                <site code="32483">D7</site>
+                <site code="32485">D8</site>
+                <site code="32486">D9</site>
+                <site code="32487">D10</site>
+                <site code="5899">E1</site>
+                <site code="5900">E2</site>
+                <site code="3205501">F1</site>
+                <site code="3205502">F2</site>
+                <site code="3205503">F3</site>
+                <site code="3205504">F4</site>
+                <site code="5467">S1</site>
+                <site code="5468">S2</site>
+                <site code="5469">S3</site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">key:info.car.number</answer>
+                    <answer index="1">1</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>안산 해솔길캠핑장</name>
+            <code>1105604400</code>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="2843732">1번 데크</site>
+                <site code="2843771">3번 데크</site>
+                <site code="2843777">4번 데크</site>
+                <site code="2843785">5번 데크</site>
+                <site code="2843793">6번 데크</site>
+                <site code="2843809">8번 데크</site>
+                <site code="2843816">11번 데크</site>
+                <site code="2843819">12번 데크</site>
+                <site code="2843821">13번 데크</site>
+                <site code="2843822">14번 데크</site>
+                <site code="2843835">제2 파쇄석 사이트</site>
+                <site code="4947465">15번 데크</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>인천 동검고노을캠핑장</name>
+            <code>32489800</code>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="3847056">1박 예약</site>
+                <site code="3463966">방갈로A 테라스3/4m (장작불가)</site>
+                <site code="3492229">방갈로B 테라스3/5m (장작불가)</site>
+                <site code="3492395">1캠프101,2통합파쇄석</site>
+                <site code="3492396">1캠프103,4통합파쇄석</site>
+                <site code="3467700">1캠프105,6통합파쇄석</site>
+                <site code="3492393">1캠프107,8통합파쇄석</site>
+                <site code="3492392">1캠프109,10통합파쇄석</site>
+                <site code="3492406"><![CDATA[2캠프201파쇄석<차박불가>]]></site>
+                <site code="3492405"><![CDATA[2캠프202파쇄석<차박불가>]]></site>
+                <site code="3507888"><![CDATA[2캠프203 파쇄석<차박가능>]]></site>
+                <site code="3483986">3캠프301파쇄석</site>
+                <site code="3492400">3캠프302파쇄석</site>
+                <site code="3492399">3캠프303파쇄석</site>
+                <site code="3492398">3캠프304파쇄석</site>
+                <site code="3492404">3캠프305,6통합파쇄석</site>
+                <site code="3492403">3캠프307,8통합파쇄석</site>
+                <site code="3492402">3캠프309,10통합파쇄석</site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">1</answer>
+                    <answer index="1">1</answer>
+                    <answer index="2">1</answer>
+                    <answer index="3">1</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>포천 계곡메사오토캠핑장펜션</name>
+            <code>20308294</code>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="3365964"><![CDATA[펜션B+B캠핑사이트(파쇄석6X10)]]></site>
+                <site code="3365984"><![CDATA[펜션C+C캠핑사이트(파쇄석6X10)]]></site>
+                <site code="2768053"><![CDATA[펜션D동+데크(4X6)]]></site>
+                <site code="3365822"><![CDATA[계곡V1]]></site>
+                <site code="3366133"><![CDATA[계곡존 V2]]></site>
+                <site code="3366135"><![CDATA[계곡V3]]></site>
+                <site code="3366138"><![CDATA[계곡V5]]></site>
+                <site code="3366139"><![CDATA[계곡존 V6]]></site>
+                <site code="3366156"><![CDATA[계곡V7]]></site>
+                <site code="3366158"><![CDATA[계곡존 V8]]></site>
+                <site code="3366161"><![CDATA[계곡V9]]></site>
+                <site code="3366164"><![CDATA[계곡존 V10]]></site>
+                <site code="3366167"><![CDATA[계곡존 V11]]></site>
+                <site code="3366168"><![CDATA[계곡존 V12]]></site>
+                <site code="3366175"><![CDATA[계곡V13]]></site>
+                <site code="3366176"><![CDATA[계곡존 V14]]></site>
+                <site code="3366177"><![CDATA[계곡V15]]></site>
+                <site code="3366181"><![CDATA[계곡존 V16]]></site>
+                <site code="3366183"><![CDATA[계곡V17]]></site>
+                <site code="3366185"><![CDATA[계곡존 V18]]></site>
+                <site code="3366187"><![CDATA[계곡V19]]></site>
+                <site code="3366189"><![CDATA[계곡V21]]></site>
+                <site code="3366191"><![CDATA[계곡존 V22]]></site>
+                <site code="3366193"><![CDATA[계곡V23]]></site>
+                <site code="3366194"><![CDATA[계곡존 V24]]></site>
+                <site code="3366199"><![CDATA[단풍존(D1)]]></site>
+                <site code="3366205"><![CDATA[단풍존(D2)]]></site>
+                <site code="3366212"><![CDATA[단풍존(D3)]]></site>
+                <site code="3366213"><![CDATA[단풍존(D4)]]></site>
+                <site code="3366216"><![CDATA[단풍존(D5)]]></site>
+                <site code="3366219"><![CDATA[단풍존(D6)]]></site>
+                <site code="3366217"><![CDATA[단풍존(D7)]]></site>
+                <site code="3366221"><![CDATA[단풍존(D8)]]></site>
+                <site code="3366224"><![CDATA[단풍존(D9)]]></site>
+                <site code="3366226"><![CDATA[단풍존(D10)]]></site>
+                <site code="3366228"><![CDATA[단풍존(D11)]]></site>
+                <site code="3366242"><![CDATA[단풍존(D12)]]></site>
+                <site code="3366244"><![CDATA[단풍존(D13)]]></site>
+                <site code="3366247"><![CDATA[단풍존(D14)]]></site>
+                <site code="3366253"><![CDATA[단풍존(D15)]]></site>
+                <site code="3366254"><![CDATA[단풍존(D16)]]></site>
+                <site code="3366255"><![CDATA[단풍존(D17)]]></site>
+                <site code="3366258"><![CDATA[단풍존(D18)]]></site>
+                <site code="3366260"><![CDATA[단풍존(D19)]]></site>
+                <site code="3366268"><![CDATA[단풍존(D20)]]></site>
+                <site code="3366269"><![CDATA[자연존(N1)]]></site>
+                <site code="3366274"><![CDATA[자연존(N2)미니멀존]]></site>
+                <site code="3366276"><![CDATA[자연존(N3)]]></site>
+                <site code="3366278"><![CDATA[자연존(N4)]]></site>
+                <site code="3366281"><![CDATA[자연존(N5)]]></site>
+                <site code="3366283"><![CDATA[자연존(N6)]]></site>
+                <site code="3366284"><![CDATA[자연존(N7)]]></site>
+                <site code="3366285"><![CDATA[자연존(N8)]]></site>
+                <site code="3366286"><![CDATA[자연존(N9)렉타타프설치불가]]></site>
+                <site code="3366289"><![CDATA[자연존(N10)]]></site>
+                <site code="3366292"><![CDATA[그린G1]]></site>
+                <site code="3366297"><![CDATA[그린존 G2]]></site>
+                <site code="3366298"><![CDATA[그린G3]]></site>
+                <site code="3366299"><![CDATA[그린존 G4]]></site>
+                <site code="3366301"><![CDATA[그린존 G5]]></site>
+                <site code="3366308"><![CDATA[버드존 B2]]></site>
+                <site code="3366312"><![CDATA[버드존 B3]]></site>
+                <site code="3366314"><![CDATA[버드존 B4]]></site>
+                <site code="3366316"><![CDATA[버드존 B5]]></site>
+                <site code="2768054"><![CDATA[펜션E동+(데크3X3)]]></site>
+                <site code="3366136"><![CDATA[계곡존 V4]]></site>
+                <site code="3366188"><![CDATA[계곡존 V20]]></site>
+                <site code="3366302"><![CDATA[그린존 G6]]></site>
+                <site code="3366304"><![CDATA[그린존 G7]]></site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">넵</answer>
+                    <answer index="1">넵</answer>
+                    <answer index="2">넵</answer>
+                    <answer index="3">넵</answer>
+                    <answer index="4">넵</answer>
+                    <answer index="5">넵</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>포천 아버지의숲산정캠프</name>
+            <code>32769518</code>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="3432262"><![CDATA[파랑새둥지1]]></site>
+                <site code="3432283"><![CDATA[파랑새둥지2]]></site>
+                <site code="3432296"><![CDATA[파랑새둥지3]]></site>
+                <site code="3432305"><![CDATA[파랑새둥지4]]></site>
+                <site code="3432310"><![CDATA[파랑새둥지5]]></site>
+                <site code="3432313"><![CDATA[파랑새둥지6]]></site>
+                <site code="3432314"><![CDATA[파랑새둥지7]]></site>
+                <site code="3432316"><![CDATA[파랑새둥지8]]></site>
+                <site code="3432323"><![CDATA[파랑새둥지9]]></site>
+                <site code="3432327"><![CDATA[파랑새둥지10]]></site>
+                <site code="3432334"><![CDATA[원앙새둥지1(커플존)]]></site>
+                <site code="3432338"><![CDATA[원앙새둥지2(커플존)]]></site>
+                <site code="3432368"><![CDATA[원앙새둥지3]]></site>
+                <site code="3432371"><![CDATA[원앙새둥지4]]></site>
+                <site code="3432373"><![CDATA[원앙새둥지5]]></site>
+                <site code="3432376"><![CDATA[원앙새둥지6]]></site>
+                <site code="3432378"><![CDATA[원앙새둥지7]]></site>
+                <site code="3432380"><![CDATA[원앙새둥지8]]></site>
+                <site code="3432342"><![CDATA[부엉이둥지1]]></site>
+                <site code="3432344"><![CDATA[부엉이둥지2]]></site>
+                <site code="3432359"><![CDATA[부엉이둥지3]]></site>
+                <site code="3432362"><![CDATA[부엉이둥지4]]></site>
+                <site code="3432393"><![CDATA[달의계곡1]]></site>
+                <site code="3432396"><![CDATA[달의계곡2]]></site>
+                <site code="3432399"><![CDATA[달의계곡3]]></site>
+                <site code="3432400"><![CDATA[달의계곡4]]></site>
+                <site code="3432401"><![CDATA[달의계곡5]]></site>
+                <site code="3432420"><![CDATA[별의계곡1]]></site>
+                <site code="3432443"><![CDATA[별의계곡2]]></site>
+                <site code="3432444"><![CDATA[별의계곡3]]></site>
+                <site code="3432447"><![CDATA[별의계곡4]]></site>
+                <site code="3432450"><![CDATA[별의계곡5]]></site>
+                <site code="3432452"><![CDATA[별의계곡6]]></site>
+                <site code="4363010"><![CDATA[물총새 둥지1]]></site>
+                <site code="4363035"><![CDATA[물총새 둥지2]]></site>
+                <site code="4363078"><![CDATA[물총새 둥지3]]></site>
+                <site code="4363152"><![CDATA[물총새 둥지4]]></site>
+                <site code="4363171"><![CDATA[은하수 계곡1(비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363179"><![CDATA[은하수 계곡2(비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363188"><![CDATA[은하수 계곡3(비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363192"><![CDATA[은하수 계곡4(비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363236"><![CDATA[은하수 계곡5 (비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363251"><![CDATA[은하수 계곡 6(비용 추가 시 텐트 두 동 가능)]]></site>
+                <site code="4363413"><![CDATA[딱따구리 둥지 1(비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363420"><![CDATA[딱따구리 둥지 2 (비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363424"><![CDATA[딱따구리 둥지 3 (비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="4363428"><![CDATA[딱따구리  둥지 4(비용 추가시 텐트 두 동 가능)]]></site>
+                <site code="3432487"><![CDATA[펜션 라벤더]]></site>
+                <site code="3432489"><![CDATA[펜션 민트]]></site>
+                <site code="3432490"><![CDATA[펜션 로즈마리]]></site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">넵</answer>
+                    <answer index="1">넵</answer>
+                    <answer index="2">넵</answer>
+                    <answer index="3">넵</answer>
+                    <answer index="4">넵</answer>
+                    <answer index="5">넵</answer>
+                    <answer index="6">넵</answer>
+                    <answer index="7">넵</answer>
+                    <answer index="8">넵</answer>
+                    <answer index="9">넵</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>파주 마장호수뷰캠핑장</name>
+            <code>1842510286</code>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="2837172"><![CDATA[사이트1]]></site>
+                <site code="2837173"><![CDATA[사이트2]]></site>
+                <site code="2837175"><![CDATA[사이트3]]></site>
+                <site code="2837176"><![CDATA[사이트4]]></site>
+                <site code="2837177"><![CDATA[사이트5]]></site>
+                <site code="2837178"><![CDATA[사이트6]]></site>
+                <site code="2837179"><![CDATA[사이트7]]></site>
+                <site code="2837183"><![CDATA[사이트8]]></site>
+                <site code="2837186"><![CDATA[사이트9]]></site>
+                <site code="2837189"><![CDATA[사이트10]]></site>
+                <site code="2837203"><![CDATA[사이트11]]></site>
+                <site code="2837204"><![CDATA[사이트12]]></site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">1</answer>
+                    <answer index="1">key:info.car.number</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>파주 눌노리체험캠핑장</name>
+            <code>1314036092</code>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="4169211"><![CDATA[A0]]></site>
+                <site code="4169045"><![CDATA[A1]]></site>
+                <site code="4169053"><![CDATA[A2]]></site>
+                <site code="4169062"><![CDATA[A3]]></site>
+                <site code="4169099"><![CDATA[A4]]></site>
+                <site code="4169102"><![CDATA[A5]]></site>
+                <site code="4727825"><![CDATA[A6]]></site>
+                <site code="4727831"><![CDATA[A7]]></site>
+                <site code="4582112"><![CDATA[D사이트]]></site>
+                <site code="4169108"><![CDATA[B1]]></site>
+                <site code="4169119"><![CDATA[B2]]></site>
+                <site code="4169124"><![CDATA[B3]]></site>
+                <site code="4169132"><![CDATA[B4]]></site>
+                <site code="4169138"><![CDATA[B5]]></site>
+                <site code="4169112"><![CDATA[B6]]></site>
+                <site code="4169141"><![CDATA[B7]]></site>
+                <site code="4169145"><![CDATA[B8]]></site>
+                <site code="4169149"><![CDATA[B9]]></site>
+                <site code="4169154"><![CDATA[B10]]></site>
+                <site code="4169157"><![CDATA[B11]]></site>
+                <site code="4169162"><![CDATA[C1]]></site>
+                <site code="4169167"><![CDATA[C2]]></site>
+                <site code="4169170"><![CDATA[C3]]></site>
+                <site code="4169187"><![CDATA[C4]]></site>
+                <site code="4169192"><![CDATA[C5]]></site>
+                <site code="4727848"><![CDATA[C6]]></site>
+                <site code="4727858"><![CDATA[C7]]></site>
+                <site code="4169221"><![CDATA[T2 (최종변경) T1>>T4 변경안내]]></site>
+                <site code="4246818"><![CDATA[T1 (최종결정) (예전 T2사이트)]]></site>
+                <site code="4169199"><![CDATA[T3]]></site>
+                <site code="4197407"><![CDATA[단체사이트 2팀이상 가입가능 (파쇄석)]]></site>
+            </sites>
+
+        </campsite>
+
+        <campsite>
+            <name>연천 써니힐즈캠핑장</name>
+            <code>1236705202</code>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="3836814"><![CDATA[[써니힐즈]*1번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878008"><![CDATA[[써니힐즈]*2번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878011"><![CDATA[[써니힐즈]*3번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878174"><![CDATA[[써니힐즈]*4번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878199"><![CDATA[[써니힐즈]*6번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878200"><![CDATA[[써니힐즈]*7번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="4975252"><![CDATA[[써니힐즈]*8번/2박우선* 파쇄석/프라이빗/차박가능]]></site>
+                <site code="3878205"><![CDATA[[써니힐즈]*8번* 파쇄석/프라이빗/차박가능/평일]]></site>
+                <site code="4975304"><![CDATA[[써니힐즈]*9번/2박우선* 데크/프라이빗/차박불가]]></site>
+                <site code="3878220"><![CDATA[[써니힐즈]*9번* 데크/프라이빗/차박불가/평일]]></site>
+                <site code="4975307"><![CDATA[[써니힐즈]*10번/2박우선* 데크/프라이빗/차박불가]]></site>
+                <site code="3878229"><![CDATA[[써니힐즈]*10번* 데크/프라이빗/차박불가/평일]]></site>
+                <site code="4975309"><![CDATA[[써니힐즈]*11번/2박우선* 파쇄석/프라이빗/차박가능]]></site>
+                <site code="3878233"><![CDATA[[써니힐즈]*11번* 파쇄석/프라이빗/차박가능/평일]]></site>
+                <site code="3878253"><![CDATA[[써니힐즈]*12번*데크/차박불가]]></site>
+                <site code="3878260"><![CDATA[[써니힐즈]*13번*데크/차박불가]]></site>
+                <site code="3878261"><![CDATA[[써니힐즈]*14번*데크/차박불가]]></site>
+                <site code="3878265"><![CDATA[[써니힐즈]*15번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878275"><![CDATA[[써니힐즈]*16번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878306"><![CDATA[[써니힐즈]*17번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878310"><![CDATA[[써니힐즈]*18번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878317"><![CDATA[[써니힐즈]*19번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878318"><![CDATA[[써니힐즈]*20번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878324"><![CDATA[[써니힐즈]*21번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878329"><![CDATA[[써니힐즈]*22번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878333"><![CDATA[[써니힐즈]*23번* 데크 / 프라이빗 / 차박불가]]></site>
+                <site code="3878339"><![CDATA[[써니힐즈]*24번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878342"><![CDATA[[써니힐즈]*25번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3910296"><![CDATA[[써니힐즈]*26번* 오토캠핑/데크/차박불가]]></site>
+                <site code="3878361"><![CDATA[[써니힐즈]*28번*오토캠핑/데크/ 차박가능]]></site>
+                <site code="3878367"><![CDATA[[써니힐즈]*29번*데크/차박불가]]></site>
+                <site code="4975450"><![CDATA[[써니힐즈]*30번/2박우선*데크/차박가능]]></site>
+                <site code="3878369"><![CDATA[[써니힐즈]*30번*데크/차박가능/평일]]></site>
+                <site code="3939720"><![CDATA[[써니힐즈]*40번*파쇄석/차박가능]]></site>
+                <site code="3878370"><![CDATA[[써니힐즈]*31번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="3878371"><![CDATA[[써니힐즈]*32번*오토캠핑/파쇄석/차박가능/평일]]></site>
+                <site code="4975488"><![CDATA[[써니힐즈]*33번/2박우선*오토캠핑/파쇄석/차박불가]]></site>
+                <site code="3878373"><![CDATA[[써니힐즈]*33번*오토캠핑/파쇄석/차박불가/평일]]></site>
+                <site code="4975491"><![CDATA[[써니힐즈]*34번/2박우선*오토캠핑/파쇄석/차박불가]]></site>
+                <site code="3878375"><![CDATA[[써니힐즈]*34번*오토캠핑/파쇄석/차박불가/평일]]></site>
+                <site code="3939719"><![CDATA[[써니힐즈]*35번* 오토캠핑 / 파쇄석 / 차박가능]]></site>
+                <site code="4975498"><![CDATA[[써니힐즈]*36번/2박우선*파쇄석/차박가능]]></site>
+                <site code="4123235"><![CDATA[[써니힐즈]*36번*파쇄석/차박가능/평일]]></site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">넵</answer>
+                    <answer index="1">1</answer>
+                    <answer index="2">넵</answer>
+                    <answer index="3">1</answer>
+                    <answer index="4">넵</answer>
+                    <answer index="5">1</answer>
+                    <answer index="6">1</answer>
+                    <answer index="7">1</answer>
+                    <answer index="8">1</answer>
+                    <answer index="9">1</answer>
+                    <answer index="10">1</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+        <campsite>
+            <name>단영 을전56오토캠핑장</name>
+            <code>1189017489</code>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="4027355"><![CDATA[Site 1]]></site>
+                <site code="4027435"><![CDATA[Site 2]]></site>
+                <site code="4027462"><![CDATA[Site 3]]></site>
+                <site code="4027507"><![CDATA[Site 4]]></site>
+                <site code="4027566"><![CDATA[Site 5]]></site>
+                <site code="4028332"><![CDATA[Site 6]]></site>
+                <site code="4028336"><![CDATA[Site 7]]></site>
+                <site code="4028337"><![CDATA[Site 8]]></site>
+                <site code="4028338"><![CDATA[Site 9]]></site>
+            </sites>
+            <reserve>
+                <answers>
+                    <answer index="0">없음</answer>
+                </answers>
+            </reserve>
+        </campsite>
+
+
+    </campsites>
+</configuration>

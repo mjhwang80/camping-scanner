@@ -38,4 +38,35 @@ def load_config():
     with open(config_path, 'r', encoding='utf-8') as f:
         return yaml.safe_load(f)
 
+def load_full_config():
+    """파일에서 전체 설정을 다시 읽어옵니다."""
+    config_path = get_external_path(os.path.join("config", "config.yaml"))
+    if os.path.exists(config_path):
+        with open(config_path, 'r', encoding='utf-8') as f:
+            return yaml.safe_load(f) or {}
+    return {}
+
+def save_config(new_data_dict):
+    """전달받은 데이터를 config.yaml에 저장하고 전역 CONFIG를 업데이트합니다."""
+    config_path = get_external_path(os.path.join("config", "config.yaml"))
+    
+    # 1. 기존 데이터 로드
+    if os.path.exists(config_path):
+        with open(config_path, 'r', encoding='utf-8') as f:
+            current_data = yaml.safe_load(f) or {}
+    else:
+        current_data = {}
+
+    # 2. 데이터 업데이트
+    for key, value in new_data_dict.items():
+        current_data[key] = value
+        
+    # 3. 파일 쓰기
+    with open(config_path, 'w', encoding='utf-8') as f:
+        yaml.safe_dump(current_data, f, allow_unicode=True, sort_keys=False)
+    
+    # 4. 전역 객체 업데이트 (즉시 반영)
+    CONFIG.update(new_data_dict)
+
+
 CONFIG = load_config()

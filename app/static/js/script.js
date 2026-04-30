@@ -33,6 +33,16 @@ function toggleMenu() {
     document.getElementById("overlay").classList.toggle("hidden");
 }
 
+// 2. 모달 제어 함수 (전역으로 선언)
+function openTgModal() {
+    document.getElementById("telegramModal").classList.remove("hidden");
+    toggleMenu(); // 사이드 메뉴 닫기
+}
+
+function closeTgModal() {
+    document.getElementById("telegramModal").classList.add("hidden");
+}
+
 async function confirmShutdown() {
     if (confirm("프로그램을 완전히 종료하시겠습니까?")) {
         try {
@@ -67,6 +77,7 @@ const Comp = {
         this.bindEvents();
         this.changeFlatform();
         this.changeFlatform();
+        this.restoreMonitoringList();
     },
 
     bindEvents: function () {
@@ -75,6 +86,8 @@ const Comp = {
         document.getElementById("stopWatchBtn").addEventListener("click", () => this.stopWatching()); //감시중지
         document.getElementById("homePageBtn").addEventListener("click", () => this.openHomePage()); //홈페이지 열기
         document.getElementById("watchDate").addEventListener("change", () => this.onChangeWatchDate()); //날짜 변경 체크(인터파크)
+        document.getElementById("telegramConfigBtn").addEventListener("click", () => this.openTgModal()); //텔레그램 설정
+        document.getElementById("settingConfigBtn").addEventListener("click", () => this.openSettingsModal()); //환경설정 설정
     },
 
     initComponent: function () {
@@ -116,7 +129,12 @@ const Comp = {
             listContainer.innerHTML = '<li class="p-4 text-center text-red-500">데이터를 불러오지 못했습니다.</li>';
         }
     },
-
+    //실행중인 감시 목록 조회
+    restoreMonitoringList: async function () {
+        const response = await fetch("/api/monitor/list");
+        const jobs = await response.json();
+        jobs.forEach((job) => this.addMonitoringEntry(job));
+    },
     renderCampsiteList: function (xmlDoc) {
         const listContainer = document.getElementById("campsiteList");
         listContainer.innerHTML = "";
@@ -409,7 +427,90 @@ const Comp = {
         document.querySelectorAll("#monitoring-list tr").forEach((el) => el.classList.remove("bg-red-50"));
         element.classList.add("bg-red-50"); // 선택된 행은 붉은색 계열로 표시
     },
+    // 텔레그램 설정 저장
+    saveTgSettings: async function () {
+        const useYn = document.getElementById("tgUseYn").value;
+        const token = document.getElementById("tgToken").value;
+        const chatIdsStr = document.getElementById("tgChatIds").value;
 
+        // 문자열을 배열로 변환 (공백 제거)
+        const chatIds = chatIdsStr
+            .split(",")
+            .map((id) => id.trim())
+            .filter((id) => id !== "");
+
+        const response = await fetch("/api/settings/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ use_yn: useYn, token: token, chat_ids: chatIds })
+        });
+
+        if (response.ok) {
+            Logger.addLog("텔레그램 설정이 성공적으로 저장되었습니다.");
+            closeTgModal();
+        }
+    },
+    // 모달 열기 및 데이터 로드
+    openSettingsModal: async function () {
+        try {
+            const response = await fetch("/api/settings");
+            const data = await response.json();
+
+            // Form에 데이터 채우기
+            const form = document.getElementById("infoSettingsForm");
+            for (const [key, value] of Object.entries(data.info)) {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) input.value = value;
+            }
+
+            document.getElementById("settingsModal").classList.remove("hidden");
+            toggleMenu();
+        } catch (e) {
+            alert("설정을 불러오는데 실패했습니다.");
+        }
+    },
+
+    closeSettingsModal: function () {
+        document.getElementById("settingsModal").classList.add("hidden");
+    },
+
+    // 환경설정(Info) 저장
+    saveInfoSettings: async function () {
+        const form = document.getElementById("infoSettingsForm");
+        const inputs = form.querySelectorAll("input");
+        const infoData = {};
+
+        inputs.forEach((input) => {
+            // 숫자형 데이터 변환 처리
+            const val = input.type === "number" ? parseInt(input.value) : input.value;
+            infoData[input.name] = val;
+        });
+
+        const response = await fetch("/api/settings/info", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(infoData)
+        });
+
+        if (response.ok) {
+            Logger.addLog("시스템 환경설정이 저장되었습니다.");
+            this.closeSettingsModal();
+        }
+    },
+
+    // 텔레그램 모달 열기 시 기존 값 세팅 (수정)
+    openTgModal: async function () {
+        const response = await fetch("/api/settings");
+        const data = await response.json();
+
+        document.getElementById("tgUseYn").value = data.telegram.use_yn || "N";
+        document.getElementById("tgToken").value = data.telegram.token || "";
+        // 배열을 콤마 구분 문자열로 변환하여 표시
+        document.getElementById("tgChatIds").value = (data.telegram.chat_ids || []).join(", ");
+
+        document.getElementById("telegramModal").classList.remove("hidden");
+        toggleMenu();
+    },
     // [추가] 감지 중지 로직 수행
     stopWatching: async function () {
         if (!this.selectedMonitoringUuid) {
@@ -478,17 +579,18 @@ const Comp = {
     changeMonitoringCount: function (data) {
         if (data) {
             const uuid = data.uuid || "";
+            const count = data.count || 0;
             const row = document.querySelector(`tr[data-watchuuid="${uuid}"]`);
 
             // debugger;
 
             if (row) {
-                let currentCount = row.dataset.reqcnt;
-                let numericCount = parseInt(currentCount || 0, 10) + 1;
-                row.dataset.reqcnt = numericCount;
+                //let currentCount = row.dataset.reqcnt;
+                //let numericCount = parseInt(currentCount || 0, 10) + 1;
+                //row.dataset.reqcnt = numericCount;
                 const countCell = row.querySelector("td.MNT-COUNT");
                 if (countCell) {
-                    countCell.innerText = numericCount;
+                    countCell.innerText = count;
                     countCell.classList.add("text-indigo-600", "font-bold");
                 }
             }

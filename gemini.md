@@ -94,6 +94,16 @@ function toggleMenu() {
     document.getElementById("overlay").classList.toggle("hidden");
 }
 
+// 2. 모달 제어 함수 (전역으로 선언)
+function openTgModal() {
+    document.getElementById("telegramModal").classList.remove("hidden");
+    toggleMenu(); // 사이드 메뉴 닫기
+}
+
+function closeTgModal() {
+    document.getElementById("telegramModal").classList.add("hidden");
+}
+
 async function confirmShutdown() {
     if (confirm("프로그램을 완전히 종료하시겠습니까?")) {
         try {
@@ -128,6 +138,7 @@ const Comp = {
         this.bindEvents();
         this.changeFlatform();
         this.changeFlatform();
+        this.restoreMonitoringList();
     },
 
     bindEvents: function () {
@@ -136,6 +147,7 @@ const Comp = {
         document.getElementById("stopWatchBtn").addEventListener("click", () => this.stopWatching()); //감시중지
         document.getElementById("homePageBtn").addEventListener("click", () => this.openHomePage()); //홈페이지 열기
         document.getElementById("watchDate").addEventListener("change", () => this.onChangeWatchDate()); //날짜 변경 체크(인터파크)
+        document.getElementById("telegramConfigBtn").addEventListener("click", () => openTgModal()); //텔레그램 설정
     },
 
     initComponent: function () {
@@ -177,7 +189,12 @@ const Comp = {
             listContainer.innerHTML = '<li class="p-4 text-center text-red-500">데이터를 불러오지 못했습니다.</li>';
         }
     },
-
+    //실행중인 감시 목록 조회
+    restoreMonitoringList: async function () {
+        const response = await fetch("/api/monitor/list");
+        const jobs = await response.json();
+        jobs.forEach((job) => this.addMonitoringEntry(job));
+    },
     renderCampsiteList: function (xmlDoc) {
         const listContainer = document.getElementById("campsiteList");
         listContainer.innerHTML = "";
@@ -383,6 +400,9 @@ const Comp = {
 
         const watchUuid = `${type}_${campId}_${watchDate}_${stayDay}`;
 
+        const findNextRunChecked = document.getElementById("findNextRun").checked;
+        const findNextRunValue = findNextRunChecked ? "Y" : "N";
+
         if (parent.checkExistingMonitoring(watchUuid)) {
             alert("이미 동일한 감시 항목이 존재합니다.");
             return;
@@ -401,7 +421,7 @@ const Comp = {
             camp_id: campId, // "3446"
             date: watchDate, // "2026-04-28"
             stay_day: stayDay, // 1
-            findNextRun: "N",
+            findNextRun: findNextRunValue,
             requestInterval: requestInterval, // 1
             watchUuid: watchUuid, // UUID for tracking the monitoring session
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
@@ -467,7 +487,22 @@ const Comp = {
         document.querySelectorAll("#monitoring-list tr").forEach((el) => el.classList.remove("bg-red-50"));
         element.classList.add("bg-red-50"); // 선택된 행은 붉은색 계열로 표시
     },
+    // 텔레그램 설정 저장
+    saveTgSettings: async function () {
+        const token = document.getElementById("tgToken").value;
+        const chatId = document.getElementById("tgChatId").value;
 
+        const response = await fetch("/api/settings/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: token, chat_id: chatId })
+        });
+
+        if (response.ok) {
+            alert("설정이 반영되었습니다. 프로그램을 재시작할 필요가 없습니다.");
+            closeTgModal();
+        }
+    },
     // [추가] 감지 중지 로직 수행
     stopWatching: async function () {
         if (!this.selectedMonitoringUuid) {
@@ -536,17 +571,18 @@ const Comp = {
     changeMonitoringCount: function (data) {
         if (data) {
             const uuid = data.uuid || "";
+            const count = data.count || 0;
             const row = document.querySelector(`tr[data-watchuuid="${uuid}"]`);
 
             // debugger;
 
             if (row) {
-                let currentCount = row.dataset.reqcnt;
-                let numericCount = parseInt(currentCount || 0, 10) + 1;
-                row.dataset.reqcnt = numericCount;
+                //let currentCount = row.dataset.reqcnt;
+                //let numericCount = parseInt(currentCount || 0, 10) + 1;
+                //row.dataset.reqcnt = numericCount;
                 const countCell = row.querySelector("td.MNT-COUNT");
                 if (countCell) {
-                    countCell.innerText = numericCount;
+                    countCell.innerText = count;
                     countCell.classList.add("text-indigo-600", "font-bold");
                 }
             }
@@ -778,8 +814,8 @@ input {
                     <div class="space-y-2">
                         <label class="text-xs font-black text-indigo-600 uppercase">Camping Platform</label>
                         <select id="platformSelect" class="w-full p-2 text-sm font-bold bg-slate-50 rounded border-slate-300 outline-none focus:ring-2 focus:ring-indigo-500">
-                            {% for name, filename in platform_map.items() %}
-                            <option value="{{ filename }}">{{ name }}</option>
+                            {% for platform in platform_list %}
+                            <option value="{{ platform.filename }}">{{ platform.typeName }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -845,7 +881,7 @@ input {
                                     <label class="w-24 font-bold text-slate-600 text-xs">최대요청주기</label>
                                     <select class="flex-1 p-1 border rounded text-xs" id="requestInterval">
                                         <option value="60">1분</option>
-                                        <option value="30">30초</option>
+                                        <option value="30" selected>30초</option>
                                         <option value="10">10초</option>
                                     </select>
                                 </div>
@@ -857,8 +893,18 @@ input {
                                     <label class="w-24 font-bold text-slate-600 text-xs underline decoration-indigo-300">비밀번호</label>
                                     <input type="password" class="flex-1 p-1 border rounded text-xs" />
                                 </div>
-                                <div class="flex items-center justify-end">
-                                    <label class="flex items-center font-bold text-red-600 text-xs"> <input type="checkbox" class="mr-1 w-4 h-4" /> 자동 예약 요청 </label>
+                                <div class="flex items-center justify-end space-x-4">
+                                    <!-- space-x-4 추가로 간격 조절 -->
+                                    <label class="flex items-center font-bold text-slate-600 text-xs cursor-pointer">
+                                        <input type="checkbox" checked id="findNextRun" class="mr-1 w-4 h-4 accent-indigo-600" />
+                                        검색 감시 종료
+                                    </label>
+
+                                    <!-- 기존 자동 예약 요청 -->
+                                    <label class="flex items-center font-bold text-red-600 text-xs cursor-pointer">
+                                        <input type="checkbox" class="mr-1 w-4 h-4" />
+                                        자동 예약 요청
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -925,12 +971,38 @@ input {
             </div>
             <ul class="space-y-4 font-bold text-sm text-slate-600">
                 <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition"><i class="fa-solid fa-gear w-8 text-indigo-500"></i><span>환경 설정</span></li>
-                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition"><i class="fa-solid fa-bell w-8 text-indigo-500"></i><span>텔레그램 봇 연동</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition" id="telegramConfigBtn"><i class="fa-solid fa-bell w-8 text-indigo-500"></i><span>텔레그램 봇 연동</span></li>
                 <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition border-t pt-4 mt-4"><i class="fa-solid fa-circle-info w-8 text-slate-400"></i><span>도움말 및 정보</span></li>
             </ul>
         </div>
         <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 hidden"></div>
         <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+        <!-- 텔레그램 연동 화면 -->
+        <div id="telegramModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+            <div class="bg-white p-6 rounded-xl w-96 shadow-2xl border border-slate-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-black text-slate-800 italic">TELEGRAM BOT SETTING</h2>
+                    <button onclick="closeTgModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase mb-1 block">Bot Token</label>
+                        <input type="password" id="tgToken" class="w-full p-2 border rounded font-mono text-xs outline-none focus:ring-2 focus:ring-indigo-500" placeholder="712345678:AAH..." />
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase mb-1 block">Chat ID</label>
+                        <input type="text" id="tgChatId" class="w-full p-2 border rounded font-mono text-xs outline-none focus:ring-2 focus:ring-indigo-500" placeholder="123456789" />
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8 space-x-2">
+                    <button onclick="closeTgModal()" class="px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-50 rounded-lg transition">취소</button>
+                    <button onclick="saveTgSettings()" class="px-6 py-2 text-xs font-black bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition">설정 저장</button>
+                </div>
+            </div>
+        </div>
+        <!-- 텔레그램 연동 화면 -->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <script>
             const campsiteData = {{ campsites | tojson }};

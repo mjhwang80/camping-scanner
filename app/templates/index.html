@@ -108,7 +108,7 @@
                                     <label class="w-24 font-bold text-slate-600 text-xs">최대요청주기</label>
                                     <select class="flex-1 p-1 border rounded text-xs" id="requestInterval">
                                         <option value="60">1분</option>
-                                        <option value="30">30초</option>
+                                        <option value="30" selected>30초</option>
                                         <option value="10">10초</option>
                                     </select>
                                 </div>
@@ -197,13 +197,71 @@
                 </button>
             </div>
             <ul class="space-y-4 font-bold text-sm text-slate-600">
-                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition"><i class="fa-solid fa-gear w-8 text-indigo-500"></i><span>환경 설정</span></li>
-                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition"><i class="fa-solid fa-bell w-8 text-indigo-500"></i><span>텔레그램 봇 연동</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition" id="settingConfigBtn"><i class="fa-solid fa-gear w-8 text-indigo-500"></i><span>환경 설정</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition" id="telegramConfigBtn"><i class="fa-solid fa-bell w-8 text-indigo-500"></i><span>텔레그램 봇 연동</span></li>
                 <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition border-t pt-4 mt-4"><i class="fa-solid fa-circle-info w-8 text-slate-400"></i><span>도움말 및 정보</span></li>
             </ul>
         </div>
         <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 hidden"></div>
         <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+        <!-- 텔레그램 연동 화면 -->
+        <div id="telegramModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+            <div class="bg-white p-6 rounded-xl w-96 shadow-2xl border border-slate-200">
+                <h2 class="text-lg font-black text-slate-800 italic mb-6">TELEGRAM BOT SETTING</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[10px] font-black text-indigo-600">사용 여부</label>
+                        <select id="tgUseYn" class="text-xs border rounded p-1">
+                            <option value="Y">사용 (Y)</option>
+                            <option value="N">미사용 (N)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase">Bot Token</label>
+                        <input type="password" id="tgToken" class="w-full p-2 border rounded text-xs font-mono" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase">Chat IDs (콤마구분)</label>
+                        <textarea id="tgChatIds" class="w-full p-2 border rounded text-xs font-mono h-20" placeholder="12345, 67890"></textarea>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8 space-x-2">
+                    <button onclick="closeTgModal()" class="px-4 py-2 text-xs font-bold text-slate-400">취소</button>
+                    <button onclick="Comp.saveTgSettings()" class="px-6 py-2 text-xs font-black bg-indigo-600 text-white rounded-lg">저장</button>
+                </div>
+            </div>
+        </div>
+        <!-- 텔레그램 연동 화면 -->
+
+        <!-- 환경 설정 모달 -->
+        <div id="settingsModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+            <div class="bg-white p-6 rounded-xl w-[500px] shadow-2xl border border-slate-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-black text-slate-800 italic">SYSTEM CONFIGURATION</h2>
+                    <button onclick="Comp.closeSettingsModal()" class="text-slate-400 hover:text-slate-800"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-sm" id="infoSettingsForm">
+                    <!-- JS에서 동적 생성하거나 직접 작성 -->
+                    <div class="col-span-2"><label class="text-[10px] font-black text-indigo-600 uppercase">이메일</label> <input type="text" name="email" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">이름</label> <input type="text" name="name" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">닉네임</label> <input type="text" name="nickname" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">전화번호</label> <input type="text" name="phone" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">차량번호</label> <input type="text" name="car_number" class="w-full p-2 border rounded text-xs" /></div>
+                    <div class="flex space-x-2">
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">성인</label> <input type="number" name="member_adult" class="w-full p-2 border rounded text-xs" /></div>
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">학생</label> <input type="number" name="member_teen" class="w-full p-2 border rounded text-xs" /></div>
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">아이</label> <input type="number" name="member_child" class="w-full p-2 border rounded text-xs" /></div>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8 space-x-2">
+                    <button onclick="Comp.closeSettingsModal()" class="px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-50 rounded-lg transition">취소</button>
+                    <button onclick="Comp.saveInfoSettings()" class="px-6 py-2 text-xs font-black bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition">설정 저장</button>
+                </div>
+            </div>
+        </div>
+        <!-- 환경 설정 모달 종료 -->
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <script>
             const campsiteData = {{ campsites | tojson }};

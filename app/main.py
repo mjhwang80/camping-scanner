@@ -29,15 +29,26 @@ from fastapi.middleware.cors import CORSMiddleware
 from core.scheduler import scheduler, start_scheduler
 from core.websocket_manager import ws_manager
 
+from core.config_loader import load_full_config, save_config
+
 import logging
 
 # 전역 객체
 app = FastAPI()
-tray_manager = None
+tray_manager = None #트레이 관리자
+active_monitors = {} #현재 실행 중인 감시 정보 저장소 (메모리)
+
 
 @app.on_event("startup")
-async def startup_event():
+async def start_demo_logging():
+
     start_scheduler()
+
+    async def simulate_logging():
+        while True:
+            logger.info("서버가 정상 기동중...")
+            await asyncio.sleep(10)
+    asyncio.create_task(simulate_logging())
 
 @app.on_event("shutdown")
 async def shutdown_event():
@@ -304,6 +315,9 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         args=[params],               # 함수에 넘길 파라미터(Map/dict)
         id=job_id
     )
+
+    # [추가] 서버 메모리에 감시 정보 저장
+    active_monitors[job_id] = params
     
     return {"status": "success", "message": f"{platform_type} 감시 시작"}
 
@@ -314,6 +328,10 @@ async def stop_monitor(watch_uuid: str):
         # 등록된 스케줄러 작업 삭제 (Java의 scheduler.cancel(jobId) 역할)
         scheduler.remove_job(watch_uuid)
         logger.info(f"Monitor stopped for: {watch_uuid}")
+
+        # 저장소에서도 삭제
+        if watch_uuid in active_monitors:
+            del active_monitors[watch_uuid]
 
         return {"status": "success", "message": f"Job {watch_uuid} stopped"}
     except Exception as e:
@@ -327,7 +345,16 @@ async def monitor_loop(monitor, params):
             # 알림 발송 로직 호출
             print("빈자리 발견!")
             break
-        await asyncio.sleep(60) # 1분 대기
+        await asyncio.sleep(60 * 5) # 5분 대기
+
+@app.get("/api/monitor/list")
+async def get_monitor_list():
+    # 현재 스케줄러에서 실제로 돌아가고 있는 작업만 필터링하여 반환
+    running_jobs = []
+    for job_id, params in active_monitors.items():
+        if scheduler.get_job(job_id):
+            running_jobs.append(params)
+    return running_jobs
 
 @app.post("/api/shutdown")
 async def shutdown():
@@ -398,14 +425,38 @@ async def proxy_interpark_api(goodsCode: str, start_date: str, end_date: str):
         response = await client.get(url, params=params, headers=headers)
         return response.json()
 
-# 테스트용 크롤링 시뮬레이션 태스크
-@app.on_event("startup")
-async def start_demo_logging():
-    async def simulate_logging():
-        while True:
-            logger.info("서버가 정상 기동중...")
-            await asyncio.sleep(10)
-    asyncio.create_task(simulate_logging())
+@app.post("/api/settings/telegram")
+async def save_telegram_settings(settings: dict = Body(...)):
+    """config.yaml 파일의 텔레그램 설정을 업데이트함"""
+    try:
+        from core.config_loader import save_config
+        # 기존 CONFIG 객체 업데이트 및 파일 저장
+        save_config({"telegram": settings})
+        return {"status": "success", "message": "설정이 저장되었습니다."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# 환경 설정 정보 조회 API
+@app.get("/api/settings")
+async def get_settings():
+    """현재 config.yaml의 텔레그램 및 Info 설정을 반환합니다."""
+    return {
+        "telegram": CONFIG.get("telegram", {"use_yn": "N", "token": "", "chat_ids": []}),
+        "info": CONFIG.get("info", {})
+    }
+
+@app.post("/api/settings/telegram")
+async def save_telegram(settings: dict = Body(...)):
+    # settings 예: {"use_yn": "Y", "token": "...", "chat_ids": ["id1", "id2"]}
+    save_config({"telegram": settings})
+    logger.info("[*] 텔레그램 설정이 업데이트되었습니다.")
+    return {"status": "success"}
+
+@app.post("/api/settings/info")
+async def save_info(info: dict = Body(...)):
+    save_config({"info": info})
+    logger.info("[*] 시스템 환경설정이 업데이트되었습니다.")
+    return {"status": "success"}
 
 if __name__ == "__main__":
     # 1. 실행 직전에 설정을 읽습니다.

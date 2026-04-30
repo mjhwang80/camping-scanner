@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
+    <typeName>땡큐캠핑</typeName>
     <type>Thankqcamping</type>
     <homepage><![CDATA[https://m.thankqcamping.com/resv/view.hbb?disc_per=&cseq=]]></homepage>
+    <typeOrder>2</typeOrder>
     <campsites>
 
         <campsite>

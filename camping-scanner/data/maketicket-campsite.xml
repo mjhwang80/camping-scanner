@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <typeName>마켓티켓</typeName>
+    <type>Maketicket</type>
+    <typeOrder>10</typeOrder>
+    <campsites>
+        <campsite>
+            <name>향남오토캠핑장</name>
+            <gdSeq>GD90</gdSeq>
+            <idKey>5M4270</idKey>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="CM000109">A구역(장애인전용)</site>
+                <site code="CM000104">A구역(6인)</site>
+                <site code="CM000105">B구역(8인)</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>화송 매송오토캠핑장</name>
+            <gdSeq>GD109</gdSeq>
+            <idKey>5M4350</idKey>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="CM000168">A존</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>세종 합강캠핑장</name>
+            <gdSeq>GD86</gdSeq>
+            <idKey>5M4260</idKey>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="CM000094">오토(A)</site>
+                <site code="CM000095">오토(B)</site>
+                <site code="CM000096">오토(C)</site>
+                <site code="CM000097">웰빙(D)</site>
+                <site code="CM000098">캐빈하우스 8인용</site>
+                <site code="CM000101">카라반 6인용</site>
+                <site code="CM000102">카라반 4인용</site>
+                <site code="CM000189">카라반 6인용(신형)</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>전월산국민여가캠핑장</name>
+            <gdSeq>GD98</gdSeq>
+            <idKey>5M4320</idKey>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="CM000156">이지존캠핑장</site>
+                <site code="CM000127">오토캠핑B구역</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>울진 염전해변캠핑장</name>
+            <gdSeq>GD110</gdSeq>
+            <idKey>5M4360</idKey>
+            <maxStayDay>3</maxStayDay>
+            <sites>
+                <site code="CM000172">오토캠핑</site>
+                <site code="CM000173">텐트</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>미래지오토캠핑장</name>
+            <gdSeq>GD97</gdSeq>
+            <idKey>5M4310</idKey>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="CM000125">오토캠핑</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>오산 맑음터공원캠핑장</name>
+            <gdSeq>GD82</gdSeq>
+            <idKey>5M4220</idKey>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="CM000079">까산이존</site>
+                <site code="CM000080">매화존</site>
+                <site code="CM000081">카라반존4인</site>
+                <site code="CM000082">카라반존6인</site>
+            </sites>
+        </campsite>
+
+        <campsite>
+            <name>인천 인천송도국제캠핑장[불가]</name>
+            <gdSeq>GD102</gdSeq>
+            <idKey>5M4340</idKey>
+            <maxStayDay>2</maxStayDay>
+            <sites>
+                <site code="CM000136">데크A구역</site>
+                <site code="CM000137">데크B구역</site>
+                <site code="CM000178">자가형카라반</site>
+                <site code="CM000179">카라반</site>
+                <site code="CM000180">글램핑</site>
+            </sites>
+        </campsite>
+
+    </campsites>
+</configuration>

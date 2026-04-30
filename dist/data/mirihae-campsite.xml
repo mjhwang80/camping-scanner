@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
-    <campsites>
-        <type>Mirihae</type>
+    <typeName>미리해</typeName>
+    <type>Mirihae</type>
+    <typeOrder>10</typeOrder>
+    <campsites>      
 
         <campsite>
             <name>포천 비둘기낭 캠핑장</name>
