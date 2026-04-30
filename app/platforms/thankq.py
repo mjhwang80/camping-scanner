@@ -13,6 +13,7 @@ from core.notifier import notifier
 
 from core.websocket_manager import ws_manager
 from core.termination_handler import handle_monitoring_stop
+from core.ua_generator import UAGenerator
 
 # 로거 가져오기
 logger = logging.getLogger("camping.thankq")
@@ -20,9 +21,13 @@ logger = logging.getLogger("camping.thankq")
 
 class ThankQMonitor: 
      
+    def __init__(self):
+        self.execution_count = 0  # 실행 횟수를 저장할 변수 
 
     async def check_availability(self, params: dict):
         # Java의 Map<String, String> data 구성과 동일
+        
+        self.execution_count += 1  # 호출될 때마다 1 증가
 
         print(f"[*] {params['camp_id']} 땡큐캠핑 조회 중...")       
 
@@ -42,7 +47,7 @@ class ThankQMonitor:
         normal_end_dt = start_dt + timedelta(days=stay_days) 
 
          #감시 정보 전달
-        await ws_manager.broadcast({"messageType" : "monitor", "data" : {"uuid" : uuid}}) 
+        await ws_manager.broadcast({"messageType" : "monitor", "data" : {"uuid" : uuid, "count" : self.execution_count}}) 
                 
         logger.info(f"[*] 땡큐캠핑 감시 시작 - 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days}")
 
@@ -67,10 +72,15 @@ class ThankQMonitor:
 
         pprint.pprint(f"요청 파라미트 : {data}")
 
+        # 호출 시마다 새로운 랜덤 헤더 생성
+        current_headers = UAGenerator.get_headers({
+            "Referer": f"https://tickets.interpark.com/goods/{params.get('camp_id')}"
+        })
+
         url = "https://m.thankqcamping.com/resv/axResCampSite.hbb"
 
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, data=data)
+            response = await client.post(url, data=data, headers=current_headers, timeout=10.0)
             soup = BeautifulSoup(response.text, "lxml")
 
             # 2. 모든 사이트 리스트(li) 순회
@@ -142,6 +152,18 @@ class ThankQMonitor:
                 logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
                 print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
 
+                # 시스템 트레이 알림 호출
+                try:
+                    from main import tray_manager # 순환 참조 방지
+                    if tray_manager:
+                        tray_manager.notify(
+                            "빈자리 알림", 
+                            f"[{params['campsiteName']}] 구역에 자리가 났습니다."
+                        )
+                except Exception as e:
+                    logger.error(f"트레이 알림 호출 실패: {e}")
+                
+                # 모니터링 종료 체크
                 from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
                 await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
                 

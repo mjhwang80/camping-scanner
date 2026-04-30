@@ -1,24 +1,25 @@
 # .gitignore
 
-# 1. 환경 설정 및 비밀번호 (가장 중요)
-config/config.yaml
-.env
+# 1. 개인 설정 및 비밀 정보 (가장 중요)
+config/config.yaml      # 서버 포트, 텔레그램 토큰 등 민감 정보
+.env                    # 환경 변수 파일
+.venv                    # 환경 변수 파일
 
-# 2. 파이썬 실행 임시 파일
-__pycache__/
-*.py[cod]
-*$py.class
-venv/
-.venv/
-env/
+# 2. 파이썬 환경 및 실행 파일
+.venv/                  # 가상환경 폴더
+__pycache__/            # 파이썬 컴파일 캐시
+*.py[cod]               # 바이트코드 파일
+*$py.class              # 바이트코드 파일
 
-*.log
+# 3. 로그 및 빌드 파일
+logs/                   # 로컬 로그 저장소
+build/                  # 빌드 중간 파일
+dist/                   # 배포용 결과물
+pycache//               # 
+*.spec                  # PyInstaller 설정 파일
 
-# 3. 빌드 및 배포 관련 (PyInstaller 등)
-build/
-dist/
-*.spec
-
-# 4. OS 관련 파일
-.DS_Store
-Thumbs.db
+# 4. OS 및 에디터 관련
+.DS_Store               # macOS 관련
+Thumbs.db               # Windows 관련
+.vscode/                # VS Code 설정
+.idea/                  # IntelliJ 설정

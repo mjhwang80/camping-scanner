@@ -4,7 +4,7 @@ import yaml
 import signal
 import webbrowser
 import xml.etree.ElementTree as ET
-from threading import Timer
+from threading import Timer, Thread  # Thread 추가 임포트
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import uvicorn
@@ -19,6 +19,9 @@ from core.config_loader import CONFIG
 import httpx
 import asyncio
 
+
+from core.tray_icon import TrayIcon
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Body, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -27,8 +30,9 @@ from core.websocket_manager import ws_manager
 
 import logging
 
-
+# 전역 객체
 app = FastAPI()
+tray_manager = None
 
 @app.on_event("startup")
 async def startup_event():
@@ -39,6 +43,10 @@ async def shutdown_event():
     if scheduler.running:
         scheduler.shutdown()
         logger.info("[*] 스케줄러가 성공적으로 종료되었습니다.")
+
+def stop_server():
+    """트레이에서 종료를 눌렀을 때 프로세스 종료"""
+    os.kill(os.getpid(), signal.SIGTERM)
 
 # 1. CORS 설정 (가장 유력한 에러 원인 해결)
 app.add_middleware(
@@ -272,6 +280,9 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
     else:
         return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}
 
+    # 인터벌의 20% 정도를 무작위 변동폭(jitter)으로 설정
+    # 예: 60초 설정 시, 60 ± 12초 사이에서 랜덤하게 실행됨
+    dynamic_jitter = int(interval * 0.2)
     
     # 백그라운드에서 감시 시작 (Spring의 @Async와 유사)
     existing_job = scheduler.get_job(job_id)
@@ -283,6 +294,7 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         monitor.check_availability,  # 실행할 함수
         'interval', 
         seconds=interval, 
+        jitter=dynamic_jitter,       # 실행 시점마다 무작위 지연 추가
         args=[params],               # 함수에 넘길 파라미터(Map/dict)
         id=job_id
     )
@@ -307,7 +319,7 @@ async def monitor_loop(monitor, params):
         found = await monitor.check_availability(params)
         if found:
             # 알림 발송 로직 호출
-            print("🔥 빈자리 발견!")
+            print("빈자리 발견!")
             break
         await asyncio.sleep(60) # 1분 대기
 
@@ -395,9 +407,14 @@ if __name__ == "__main__":
     target_port = int(current_config['server']['port'])
     target_host = current_config['server']['host']
     
+    # 2. 트레이 아이콘을 별도 스레드에서 실행  
+    tray_manager = TrayIcon(target_host, target_port, stop_server)
+    tray_thread = Thread(target=tray_manager.run, daemon=True)
+    tray_thread.start()
+
     print(f"[*] Starting server on {target_host}:{target_port}")
 
-    # 2. 타이머에 현재 읽은 포트 정보를 넘깁니다.
+    # 3. 타이머에 현재 읽은 포트 정보를 넘깁니다.
     Timer(1.5, open_browser, args=[target_host, target_port]).start()
     
     # 3. uvicorn에 현재 읽은 포트를 적용합니다.

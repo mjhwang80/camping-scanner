@@ -23,14 +23,14 @@ async def handle_monitoring_stop(scheduler, ws_manager, params, found_sites):
 
     # 빈자리가 발견되었고, 1회성 감시(N)로 설정된 경우
     if found_sites and find_next_run == "N":
-        logger.info(f"🚩 [자동 종료 프로세스 시작] {campsite_name} (ID: {job_id})")
+        logger.info(f"[자동 종료 프로세스 시작] {campsite_name} (ID: {job_id})")
         
         try:
             # 2. APScheduler에서 해당 작업 제거 (더 이상 크롤링하지 않음)
             # Java의 scheduler.cancel() 또는 task.stop()과 동일한 역할
             if scheduler.get_job(job_id):
                 scheduler.remove_job(job_id)
-                logger.info(f"✅ 스케줄러에서 작업 제거 완료: {job_id}")
+                logger.info(f"스케줄러에서 작업 제거 완료: {job_id}")
             
             # 3. 웹 프론트엔드(UI)에 목록 삭제 명령 전송
             # 브라우저의 JavaScript는 이 메시지를 받아 해당 테이블 행(tr)을 삭제함
@@ -44,9 +44,9 @@ async def handle_monitoring_stop(scheduler, ws_manager, params, found_sites):
             
         except JobLookupError:
             # 이미 삭제되었거나 존재하지 않는 ID일 경우의 예외 처리
-            logger.warning(f"⚠️ 삭제하려는 작업을 찾을 수 없습니다 (이미 삭제됨): {job_id}")
+            logger.warning(f"삭제하려는 작업을 찾을 수 없습니다 (이미 삭제됨): {job_id}")
         except Exception as e:
             logger.error(f"감시 종료 처리 중 오류 발생: {e}")
     else:
         # 감시 유지(findNextRun == 'Y')인 경우 로그만 남김
-        logger.debug(f"ℹ️ {campsite_name} 감시를 계속 유지합니다 (findNextRun: {find_next_run})")
+        logger.debug(f"{campsite_name} 감시를 계속 유지합니다 (findNextRun: {find_next_run})")
