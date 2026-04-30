@@ -716,6 +716,10 @@ const Toast = {
         // 메시지 구성 (found_sites 배열에서 이름만 추출)
         const siteNames = data.list.map((site) => site.site_name).join(", ");
 
+        if (data.link) {
+            window.open(data.link);
+        }
+
         toast.innerHTML = `
         <div class="flex items-start">
             <div class="flex-shrink-0 text-indigo-500">

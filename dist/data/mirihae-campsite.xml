@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<configuration>
+<configuration>    
     <typeName>미리해</typeName>
     <type>Mirihae</type>
-    <typeOrder>10</typeOrder>
+    <typeOrder>3</typeOrder>
     <campsites>      
 
         <campsite>
             <name>포천 비둘기낭 캠핑장</name>
-            <pageId>C27562955</pageId>
+            <homepage><![CDATA[https://mirihae.com/pccamp/campsite/]]></homepage>
+            <code>C27562955</code>
             <groupCode>pccamp</groupCode>
             <maxStayDay>3</maxStayDay>
             <sites>
@@ -20,31 +21,35 @@
         </campsite>
 
         <campsite>
-            <name>이포보오토캠핑장</name>
-            <pageId>Z65332353</pageId>
+            <name>대신 웰빙캠핑장</name>
+            <code>B24626523</code>
             <groupCode>epoc</groupCode>
             <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://mirihae.com/epoc/campsite/]]></homepage>
             <sites>
+                <site code="color1">파쇄석</site>
+                <site code="color2">데크</site>
+            </sites>
+           
+        </campsite>
+
+        <campsite>
+            <name>대신 오토캠핑장</name>
+            <code>Z65332353</code>
+            <groupCode>epoc</groupCode>
+            <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://mirihae.com/epoc/campsite/]]></homepage>
+             <sites>
                 <site code="color1">전체</site>
             </sites>
         </campsite>
 
         <campsite>
-            <name>이포보웰빙캠핑장</name>
-            <pageId>B24626523</pageId>
-            <groupCode>epoc</groupCode>
-            <maxStayDay>3</maxStayDay>
-            <sites>
-                <site code="color1">파쇄석</site>
-                <site code="color2">데크</site>
-            </sites>
-        </campsite>
-
-        <campsite>
             <name>금모래캠핑장</name>
-            <pageId>Q86949745</pageId>
+            <code>Q86949745</code>
             <groupCode>gsmc</groupCode>
             <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://mirihae.com/gsmc/campsite/]]></homepage>
             <sites>
                 <site code="color4">가구역</site>
                 <site code="color5">나구역</site>
@@ -56,9 +61,10 @@
 
         <campsite>
             <name>충주 목계솔밭캠핑장</name>
-            <pageId>L37844353</pageId>
+            <code>L37844353</code>
             <groupCode>cjcamp</groupCode>
             <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://mirihae.com/cjcamp/campsite/]]></homepage>
             <sites>
                 <site code="color1">대형(130㎡) 캐러반 사이트</site>
                 <site code="color2">중형(110㎡) 캐러반 사이트</site>

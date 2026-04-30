@@ -11,6 +11,7 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi import Request, HTTPException
+from datetime import datetime
 
 from core.config_loader import get_resource_path, get_external_path
 
@@ -475,7 +476,20 @@ async def save_info(info: dict = Body(...)):
     logger.info("[*] 시스템 환경설정이 업데이트되었습니다.")
     return {"status": "success"}
 
+
+def check_expiration():
+    # 현재 시간 확인 (2026년 5월 30일 기준)
+    expiration_date = datetime(2026, 5, 29)
+    if datetime.now() > expiration_date:
+        print("[!] 프로그램 사용 기간이 만료되었습니다. (종료일: 2026-05-30)")
+        sys.exit() # 프로그램 강제 종료
+
 if __name__ == "__main__":
+
+
+    # 앱 시작 시 호출
+    check_expiration()
+
     # 1. 실행 직전에 설정을 읽습니다.
     current_config = load_config()
     target_port = int(current_config['server']['port'])
