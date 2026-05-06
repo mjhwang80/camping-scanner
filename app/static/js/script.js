@@ -2,7 +2,6 @@ const resizer = document.getElementById("footer-resizer");
 const footer = document.getElementById("main-footer");
 
 let isResizing = false;
-
 resizer.addEventListener("mousedown", (e) => {
     isResizing = true;
     // 드래그 중 텍스트 선택 방지
@@ -83,7 +82,7 @@ const Comp = {
     bindEvents: function () {
         document.getElementById("platformSelect").addEventListener("change", this.changeFlatform);
         document.getElementById("watchBtn").addEventListener("click", this.watchCampsite);
-        document.getElementById("stopWatchBtn").addEventListener("click", () => this.stopWatching()); //감시중지
+        //document.getElementById("stopWatchBtn").addEventListener("click", () => this.stopWatching()); //감시중지
         document.getElementById("homePageBtn").addEventListener("click", () => this.openHomePage()); //홈페이지 열기
         document.getElementById("watchDate").addEventListener("change", () => this.onChangeWatchDate()); //날짜 변경 체크(인터파크)
         document.getElementById("telegramConfigBtn").addEventListener("click", () => this.openTgModal()); //텔레그램 설정
@@ -202,14 +201,29 @@ const Comp = {
 
         const detailPanel = document.getElementById("detailPanel");
         const name = site.getElementsByTagName("name")[0]?.textContent || "이름 없음";
-        const sites = Array.from(site.getElementsByTagName("site"))
-            .map((s) => s.textContent)
-            .join(", ");
         const type = site.getElementsByTagName("type")[0]?.textContent || "정보 없음";
 
         document.getElementById("campsiteName").textContent = site.getElementsByTagName("name")[0]?.textContent || "";
         document.getElementById("platformName").textContent = site.getElementsByTagName("type")[0]?.textContent || "";
         //campsiteName
+
+        // 1. 로그인 필드 제어 (showLoginField)
+        const showLogin = site.getElementsByTagName("showLoginField")[0]?.textContent || "N";
+        const loginArea = document.getElementById("loginFields");
+        if (showLogin === "Y") {
+            loginArea.classList.remove("hidden");
+        } else {
+            loginArea.classList.add("hidden");
+        }
+
+        // 2. 자동 예약 체크박스 제어 (isSupportAutoReservation)
+        const supportAuto = site.getElementsByTagName("isSupportAutoReservation")[0]?.textContent || "N";
+        const autoReserveArea = document.getElementById("autoReserveField");
+        if (supportAuto === "Y") {
+            autoReserveArea.classList.remove("hidden");
+        } else {
+            autoReserveArea.classList.add("hidden");
+        }
 
         this.generatorMaxDayOption(site);
         this.generatorSiteChecker(site);
@@ -288,9 +302,9 @@ const Comp = {
     },
     generatorSiteChecker: function (site) {
         const siteCheckerContainer = document.getElementById("siteCheckerContainer");
-        const labelArea = document.querySelector("label.border-b"); // "사이트 :" 레이블 선택
+        const labelArea = document.querySelector("label.border-b");
 
-        //전체 체크 박스 추가
+        // 1. 전체 체크박스 초기화 및 생성
         const oldAllCheck = document.getElementById("allCheckWrapper");
         if (oldAllCheck) oldAllCheck.remove();
 
@@ -301,25 +315,60 @@ const Comp = {
             <input type="checkbox" id="allCheck" class="mr-1 w-3 h-3 accent-indigo-600" checked />
             전체 선택
         `;
-
-        // 레이블을 flex로 만들어 우측 끝으로 밀어넣기 위해 스타일 살짝 변경
         labelArea.classList.add("flex", "items-center", "justify-between");
         labelArea.appendChild(allCheckWrapper);
 
-        //사이트 목록 추가
         siteCheckerContainer.innerHTML = "";
+
+        // 2. 사이트 그룹(groups) 렌더링
+        const groupsWrapper = site.getElementsByTagName("groups")[0];
+        if (groupsWrapper) {
+            const groups = groupsWrapper.getElementsByTagName("group");
+            if (groups.length > 0) {
+                // 그룹 섹션 타이틀
+                const groupTitle = document.createElement("div");
+                groupTitle.className = "col-span-2 text-[10px] font-black text-indigo-400 mt-2 border-b border-slate-200 pb-0.5";
+                groupTitle.innerHTML = `<i class="fa-solid fa-layer-group mr-1"></i> 사이트 그룹`;
+                siteCheckerContainer.appendChild(groupTitle);
+
+                Array.from(groups).forEach((group) => {
+                    const groupCode = group.getAttribute("code");
+                    const groupName = group.textContent;
+
+                    const label = document.createElement("label");
+                    label.className = "flex items-center p-1 bg-indigo-50/50 rounded cursor-pointer hover:bg-indigo-50 transition";
+                    label.innerHTML = `
+                        <input type="checkbox" checked class="group-item mr-2 accent-indigo-600" data-group-code="${groupCode}" />
+                        <span class="text-xs font-bold text-indigo-700">${groupName}</span>
+                    `;
+                    siteCheckerContainer.appendChild(label);
+                });
+            }
+        }
+
+        // 3. 개별 사이트(sites) 렌더링
         const sites = site.getElementsByTagName("site");
+        if (sites.length > 0) {
+            const siteTitle = document.createElement("div");
+            siteTitle.className = "col-span-2 text-[10px] font-black text-slate-400 mt-2 border-b border-slate-200 pb-0.5";
+            siteTitle.innerHTML = `<i class="fa-solid fa-list mr-1"></i> 사이트 목록`;
+            siteCheckerContainer.appendChild(siteTitle);
 
-        Array.from(sites).forEach((element, index) => {
-            const code = element.getAttribute("code") || "";
-            const name = element.textContent || "";
+            Array.from(sites).forEach((element) => {
+                const code = element.getAttribute("code") || "";
+                const groupAttr = element.getAttribute("group") || ""; // 그룹 속성 확인
+                const name = element.textContent || "";
 
-            const label = document.createElement("label");
-            label.className = "flex items-center";
-            label.innerHTML = `<input type="checkbox" checked class="site-item mr-2 accent-indigo-600" value="${code}" /> ${name}`;
-
-            siteCheckerContainer.appendChild(label);
-        });
+                const label = document.createElement("label");
+                label.className = "flex items-center p-1 cursor-pointer hover:bg-slate-100 rounded transition";
+                label.innerHTML = `
+                    <input type="checkbox" checked class="site-item mr-2 accent-indigo-600" 
+                           value="${code}" data-parent-group="${groupAttr}" />
+                    <span class="text-xs text-slate-700">${name}</span>
+                `;
+                siteCheckerContainer.appendChild(label);
+            });
+        }
 
         // 4. 이벤트 바인딩 호출
         this.bindAllCheckEvent();
@@ -360,6 +409,11 @@ const Comp = {
         if (groupCodeElement.length > 0) {
             groupCode = groupCodeElement[0].textContent || "";
         }
+        const groupsElement = currentCampsite.getElementsByTagName("groups");
+        let hasCategory = "N"; //사이트 그룹의 카테고리 항목 존재 유무 판단.
+        if (groupsElement.length > 0) {
+            hasCategory = "Y";
+        }
 
         const requestData = {
             type: type, // "THANKQ"
@@ -371,6 +425,7 @@ const Comp = {
             requestInterval: requestInterval, // 1
             watchUuid: watchUuid, // UUID for tracking the monitoring session
             groupCode: groupCode, //그룹코드 하위 그룹이 있을 경우
+            hasCategory: hasCategory, //사이트 목록의 상위 그룹이 포함된건지 체크
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
             site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
         };
@@ -409,25 +464,94 @@ const Comp = {
             emptyRow.remove();
         }
 
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-50";
-        tr.innerHTML = `
-            <td class="p-2 border-r font-bold">${entry.campsiteName}</td>
-            <td class="p-2 border-r text-center">${entry.date}</td>
-            <td class="p-2 border-r text-center">${entry.stay_day}</td>
-            <td class="p-2 border-r text-center font-bold text-indigo-600 MNT-COUNT">0</td>
-            <td class="p-2 text-center text-green-600 font-bold italic">Monitoring..</td>
-        `;
-        tr.dataset.watchuuid = entry.watchUuid;
-        tr.dataset.reqcnt = 0; //모니터링 카운트
+        let displayStayDay = entry.stay_day;
 
-        // [추가] 테이블 행 클릭 시 선택 처리
-        tr.onclick = () => {
+        // Interpark 타입이고 stay_day에 콤마(,)가 포함된 경우 개수를 세어 "N박"으로 변환
+        if (entry.type === "Interpark" && String(entry.stay_day).includes(",")) {
+            const dayCount = String(entry.stay_day).split(",").length;
+            displayStayDay = `${dayCount}박`;
+        } else if (!String(displayStayDay).includes("박")) {
+            // 기존 숫자만 들어오는 경우를 위해 '박'이 없으면 붙여줌 (선택 사항)
+            displayStayDay = `${displayStayDay}박`;
+        }
+
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50 group"; // group 클래스 추가 (호버 시 버튼 강조용)
+        tr.innerHTML = `
+        <td class="p-2 border-r font-bold">${entry.campsiteName}</td>
+        <td class="p-2 border-r text-center">${entry.date}</td>
+        <td class="p-2 border-r text-center">${displayStayDay}</td>
+        <td class="p-2 border-r text-center font-bold text-indigo-600 MNT-COUNT">0</td>
+        <td class="p-2 text-center">
+            <div class="flex items-center justify-center space-x-3">
+                <span class="text-green-600 font-bold italic text-[10px]">Monitoring..</span>
+                <button class="stop-row-btn px-3 py-1 bg-red-500 text-white text-[10px] font-black rounded shadow-sm hover:bg-red-600 transition-colors" 
+                        data-uuid="${entry.watchUuid}">
+                    중지
+                </button>
+            </div>
+        </td>
+    `;
+        tr.dataset.watchuuid = entry.watchUuid;
+
+        // 행 클릭 시 하이라이트 유지 (기존 로직)
+        tr.onclick = (e) => {
+            // 버튼 클릭 시에는 행 클릭 이벤트가 발생하지 않도록 방지
+            if (e.target.classList.contains("stop-row-btn")) return;
             this.highlightMonitoringRow(tr);
             this.selectedMonitoringUuid = entry.watchUuid;
         };
 
+        // 중지 버튼에 이벤트 리스너 추가
+        const stopBtn = tr.querySelector(".stop-row-btn");
+        stopBtn.onclick = (e) => {
+            e.stopPropagation(); // 행 클릭 이벤트 전파 방지
+            this.stopWatchingRow(entry.watchUuid);
+        };
+
         monitoringList.appendChild(tr);
+    },
+    stopWatchingRow: async function (watchUuid) {
+        if (!watchUuid) return;
+
+        if (confirm("이 감시 작업을 중지하시겠습니까?")) {
+            try {
+                const response = await fetch(`/api/monitor/stop/${watchUuid}`, {
+                    method: "POST"
+                });
+
+                if (response.ok) {
+                    // 해당 행 삭제
+                    const row = document.querySelector(`tr[data-watchuuid="${watchUuid}"]`);
+                    if (row) {
+                        row.style.transition = "all 0.3s";
+                        row.style.opacity = "0";
+                        row.style.transform = "translateX(20px)";
+
+                        setTimeout(() => {
+                            row.remove();
+                            // 목록이 비었는지 확인
+                            const monitoringList = document.getElementById("monitoring-list");
+                            if (monitoringList.children.length === 0) {
+                                monitoringList.innerHTML = `
+                                <tr class="hover:bg-slate-50 EMPTY-ROW">
+                                    <td class="p-2 text-center text-green-600 font-bold italic" colspan="5">감시 중인 항목이 없습니다.</td>
+                                </tr>`;
+                            }
+                        }, 300);
+                    }
+
+                    if (this.selectedMonitoringUuid === watchUuid) {
+                        this.selectedMonitoringUuid = null;
+                    }
+
+                    Logger.addLog(`감시 중단 완료: ${watchUuid}`);
+                }
+            } catch (error) {
+                console.error("중지 요청 실패:", error);
+                alert("서버 통신 오류가 발생했습니다.");
+            }
+        }
     },
     // [추가] 감시 목록 행 하이라이트
     highlightMonitoringRow: function (element) {
@@ -558,23 +682,57 @@ const Comp = {
 
     bindAllCheckEvent: function () {
         const allCheck = document.getElementById("allCheck");
+        const groupChecks = document.querySelectorAll(".group-item");
+        const siteChecks = document.querySelectorAll(".site-item");
 
+        // 1) 전체 선택 이벤트
         allCheck.addEventListener("change", function () {
-            // 모든 .site-item 체크박스를 전체 선택 상태와 동기화
-            const siteChecks = document.querySelectorAll(".site-item");
-            siteChecks.forEach((cb) => (cb.checked = allCheck.checked));
+            const isChecked = allCheck.checked;
+            groupChecks.forEach((gc) => (gc.checked = isChecked));
+            siteChecks.forEach((sc) => (sc.checked = isChecked));
         });
 
-        // 개별 항목 클릭 시 전체 선택 상태 업데이트 (Event Delegation 방식 권장)
-        document.getElementById("siteCheckerContainer").addEventListener("change", function (e) {
-            if (e.target.classList.contains("site-item")) {
-                const allItems = document.querySelectorAll(".site-item");
-                const checkedItems = document.querySelectorAll(".site-item:checked");
+        // 2) 그룹 선택 이벤트 (사이트 일괄 제어)
+        groupChecks.forEach((gc) => {
+            gc.addEventListener("change", function () {
+                const groupCode = this.dataset.groupCode;
+                const isChecked = this.checked;
 
-                // 모든 항목이 체크되어 있을 때만 "전체 선택"도 체크
-                allCheck.checked = allItems.length === checkedItems.length;
-            }
+                // 해당 그룹 코드를 부모로 가진 사이트들만 필터링하여 체크
+                document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]`).forEach((sc) => {
+                    sc.checked = isChecked;
+                });
+
+                // 전체 선택 상태 업데이트
+                updateAllCheckStatus();
+            });
         });
+
+        // 3) 개별 사이트 선택 이벤트 (그룹 및 전체 선택 상태 업데이트)
+        siteChecks.forEach((sc) => {
+            sc.addEventListener("change", function () {
+                const groupCode = this.dataset.parentGroup;
+
+                if (groupCode) {
+                    const sameGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]`);
+                    const checkedGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]:checked`);
+                    const groupHeader = document.querySelector(`.group-item[data-group-code="${groupCode}"]`);
+
+                    if (groupHeader) {
+                        groupHeader.checked = sameGroupSites.length === checkedGroupSites.length;
+                    }
+                }
+
+                updateAllCheckStatus();
+            });
+        });
+
+        // 4) 공통 상태 업데이트 함수
+        function updateAllCheckStatus() {
+            const allItems = document.querySelectorAll(".site-item");
+            const checkedItems = document.querySelectorAll(".site-item:checked");
+            allCheck.checked = allItems.length === checkedItems.length;
+        }
     },
     //홈페이지 열기
     openHomePage: function () {
@@ -696,13 +854,27 @@ const Logger = {
     addLog: function (message, type = "normal") {
         const logContainer = document.getElementById("log-container");
         const logLine = document.createElement("div");
-        logLine.className = "border-b border-gray-800 py-1 animate-pulse"; // 새 로그 강조 효과
+
+        logLine.className = "border-b border-gray-800 py-1 opacity-0 transition-opacity duration-300";
         logLine.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
 
-        logContainer.prepend(logLine);
+        // 1. 하단에 로그 추가 (append)
+        logContainer.appendChild(logLine);
+
+        // 애니메이션 효과
+        setTimeout(() => logLine.classList.remove("opacity-0"), 10);
+
+        // 2. 최대 로그 개수 유지 (오래된 로그는 상단에서 삭제)
         if (logContainer.children.length > this.MAX_LOG_COUNT) {
-            logContainer.removeChild(logContainer.lastChild);
+            logContainer.removeChild(logContainer.firstChild);
         }
+
+        // 3. 자동 스크롤 (사용자가 위로 올려보고 있지 않을 때만 내리는 로직 추가 가능)
+        const footer = document.getElementById("main-footer");
+        footer.scrollTo({
+            top: footer.scrollHeight,
+            behavior: "smooth" // 부드럽게 스크롤
+        });
     }
 };
 
