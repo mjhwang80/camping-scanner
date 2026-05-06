@@ -35,14 +35,16 @@ class InterparkMonitor:
 
         print(f"[*] {params['camp_id']} 인터파크 조회 중...")
 
+        campsiteName = params.get("campsiteName", "이름 없음")
         camp_id = params.get("camp_id")
         uuid = params.get("watchUuid")
         req_date = params.get("date")
         stay_days = params.get("stay_day", "")
+        nights_count = len(stay_days.split(',')) if stay_days else 1
 
         # 1. 문자열을 datetime 객체로 변환
         start_dt = datetime.strptime(req_date, "%Y-%m-%d")
-        logger.info(f"[*] 인터파크 감시 시작 - 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박정보: {stay_days}")
+        logger.info(f"[*] 인터파크(NOL) 감시 시작 - 캠핑장 : {campsiteName} 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박정보: {nights_count}")
 
         #감시 사이트 대상
         target_site_codes = params.get("site_codes", [])
@@ -101,7 +103,7 @@ class InterparkMonitor:
                     msg = (
                         f"<b>빈자리 발견!</b>\n"
                         f"캠핑장: {params['campsiteName']}\n"
-                        f"날짜: {params['date']} ({len(res_days.split(','))}박)\n"
+                        f"날짜: {params['date']} ({nights_count}박)\n"
                         f"구역: {sites_string}\n"
                         f"<a href='{link}'>예약하러 가기</a>"
                     )
@@ -111,7 +113,7 @@ class InterparkMonitor:
                         ,"data" : {
                             "campseq": camp_id,
                             "res_dt": res_dt,                           
-                            "res_days": len(res_days.split(',')),
+                            "res_days": nights_count,
                             "link" : link,
                             "list" : found_sites
                             }
@@ -125,7 +127,7 @@ class InterparkMonitor:
 
                     
                     
-                    logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
+                    logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {nights_count} 사이트 : 사이트 발견: {sites_string}")
                     print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
 
                     # 시스템 트레이 알림 호출

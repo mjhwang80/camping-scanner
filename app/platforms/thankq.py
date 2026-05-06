@@ -30,7 +30,8 @@ class ThankQMonitor:
         self.execution_count += 1  # 호출될 때마다 1 증가
 
         print(f"[*] {params['camp_id']} 땡큐캠핑 조회 중...")       
-
+        
+        campsiteName = params.get("campsiteName", "이름 없음")
         camp_id = params.get("camp_id")
         uuid = params.get("watchUuid")
         req_date = params.get("date")
@@ -49,7 +50,7 @@ class ThankQMonitor:
          #감시 정보 전달
         await ws_manager.broadcast({"messageType" : "monitor", "data" : {"uuid" : uuid, "count" : self.execution_count}}) 
                 
-        logger.info(f"[*] 땡큐캠핑 감시 시작 - 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days}")
+        logger.info(f"[*] 땡큐캠핑 감시 시작 - 캠핑장 : {campsiteName} 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박정보: {stay_days}")
 
         #감시 사이트 대상
         target_site_codes = params.get("site_codes", [])

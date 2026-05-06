@@ -51,9 +51,12 @@ class MirihaeMonitor:
             return False
 
         logger.info(f"수집한 토큰정보 : {self.token}")
-
+        
+        campsiteName = params.get("campsiteName", "이름 없음")
         camp_id = params.get("camp_id")
         groupCode = params.get("groupCode")
+        hasCategory = params.get("hasCategory") #그룹으로 찾을지 사이트로 찾을지
+        
         uuid = params.get("watchUuid")
         req_date = params.get("date") # 예: "2026-05-14"
         stay_days = int(params.get("stay_day", "1"))
@@ -73,7 +76,7 @@ class MirihaeMonitor:
          #감시 정보 전달
         await ws_manager.broadcast({"messageType" : "monitor", "data" : {"uuid" : uuid, "count" : self.execution_count}}) 
                 
-        logger.info(f"[*] 미리해 감시 시작 - 캠핑장 : {params['campsiteName']} 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days}")
+        logger.info(f"[*] 미리해 감시 시작 - 캠핑장 : {campsiteName} 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박정보: {stay_days}")
 
         url = "https://mirihae.com/campsite/selectAjaxDatePinInfo.do"
         data = {
@@ -127,15 +130,27 @@ class MirihaeMonitor:
                     # 예약 가능한 상태인지 체크 (예: 예약수가 0이고 사용가능 여부가 Y인 경우)
                     if use_at == "Y":
                         logger.info(f"[{category_nm}] {item_nm} 사이트 예약 가능! (ID: {item_id})")
-                        # 원하는 사이트 체크
-                        if color in target_site_codes:
-                            found_sites.append({
-                                "site_name": item_nm,
-                                "item_no": item_no,
-                                "site_code": item_id,
-                                "category_nm": category_nm,
-                                "site_color": color
-                            })           
+
+                        if "Y" == hasCategory:
+                            # 원하는 사이트 체크
+                            if item_id in target_site_codes:
+                                found_sites.append({
+                                    "site_name": item_nm,
+                                    "item_no": item_no,
+                                    "site_code": item_id,
+                                    "category_nm": category_nm,
+                                    "site_color": color
+                                })      
+                        else:
+                            # 원하는 카테고리 체크
+                            if color in target_site_codes:
+                                found_sites.append({
+                                    "site_name": item_nm,
+                                    "item_no": item_no,
+                                    "site_code": item_id,
+                                    "category_nm": category_nm,
+                                    "site_color": color
+                                })           
 
                 sites_string = ""
                 if found_sites:
