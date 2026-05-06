@@ -4,20 +4,103 @@
     <type>Mirihae</type>
     <typeOrder>3</typeOrder>
     <campsites>      
-
         <campsite>
             <name>포천 비둘기낭 캠핑장</name>
             <homepage><![CDATA[https://mirihae.com/pccamp/campsite/]]></homepage>
             <code>C27562955</code>
             <groupCode>pccamp</groupCode>
             <maxStayDay>3</maxStayDay>
+            <groups>
+                <group code="color1">A구역</group>
+                <group code="color2">B구역</group>
+                <group code="color3">C구역</group>
+                <group code="color4">D구역</group>
+                <group code="color5">E구역</group>
+            </groups>
             <sites>
-                <site code="color1">A구역</site>
-                <site code="color2">B구역</site>
-                <site code="color3">C구역</site>
-                <site code="color4">D구역</site>
-                <site code="color5">E구역</site>
+                <site group="color1" code="ITEM_000000000000998">A1 Site</site>
+                <site group="color1" code="ITEM_000000000000999">A2 Site</site>
+                <site group="color1" code="ITEM_000000000001000">A3 Site</site>
+                <site group="color1" code="ITEM_000000000001001">A4 Site</site>
+                <site group="color1" code="ITEM_000000000001002">A5 Site</site>
+                <site group="color1" code="ITEM_000000000001003">A6 Site</site>
+                <site group="color2" code="ITEM_000000000001008">B1 Site</site>
+                <site group="color2" code="ITEM_000000000001009">B2 Site</site>
+                <site group="color2" code="ITEM_000000000001010">B3 Site</site>
+                <site group="color2" code="ITEM_000000000001011">B4 Site</site>
+                <site group="color2" code="ITEM_000000000001012">B5 Site</site>
+                <site group="color2" code="ITEM_000000000001013">B6 Site</site>
+                <site group="color2" code="ITEM_000000000001014">B7 Site</site>
+                <site group="color2" code="ITEM_000000000001015">B8 Site</site>
+                <site group="color2" code="ITEM_000000000001016">B9 Site</site>
+                <site group="color2" code="ITEM_000000000001017">B10 Site</site>
+                <site group="color2" code="ITEM_000000000001018">B11 Site</site>
+                <site group="color2" code="ITEM_000000000001019">B12 Site</site>
+                <site group="color2" code="ITEM_000000000001020">B13 Site</site>
+                <site group="color2" code="ITEM_000000000001021">B14 Site</site>
+                <site group="color2" code="ITEM_000000000001022">B15 Site</site>
+                <site group="color2" code="ITEM_000000000001023">B16 Site</site>
+                <site group="color3" code="ITEM_000000000001024">C1 Site</site>
+                <site group="color3" code="ITEM_000000000001025">C2 Site</site>
+                <site group="color3" code="ITEM_000000000001026">C3 Site</site>
+                <site group="color3" code="ITEM_000000000001027">C4 Site</site>
+                <site group="color3" code="ITEM_000000000001028">C5 Site</site>
+                <site group="color3" code="ITEM_000000000001029">C6 Site</site>
+                <site group="color3" code="ITEM_000000000001030">C7 Site</site>
+                <site group="color3" code="ITEM_000000000001031">C8 Site</site>
+                <site group="color3" code="ITEM_000000000001032">C9 Site</site>
+                <site group="color3" code="ITEM_000000000001033">C10 Site</site>
+                <site group="color3" code="ITEM_000000000001034">C11 Site</site>
+                <site group="color3" code="ITEM_000000000001035">C12 Site</site>
+                <site group="color3" code="ITEM_000000000001036">C13 Site</site>
+                <site group="color3" code="ITEM_000000000001037">C14 Site</site>
+                <site group="color3" code="ITEM_000000000001038">C15 Site</site>
+                <site group="color3" code="ITEM_000000000001039">C16 Site</site>
+                <site group="color3" code="ITEM_000000000001040">C17 Site</site>
+                <site group="color3" code="ITEM_000000000001041">C18 Site</site>
+                <site group="color3" code="ITEM_000000000001042">C19 Site</site>
+                <site group="color3" code="ITEM_000000000001043">C20 Site</site>
+                <site group="color3" code="ITEM_000000000001044">C21 Site</site>
+                <site group="color3" code="ITEM_000000000001045">C22 Site</site>
+                <site group="color3" code="ITEM_000000000001046">C23 Site</site>
+                <site group="color4" code="ITEM_000000000001047">D1 Site</site>
+                <site group="color4" code="ITEM_000000000001048">D2 Site</site>
+                <site group="color4" code="ITEM_000000000001049">D3 Site</site>
+                <site group="color4" code="ITEM_000000000001050">D4 Site</site>
+                <site group="color4" code="ITEM_000000000001051">D5 Site</site>
+                <site group="color4" code="ITEM_000000000001052">D6 Site</site>
+                <site group="color4" code="ITEM_000000000001053">D7 Site</site>
+                <site group="color4" code="ITEM_000000000001054">D8 Site</site>
+                <site group="color4" code="ITEM_000000000001055">D9 Site</site>
+                <site group="color4" code="ITEM_000000000001056">D10 Site</site>
+                <site group="color4" code="ITEM_000000000001057">D11 Site</site>
+                <site group="color4" code="ITEM_000000000001058">D12 Site</site>
+                <site group="color4" code="ITEM_000000000001059">D13 Site</site>
+                <site group="color4" code="ITEM_000000000001060">D14 Site</site>
+                <site group="color4" code="ITEM_000000000001061">D15 Site</site>
+                <site group="color4" code="ITEM_000000000001062">D16 Site</site>
+                <site group="color4" code="ITEM_000000000001063">D17 Site</site>
+                <site group="color4" code="ITEM_000000000001064">D18 Site</site>
+                <site group="color4" code="ITEM_000000000001065">D19 Site</site>
+                <site group="color5" code="ITEM_000000000001066">E1 Site</site>
+                <site group="color5" code="ITEM_000000000001067">E2 Site</site>
+                <site group="color5" code="ITEM_000000000001068">E3 Site</site>
+                <site group="color5" code="ITEM_000000000001069">E4 Site</site>
+                <site group="color5" code="ITEM_000000000001070">E5 Site</site>
+                <site group="color5" code="ITEM_000000000001071">E6 Site</site>
+                <site group="color5" code="ITEM_000000000001072">E7 Site</site>
+                <site group="color5" code="ITEM_000000000001073">E8 Site</site>
+                <site group="color5" code="ITEM_000000000001074">E9 Site</site>
+                <site group="color5" code="ITEM_000000000001075">E10 Site</site>
+                <site group="color5" code="ITEM_000000000001076">E11 Site</site>
+                <site group="color5" code="ITEM_000000000001077">E12 Site</site>
+                <site group="color5" code="ITEM_000000000001078">E13 Site</site>
+                <site group="color5" code="ITEM_000000000001079">E14 Site</site>
             </sites>
+            <!-- 
+            <showLoginField desc="로그인 필드 노출 여부">Y</showLoginField>
+            <isSupportAutoReservation desc="자동 예약 지원 여부">Y</isSupportAutoReservation>
+              -->
         </campsite>
 
         <campsite>
