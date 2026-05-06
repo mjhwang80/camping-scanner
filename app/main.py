@@ -524,6 +524,4 @@ if __name__ == "__main__":
 
     tray_manager.run()
 
-    
-    
 
