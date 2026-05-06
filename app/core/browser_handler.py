@@ -2,8 +2,26 @@
 from playwright.async_api import async_playwright
 import logging
 import asyncio
+import os
+import sys
 
 logger = logging.getLogger("camping.browser")
+
+def get_browser_path():
+    """
+    브라우저 경로를 설정하고 환경 변수에 주입합니다.
+    - 배포 시: .exe 옆의 pw-browsers
+    - 개발 시: 프로젝트 루트의 pw-browsers
+    """
+    if getattr(sys, 'frozen', False):
+        base_path = os.path.dirname(sys.executable)
+    else:
+        # 소스(app/core/browser_handler.py) 기준 부모의 부모(root)
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+    
+    browser_dir = os.path.join(base_path, "pw-browsers")
+    os.environ["PLAYWRIGHT_BROWSERS_PATH"] = browser_dir
+    return browser_dir
 
 class BrowserHandler:
     @staticmethod
