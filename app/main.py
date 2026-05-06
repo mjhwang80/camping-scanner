@@ -33,26 +33,15 @@ from core.scheduler import scheduler, start_scheduler
 from core.websocket_manager import ws_manager
 
 from core.config_loader import load_full_config, save_config
+from core.browser_handler import get_browser_path
 
 import logging
 
-
-def get_browser_path():
-    # 1. 실행 파일 환경인지 일반 파이썬 환경인지 구문
-    if getattr(sys, 'frozen', False):
-        # .exe로 실행 중일 때 (PyInstaller 환경)
-        base_path = os.path.dirname(sys.executable)
-    else:
-        # 일반 python 파일로 실행 중일 때
-        current_file_path = os.path.dirname(os.path.abspath(__file__))
-        base_path = os.path.abspath(os.path.join(current_file_path, ".."))
-
-    browser_dir = os.path.join(base_path, "pw-browsers")
-    os.environ["PLAYWRIGHT_BROWSERS_PATH"] = browser_dir
-
-    return browser_dir
-
-print(f"[*] 브라우저 경로 설정 완료: {get_browser_path()}")
+try:
+    path = get_browser_path()
+    print(f"[*] 브라우저 경로 설정 완료: {path}")
+except Exception as e:
+    print(f"[!] 브라우저 경로 설정 실패: {e}")
 
 # 전역 객체
 app = FastAPI()
@@ -77,8 +66,15 @@ async def shutdown_event():
         scheduler.shutdown()
         logger.info("[*] 스케줄러가 성공적으로 종료되었습니다.")
 
+def run_server():
+    """FastAPI 서버를 실행하는 함수 (백그라운드 스레드용)"""
+    target_port = int(CONFIG['server']['port'])
+    target_host = CONFIG['server']['host']
+    uvicorn.run(app, host=target_host, port=target_port, log_config=None, workers=1)
+ 
+
 def stop_server():
-    """트레이에서 종료를 눌렀을 때 프로세스 종료"""
+    """종료 콜백"""
     os.kill(os.getpid(), signal.SIGTERM)
 
 # 1. CORS 설정 (가장 유력한 에러 원인 해결)
@@ -505,32 +501,29 @@ def check_expiration():
 
 if __name__ == "__main__":
 
-
     # 앱 시작 시 호출
     check_expiration()
 
-    # 1. 실행 직전에 설정을 읽습니다.
-    current_config = load_config()
-    target_port = int(current_config['server']['port'])
-    target_host = current_config['server']['host']
-    target_host = current_config['server']['host']
-    
-    # 2. 트레이 아이콘을 별도 스레드에서 실행  
+    # 브라우저 환경 설정
+    get_browser_path()
+
+    target_port = int(CONFIG['server']['port'])
+    target_host = CONFIG['server']['host']
+
+    # 2. FastAPI 서버를 백그라운드 스레드에서 시작
+    server_thread = Thread(target=run_server, daemon=True)
+    server_thread.start()
+
+    Timer(2.0, open_browser, args=[target_host, target_port]).start()
+
+    # 3. 트레이 아이콘을 메인 스레드에서 실행 (Mac 오류 해결의 핵심)
     tray_manager = TrayIcon(target_host, target_port, stop_server)
-    tray_thread = Thread(target=tray_manager.run, daemon=True)
-    tray_thread.start()
+    tray_manager.run()
 
     print(f"[*] Starting server on {target_host}:{target_port}")
 
-    # 3. 타이머에 현재 읽은 포트 정보를 넘깁니다.
-    Timer(1.5, open_browser, args=[target_host, target_port]).start()
+    tray_manager.run()
+
     
-    # 3. uvicorn에 현재 읽은 포트를 적용합니다.
-    uvicorn.run(
-        app, 
-        host=target_host, 
-        port=target_port, 
-        log_config=None, 
-        workers=1
-    )
+    
 
