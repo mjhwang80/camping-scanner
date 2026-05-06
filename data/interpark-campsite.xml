@@ -44,6 +44,20 @@
         </campsite>
 
         <campsite>
+            <name>송도 국제캠핑장</name>
+            <code>24005552</code>
+            <maxStayDay>6</maxStayDay>
+            <sites>
+                <site code="1" match="RGN001">A존 캠핑 데크</site>
+                <site code="2" match="RGN002">B존 오토캠핑 데크</site>
+                <site code="3" match="RGN003">글램핑</site>
+                <site code="51" match="RGN004">유럽카라반 2인</site>
+                <site code="52" match="RGN005">유럽카라반 4인</site>
+                <site code="53" match="RGN006">정박형카라반</site>
+            </sites>
+        </campsite>
+
+        <campsite>
             <name>평택 진위천유원지캠핑장</name>
             <code>21009223</code>
             <maxStayDay>2</maxStayDay>
@@ -51,23 +65,7 @@
                 <site code="1" match="RGN001|RGN002">캠핑장</site>
             </sites>
         </campsite>
-
-        <campsite>
-            <name>안성 안성맞춤캠핑장</name>
-            <code>20004468</code>
-            <maxStayDay>6</maxStayDay>
-            <sites>
-                <site code="1" match="RGN002|RGN003">일반캠핑장</site>
-                <site code="2" match="RGN002">데크캠핑장</site>
-                <site code="3" match="RGN001">오토캠핑장</site>
-                <site code="7" match="RGN005">글램핑(4인)</site>
-                <site code="51" match="RGN005">고정카라반(4인)</site>
-                <site code="52" match="RGN005">고정카라반(6인)</site>
-            </sites>
-        </campsite>
-
-        
-
+x
         <campsite>
             <name>구리 토평가족캠핑장</name>
             <code>20003623</code>
@@ -77,16 +75,7 @@
                 <site code="5" match="RGN001">이지캠핑권</site>
             </sites>
         </campsite>        
-
-        <campsite>
-            <name>평택 소풍정원캠핑장</name>
-            <code>20011252</code>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="1" match="RGN001|RGN002|RGN003|RGN004|">캠핑존(자갈사이트)</site>
-                <site code="2" match="RGN004">평상데크</site>
-            </sites>
-        </campsite>
+        
         <campsite>
             <name>평택 내리캠핑장</name>
             <code>20003499</code>
@@ -94,11 +83,7 @@
             <sites>
                 <site code="1">캠핑장</site>
             </sites>
-        </campsite>
-
-        
-
-
+        </campsite>   
 
         <campsite>
             <name>파주 공릉관광지캠핑장</name>
@@ -111,25 +96,7 @@
             </sites>
         </campsite>
 
-        <campsite>
-            <name>경기 가평산장관광지</name>
-            <code>22016999</code>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="1" match="RGN001">캠핑장A</site>
-                <site code="2" match="RGN002">캠핑장B(대)</site>
-                <site code="3" match="RGN002">캠핑장B(중)</site>
-                <site code="4" match="RGN001">황토구들장</site>
-                <site code="5" match="RGN008">차박</site>
-                <site code="6" match="RGN002">캠핑장B(특대)</site>
-                <site code="7" match="RGN003">캠핑장C</site>
-                <site code="8" match="RGN005">캐라반사이트</site>
-                <site code="31" match="RGN004">봉선화</site>
-                <site code="32" match="RGN005">모빌홈</site>
-                <site code="34" match="RGN004">백리향</site>
-                <site code="41" match="RGN005">모빌홈 ＋ 데크</site>
-            </sites>
-        </campsite>
+    
 
         <campsite>
             <name>시흥 시흥갯골캠핑장</name>
@@ -142,32 +109,7 @@
                 <site code="4"  match="RGN001">(칠면초)</site>
                 <site code="5"  match="RGN004">모새달</site>
             </sites>
-        </campsite>
-
-        <campsite>
-            <name>서울 우이동가족캠핑장</name>
-            <code>21000833</code>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="5">데크_관내거주자우선</site>
-                <site code="6">데크_외국인/친선(우호)도시우선</site>
-                <site code="7">데크_일반예매</site>
-                <site code="8">글램핑</site>
-            </sites>
-        </campsite>
-
-        <campsite>
-            <name>가평 연인산다목적캠핑장</name>
-            <code>20009668</code>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="1" match="RGN001">오토캠핑장</site>
-                <site code="31" match="RGN002">캐빈하우스A</site>
-                <site code="32" match="RGN002">캐빈하우스B</site>
-                <site code="34" match="RGN002">편백하우스</site>
-                <site code="51" match="RGN005">캐라반사이트</site>
-            </sites>
-        </campsite>
+        </campsite>   
 
         <campsite>
             <name>영천 치산관광지캠핑장</name>
