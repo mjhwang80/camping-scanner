@@ -112,14 +112,18 @@
                                         <option value="10">10초</option>
                                     </select>
                                 </div>
-                                <div class="flex items-center">
-                                    <label class="w-24 font-bold text-slate-600 text-xs underline decoration-indigo-300">아이디</label>
-                                    <input type="text" class="flex-1 p-1 border rounded text-xs" />
+                                <div id="loginFields" class="hidden space-y-3 pt-2">
+                                    <!-- 기본적으로 숨김 -->
+                                    <div class="flex items-center">
+                                        <label class="w-24 font-bold text-slate-600 text-xs">아이디</label>
+                                        <input type="text" id="userId" class="flex-1 p-1 border rounded text-xs" />
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-24 font-bold text-slate-600 text-xs">비밀번호</label>
+                                        <input type="password" id="userPw" class="flex-1 p-1 border rounded text-xs" />
+                                    </div>
                                 </div>
-                                <div class="flex items-center">
-                                    <label class="w-24 font-bold text-slate-600 text-xs underline decoration-indigo-300">비밀번호</label>
-                                    <input type="password" class="flex-1 p-1 border rounded text-xs" />
-                                </div>
+
                                 <div class="flex items-center justify-end space-x-4">
                                     <!-- space-x-4 추가로 간격 조절 -->
                                     <label class="flex items-center font-bold text-slate-600 text-xs cursor-pointer">
@@ -128,10 +132,12 @@
                                     </label>
 
                                     <!-- 기존 자동 예약 요청 -->
-                                    <label class="flex items-center font-bold text-red-600 text-xs cursor-pointer">
-                                        <input type="checkbox" class="mr-1 w-4 h-4" />
-                                        자동 예약 요청
-                                    </label>
+                                    <div id="autoReserveField" class="hidden">
+                                        <label class="flex items-center font-bold text-red-600 text-xs cursor-pointer">
+                                            <input type="checkbox" class="mr-1 w-4 h-4" />
+                                            자동 예약 요청
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -166,9 +172,11 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!--
                         <div class="p-3 border-t bg-slate-50 flex justify-center">
                             <button class="px-6 py-2 bg-red-50 border border-red-200 text-red-600 font-black rounded hover:bg-red-100 transition text-sm" id="stopWatchBtn">감지 중지</button>
                         </div>
+                        -->
                     </section>
                 </div>
 
@@ -251,7 +259,7 @@
                     <div class="flex space-x-2">
                         <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">성인</label> <input type="number" name="member_adult" class="w-full p-2 border rounded text-xs" /></div>
                         <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">학생</label> <input type="number" name="member_teen" class="w-full p-2 border rounded text-xs" /></div>
-                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">아이</label> <input type="number" name="member_child" class="w-full p-2 border rounded text-xs" /></div>
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">미취학</label> <input type="number" name="member_child" class="w-full p-2 border rounded text-xs" /></div>
                     </div>
                 </div>
                 <div class="flex justify-end mt-8 space-x-2">
