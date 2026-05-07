@@ -30,6 +30,22 @@
                 <site code="51" match="RGN006">캐라반</site>
                 <site code="54" match="RGN006">캐라반(캐릭터)</site>
             </sites>
+            <discound>
+                <item name="PriceType" id="PriceType" value="0">주중가_연천군민할인20%</item>
+                <item name="PriceType" id="PriceType" value="1">주중가_복지(장애인)할인20%</item>
+                <item name="PriceType" id="PriceType" value="2">주중가_국가유공자할인20%</item>
+                <item name="PriceType" id="PriceType" value="3">주중가_생계급여수급자할인20%</item>
+                <item name="PriceType" id="PriceType" value="4">주중가_연천군주둔군장병할인20%</item>
+                <item name="PriceType" id="PriceType" value="5">주중가_병역명문가할인20%</item>
+                <item name="PriceType" id="PriceType" value="6">주중가_연천군홍보대사 및 명예군민할인20%</item>
+                <item name="PriceType" id="PriceType" value="7">주중가_다자녀 할인 20%</item>
+                <item name="PriceType" id="PriceType" value="8">주중가_연천군 관광주민 할인 20%</item>
+                <item name="PriceType" id="PriceType" value="9">주중가_아우른 군민 할인 20%</item>
+                <item name="PriceType" id="PriceType" value="10">주중가_한부모 가정  할인 20%</item>
+                <item name="PriceType" id="PriceType" value="11">주중가(비수기)</item>
+                
+                 
+            </discound>
         </campsite>
 
         <campsite>

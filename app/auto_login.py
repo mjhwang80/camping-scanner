@@ -66,11 +66,13 @@ with sync_playwright() as p:
             except:
                 pass
 
+            
+            page.wait_for_timeout(2000) 
 
             iframe_handle = page.query_selector("#ifrmSeat")
             if iframe_handle:
                 frame = iframe_handle.content_frame()
-                frame.evaluate("GetBlockSeatList('', '', 'RGN006')")
+                frame.evaluate("GetBlockSeatList('', '', 'RGN001')")
 
             page.wait_for_timeout(2000) 
 
@@ -79,8 +81,57 @@ with sync_playwright() as p:
             for seat in seats:                  
                 seat_name = seat.get_attribute("alt")
                 print(f"좌석명: {seat_name}")
-                
+                seat.click()
+                break;
 
+
+
+            #next_button = page.query_selector("a.btn_next_step")
+            page.wait_for_timeout(1000) 
+            next_button = iframe.locator("a.btn_next_step")
+            if next_button.is_visible():
+                next_button.click(force=True)     
+            
+            
+            page.wait_for_timeout(2000)     
+            iframe = page.frame_locator("#ifrmBookStep")
+            price_types = iframe.locator('input[name="PriceType"]').all()
+            print(f"발견된 옵션 개수: {len(price_types)}")
+            for price_type in price_types: 
+                value = price_type.get_attribute("value")
+                if value == "11":
+                    price_type.click()
+                    break
+
+            button_groups = iframe.locator("div[id='btn_Default'] a").all()
+            print(f"발견된 버튼 개수: {len(button_groups)}")
+            button_groups[1].click()
+
+            page.wait_for_timeout(3000) 
+            iframe = page.frame_locator("#ifrmBookStep")
+            iframe.locator('input[name="YYMMDD"]').fill("800622")
+            iframe.locator('input[name="CustomEtc"]').fill("283구2941")
+            payments = iframe.locator('input[name="Payment"]').all()
+            print(f"발견된 결재수단 개수: {len(payments)}")
+            for payment in payments: 
+                value = payment.get_attribute("value")
+                if value == "22004": #무통장
+                    payment.click()
+                    break
+        
+            page.wait_for_timeout(1000)
+        
+            bankCode = iframe.locator('select[id="BankCode"]').select_option("38051");
+            page.wait_for_timeout(500)
+            
+            button_groups[1].click()
+
+            page.wait_for_timeout(1000)
+            iframe.locator('input[id="CancelAgree"]').click();
+            page.wait_for_timeout(500)
+
+            button_groups = iframe.locator("div[id='btn_Default'] a").all()
+            button_groups[0].click()
 
         page.wait_for_timeout(10000) 
     
