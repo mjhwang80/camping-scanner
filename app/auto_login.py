@@ -1,9 +1,29 @@
 import nest_asyncio
+import os
 nest_asyncio.apply()  # 루프 충돌 방지 핵심 코드
 
 from playwright.sync_api import sync_playwright
 from urllib.parse import urlparse, parse_qs
 from playwright.sync_api import expect
+
+
+
+def check_auth_json(self):
+
+    user_data_path = f"C:\Users\\{os.getlogin()}\\AppData\\Local\\Google\\Chrome\\User Data"
+    
+    with sync_playwright() as p:
+        context = p.chromium.launch_persistent_context(
+            user_data_dir=user_data_path,
+            channel="chrome"
+            headless=True,
+            slow_mo=500
+        )
+
+        page = context.pages[0]
+        page.goto("https://tickets.interpark.com/goods/21005592")
+
+
 
 # 1. 외부 다운로드 없이 핵심 스텔스 로직 직접 정의
 stealth_scripts = """
@@ -14,6 +34,14 @@ stealth_scripts = """
 """
 
 with sync_playwright() as p:
+
+    site_code = "RGN001"
+    play_date = "20260519"
+    play_seq = "G64,G65"
+    goods_code = "21005592"
+
+    
+
     browser = p.chromium.launch(
         headless=False,
         args=["--disable-blink-features=AutomationControlled"]
@@ -24,7 +52,7 @@ with sync_playwright() as p:
     page.add_init_script(stealth_scripts)
      
     page.goto("about:blank")
-    url = "https://api-ticketfront.interpark.com/v1/goods/21005592/waiting?channelCode=cp&preSales=N&playDate=20260519&playSeq=G64,G65"   
+    url = f"https://api-ticketfront.interpark.com/v1/goods/{goods_code}/waiting?channelCode=cp&preSales=N&playDate={play_date}&playSeq={play_seq}"   
     
     target_url = None
     with page.expect_response("**/v1/goods/*/waiting**") as response_info:
@@ -67,14 +95,14 @@ with sync_playwright() as p:
                 pass
 
             
-            page.wait_for_timeout(2000) 
+            page.wait_for_timeout(1500) 
 
             iframe_handle = page.query_selector("#ifrmSeat")
             if iframe_handle:
                 frame = iframe_handle.content_frame()
-                frame.evaluate("GetBlockSeatList('', '', 'RGN001')")
+                frame.evaluate(f"GetBlockSeatList('', '', '{site_code}')")
 
-            page.wait_for_timeout(2000) 
+            page.wait_for_timeout(1500) 
 
             seats = iframe.locator("div#map img.stySeat").all()    
             print(f"발견된 좌석 개수: {len(seats)}")
@@ -93,7 +121,7 @@ with sync_playwright() as p:
                 next_button.click(force=True)     
             
             
-            page.wait_for_timeout(2000)     
+            page.wait_for_timeout(1500)     
             iframe = page.frame_locator("#ifrmBookStep")
             price_types = iframe.locator('input[name="PriceType"]').all()
             print(f"발견된 옵션 개수: {len(price_types)}")
@@ -107,7 +135,7 @@ with sync_playwright() as p:
             print(f"발견된 버튼 개수: {len(button_groups)}")
             button_groups[1].click()
 
-            page.wait_for_timeout(3000) 
+            page.wait_for_timeout(1500) 
             iframe = page.frame_locator("#ifrmBookStep")
             iframe.locator('input[name="YYMMDD"]').fill("800622")
             iframe.locator('input[name="CustomEtc"]').fill("283구2941")
@@ -136,3 +164,5 @@ with sync_playwright() as p:
         page.wait_for_timeout(10000) 
     
     browser.close()
+
+
