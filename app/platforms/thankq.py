@@ -114,6 +114,7 @@ class ThankQMonitor:
 
                 link = f"https://m.thankqcamping.com/resv/view.hbb?disc_per=&cseq={camp_id}&res_dt={res_dt}&res_edt={ normal_end_dt.strftime("%Y%m%d") }&res_days={stay_days}"
                 
+                
                 print(link)
 
                 site_names = [s['site_name'] for s in found_sites]

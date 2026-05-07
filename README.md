@@ -40,6 +40,7 @@ deactivate
 - pip install pystray Pillow
 - pip install playwright-stealth
 - pip install nodriver
+  pip install nest_asyncio
 
 ## GIT 사용법
 
