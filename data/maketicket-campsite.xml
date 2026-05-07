@@ -2,7 +2,7 @@
 <configuration>
     <typeName>마켓티켓</typeName>
     <type>Maketicket</type>
-    <typeOrder>10</typeOrder>
+    <typeOrder>4</typeOrder>
     <campsites>
 
         <campsite>

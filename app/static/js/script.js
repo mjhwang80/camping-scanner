@@ -84,6 +84,8 @@ const Comp = {
         document.getElementById("watchBtn").addEventListener("click", this.watchCampsite);
         //document.getElementById("stopWatchBtn").addEventListener("click", () => this.stopWatching()); //감시중지
         document.getElementById("homePageBtn").addEventListener("click", () => this.openHomePage()); //홈페이지 열기
+        document.getElementById("weatherPageBtn").addEventListener("click", () => window.open("https://www.windy.com/ko?37.549,126.658,5,p:cities")); //홈페이지 열기
+        document.getElementById("seaPageBtn").addEventListener("click", () => window.open("https://www.badatime.com/")); //홈페이지 열기
         document.getElementById("watchDate").addEventListener("change", () => this.onChangeWatchDate()); //날짜 변경 체크(인터파크)
         document.getElementById("telegramConfigBtn").addEventListener("click", () => this.openTgModal()); //텔레그램 설정
         document.getElementById("settingConfigBtn").addEventListener("click", () => this.openSettingsModal()); //환경설정 설정
@@ -888,7 +890,8 @@ const Toast = {
         // 메시지 구성 (found_sites 배열에서 이름만 추출)
         const siteNames = data.list.map((site) => site.site_name).join(", ");
 
-        if (data.link) {
+        const findNextOpenBroswerChecked = document.getElementById("findNextOpenBroswer").checked;
+        if (data.link && findNextOpenBroswerChecked) {
             window.open(data.link);
         }
 

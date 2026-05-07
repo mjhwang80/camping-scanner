@@ -98,7 +98,7 @@ class MaketicketMonitor:
                                 "ri_seq": ri_seq,                              
                                 "sd_date": start_dt,                              
                                 "lodge_day": stay_days,                              
-                                "ri_area_code": area,                              
+                                "ri_area_code": area
                             })                           
 
                 except Exception as e:
@@ -111,9 +111,12 @@ class MaketicketMonitor:
             sites_string = ", ".join(site_names)
             
             for site in found_sites:
-                pprint.pprint(site)
+                #pprint.pprint(site)
 
-                link = f"https://forest.maketicket.co.kr/ticket/{camp_id}"
+                if camp_id == "GD123":
+                    link = "https://ggtour.or.kr/camping/token/cookie/reservation.do"
+                else:
+                    link = f"https://forest.maketicket.co.kr/ticket/{camp_id}"
 
                 logger.info(f"예약 URL: {link}")
 
@@ -126,25 +129,49 @@ class MaketicketMonitor:
                 )
                 # 알림 전송                
                 await notifier.send_message(msg)
-
-                site["link"] = link
-                site["list"] = found_sites
-                site["campseq"] = camp_id
-                site["groupCode"] = groupCode
-                site["res_dt"] = start_dt
-                site["res_days"] = stay_days
-
+                
                 alert_msg = {
-                    "messageType" : "alert" 
-                    ,"data" : site
-                }
+                    "messageType" : "alert",
+                    "data" : {
+                        "campseq" : camp_id,
+                        "groupCode" : groupCode,
+                        "res_dt" : start_dt,                           
+                        "res_days" : stay_days,
+                        "link" : link,
+                        "list" : found_sites,
 
+                        "idkey" : site["idkey"],
+                        "gd_seq" : site["gd_seq"],
+                        "ri_name" : site["ri_name"],
+                        "site_name" : site["ri_name"],
+                        "ri_seq" : site["ri_seq"],                              
+                        "sd_date" : site["sd_date"],                              
+                        "lodge_day" : site["lodge_day"],                              
+                        "ri_area_code" : site["ri_area_code"]     
+                    }
+                }
+                pprint.pprint(alert_msg)
                 # 실시간 웹소켓 알림 전송
                 await ws_manager.broadcast(alert_msg)
 
                 #한바퀴만 돌고 멈춤
                 break
-                
+
+             # 시스템 트레이 알림 호출
+            try:
+                from main import tray_manager # 순환 참조 방지
+                if tray_manager:
+                    tray_manager.notify(
+                        "빈자리 알림", 
+                        f"[{params['campsiteName']}] 구역에 자리가 났습니다."
+                    )
+            except Exception as e:
+                logger.error(f"트레이 알림 호출 실패: {e}")
+            
+            # 모니터링 종료 체크
+            from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+            await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
+
             logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
             print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
 

@@ -18,6 +18,7 @@ dist/                   # 배포용 결과물
 pycache/               # 
 *.spec                  # PyInstaller 설정 파일
 camping-scanner/                   
+pw-browsers/                   
 *.zip 
 
 # 4. OS 및 에디터 관련

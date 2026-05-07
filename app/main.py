@@ -23,6 +23,7 @@ import asyncio
 from platforms.thankq import ThankQMonitor
 from platforms.interpark import InterparkMonitor
 from platforms.mirihae import MirihaeMonitor
+from platforms.maketicket import MaketicketMonitor
 
 from core.tray_icon import TrayIcon
 
@@ -326,6 +327,9 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         monitor = InterparkMonitor()
     elif platform_type == "Mirihae":
         monitor = MirihaeMonitor()
+    elif platform_type == "Maketicket":
+        monitor = MaketicketMonitor()
+        
     else:
         return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}
 
