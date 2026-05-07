@@ -95,6 +95,7 @@ class MaketicketMonitor:
                                 "idkey": groupCode,
                                 "gd_seq": camp_id,
                                 "ri_name": ri_name,
+                                "site_name": ri_name,
                                 "ri_seq": ri_seq,                              
                                 "sd_date": start_dt,                              
                                 "lodge_day": stay_days,                              

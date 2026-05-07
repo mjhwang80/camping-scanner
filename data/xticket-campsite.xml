@@ -3,37 +3,230 @@
     <typeName>X티켓</typeName>
     <type>Xticket</type>
     <desc>자동입력 방지로 인해 자동예약 불가능 합니다.</desc>
+    <homepage><![CDATA[https://camp.xticket.kr/web/main?shopEncode=]]></homepage>
     <typeOrder>5</typeOrder>
     <campsites>
         <campsite>
             <name>밀양아리랑 오토캠핑장</name>
-            <shopEncode>0f3523765986487b1b11119fe4873a55931ecf86eed6b4fb1b583a5da97397d2</shopEncode>
-            <shopCode>615830271102</shopCode>
+            <code>0f3523765986487b1b11119fe4873a55931ecf86eed6b4fb1b583a5da97397d2</code>
+            <groupCode>615830271102</groupCode>
             <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="0101">1캠핑장(오토캠핑58면)</site>
-                <site code="0201">2캠핑장(오토캠핑46면)</site>
-                <site code="0301">3캠핑장(오토캠핑46면)</site>
-                <site code="0401">캠핑카/카라반(50면)</site>
-            </sites>
-        </campsite>
+            <groups>
+                <group code="0101">1캠핑장(오토캠핑58면)</group>
+                <group code="0201">2캠핑장(오토캠핑46면)</group>
+                <group code="0301">3캠핑장(오토캠핑46면)</group>
+                <group code="0401">캠핑카/카라반(50면)</group>              
+            </groups>
+             <sites>
+                <site group="0101" code="01010001">1</site>
+                <site group="0101" code="01010002">2</site>
+                <site group="0101" code="01010003">3</site>
+                <site group="0101" code="01010004">4</site>
+                <site group="0101" code="01010005">5</site>
+                <site group="0101" code="01010006">6</site>
+                <site group="0101" code="01010007">7</site>
+                <site group="0101" code="01010008">8</site>
+                <site group="0101" code="01010009">9</site>
+                <site group="0101" code="01010010">10</site>
+                <site group="0101" code="01010011">11</site>
+                <site group="0101" code="01010012">12</site>
+                <site group="0101" code="01010013">13</site>
+                <site group="0101" code="01010014">14</site>
+                <site group="0101" code="01010015">15</site>
+                <site group="0101" code="01010016">16</site>
+                <site group="0101" code="01010017">17</site>
+                <site group="0101" code="01010018">18</site>
+                <site group="0101" code="01010019">19</site>
+                <site group="0101" code="01010020">20</site>
+                <site group="0101" code="01010021">21</site>
+                <site group="0101" code="01010022">22</site>
+                <site group="0101" code="01010023">23</site>
+                <site group="0101" code="01010024">24</site>
+                <site group="0101" code="01010025">25</site>
+                <site group="0101" code="01010026">26</site>
+                <site group="0101" code="01010027">27</site>
+                <site group="0101" code="01010028">28</site>
+                <site group="0101" code="01010029">29</site>
+                <site group="0101" code="01010030">30</site>
+                <site group="0101" code="01010031">31</site>
+                <site group="0101" code="01010032">32</site>
+                <site group="0101" code="01010033">33</site>
+                <site group="0101" code="01010034">34</site>
+                <site group="0101" code="01010035">35</site>
+                <site group="0101" code="01010036">36</site>
+                <site group="0101" code="01010037">37</site>
+                <site group="0101" code="01010038">38</site>
+                <site group="0101" code="01010039">39</site>
+                <site group="0101" code="01010040">40</site>
+                <site group="0101" code="01010041">41</site>
+                <site group="0101" code="01010042">42</site>
+                <site group="0101" code="01010043">43</site>
+                <site group="0101" code="01010044">44</site>
+                <site group="0101" code="01010045">45</site>
+                <site group="0101" code="01010046">46</site>
+                <site group="0101" code="01010047">47</site>
+                <site group="0101" code="01010048">48</site>
+                <site group="0101" code="01010049">49</site>
+                <site group="0101" code="01010050">50</site>
+                <site group="0101" code="01010051">51</site>
+                <site group="0101" code="01010052">52</site>
+                <site group="0101" code="01010053">53</site>
+                <site group="0101" code="01010054">54</site>
+                <site group="0101" code="01010055">55</site>
+                <site group="0101" code="01010056">56</site>
+                <site group="0101" code="01010057">57</site>
+                <site group="0101" code="01010058">58</site>
+                <site group="0201" code="02010001">59</site>
+                <site group="0201" code="02010002">60</site>
+                <site group="0201" code="02010003">61</site>
+                <site group="0201" code="02010004">62</site>
+                <site group="0201" code="02010005">63</site>
+                <site group="0201" code="02010006">64</site>
+                <site group="0201" code="02010007">65</site>
+                <site group="0201" code="02010008">66</site>
+                <site group="0201" code="02010009">67</site>
+                <site group="0201" code="02010010">68</site>
+                <site group="0201" code="02010011">69</site>
+                <site group="0201" code="02010012">70</site>
+                <site group="0201" code="02010013">71</site>
+                <site group="0201" code="02010014">72</site>
+                <site group="0201" code="02010015">73</site>
+                <site group="0201" code="02010016">74</site>
+                <site group="0201" code="02010017">75</site>
+                <site group="0201" code="02010018">76</site>
+                <site group="0201" code="02010019">77</site>
+                <site group="0201" code="02010020">78</site>
+                <site group="0201" code="02010021">79</site>
+                <site group="0201" code="02010022">80</site>
+                <site group="0201" code="02010023">81</site>
+                <site group="0201" code="02010024">82</site>
+                <site group="0201" code="02010025">83</site>
+                <site group="0201" code="02010026">84</site>
+                <site group="0201" code="02010027">85</site>
+                <site group="0201" code="02010028">86</site>
+                <site group="0201" code="02010029">87</site>
+                <site group="0201" code="02010030">88</site>
+                <site group="0201" code="02010031">89</site>
+                <site group="0201" code="02010032">90</site>
+                <site group="0201" code="02010033">91</site>
+                <site group="0201" code="02010034">92</site>
+                <site group="0201" code="02010035">93</site>
+                <site group="0201" code="02010036">94</site>
+                <site group="0201" code="02010037">95</site>
+                <site group="0201" code="02010038">96</site>
+                <site group="0201" code="02010039">97</site>
+                <site group="0201" code="02010040">98</site>
+                <site group="0201" code="02010041">99</site>
+                <site group="0201" code="02010042">100</site>
+                <site group="0201" code="02010043">101</site>
+                <site group="0201" code="02010044">102</site>
+                <site group="0201" code="02010045">103</site>
+                <site group="0201" code="02010046">104</site>
 
-        <campsite>
-            <name>양주시미술관옆캠핑장</name>
-            <shopEncode>aa49da0f8cd25851d5c139292c8aa729fd764d92fd786f4ff5efbb26ee087e34</shopEncode>
-            <shopCode>127821590101</shopCode>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="1001">카라반</site>
-                <site code="1002"><![CDATA[오토캠핑&일반캠핑]]></site>
+                <site group="0301" code="03010001">105</site>
+                <site group="0301" code="03010002">106</site>
+                <site group="0301" code="03010003">107</site>
+                <site group="0301" code="03010004">108</site>
+                <site group="0301" code="03010005">109</site>
+                <site group="0301" code="03010006">110</site>
+                <site group="0301" code="03010007">111</site>
+                <site group="0301" code="03010008">112</site>
+                <site group="0301" code="03010009">113</site>
+                <site group="0301" code="03010010">114</site>
+                <site group="0301" code="03010011">115</site>
+                <site group="0301" code="03010012">116</site>
+                <site group="0301" code="03010013">117</site>
+                <site group="0301" code="03010014">118</site>
+                <site group="0301" code="03010015">119</site>
+                <site group="0301" code="03010016">120</site>
+                <site group="0301" code="03010017">121</site>
+                <site group="0301" code="03010018">122</site>
+                <site group="0301" code="03010019">123</site>
+                <site group="0301" code="03010020">124</site>
+                <site group="0301" code="03010021">125</site>
+                <site group="0301" code="03010022">126</site>
+                <site group="0301" code="03010023">127</site>
+                <site group="0301" code="03010024">128</site>
+                <site group="0301" code="03010025">129</site>
+                <site group="0301" code="03010026">130</site>
+                <site group="0301" code="03010027">131</site>
+                <site group="0301" code="03010028">132</site>
+                <site group="0301" code="03010029">133</site>
+                <site group="0301" code="03010030">134</site>
+                <site group="0301" code="03010031">135</site>
+                <site group="0301" code="03010032">136</site>
+                <site group="0301" code="03010033">137</site>
+                <site group="0301" code="03010034">138</site>
+                <site group="0301" code="03010035">139</site>
+                <site group="0301" code="03010036">140</site>
+                <site group="0301" code="03010037">141</site>
+                <site group="0301" code="03010038">142</site>
+                <site group="0301" code="03010039">143</site>
+                <site group="0301" code="03010040">144</site>
+                <site group="0301" code="03010041">145</site>
+                <site group="0301" code="03010042">146</site>
+                <site group="0301" code="03010043">147</site>
+                <site group="0301" code="03010044">148</site>
+                <site group="0301" code="03010045">149</site>
+                <site group="0301" code="03010046">150</site>
+                <site group="0401" code="04010001">151</site>
+                <site group="0401" code="04010002">152</site>
+                <site group="0401" code="04010003">153</site>
+                <site group="0401" code="04010004">154</site>
+                <site group="0401" code="04010005">155</site>
+                <site group="0401" code="04010006">156</site>
+                <site group="0401" code="04010007">157</site>
+                <site group="0401" code="04010008">158</site>
+                <site group="0401" code="04010009">159</site>
+                <site group="0401" code="04010010">160</site>
+                <site group="0401" code="04010011">161</site>
+                <site group="0401" code="04010012">162</site>
+                <site group="0401" code="04010013">163</site>
+                <site group="0401" code="04010014">164</site>
+                <site group="0401" code="04010015">165</site>
+                <site group="0401" code="04010016">166</site>
+                <site group="0401" code="04010017">167</site>
+                <site group="0401" code="04010018">168</site>
+                <site group="0401" code="04010019">169</site>
+                <site group="0401" code="04010020">170</site>
+                <site group="0401" code="04010021">171</site>
+                <site group="0401" code="04010022">172</site>
+                <site group="0401" code="04010023">173</site>
+                <site group="0401" code="04010024">174</site>
+                <site group="0401" code="04010025">175</site>
+                <site group="0401" code="04010026">176</site>
+                <site group="0401" code="04010027">177</site>
+                <site group="0401" code="04010028">178</site>
+                <site group="0401" code="04010029">179</site>
+                <site group="0401" code="04010030">180</site>
+                <site group="0401" code="04010031">181</site>
+                <site group="0401" code="04010032">182</site>
+                <site group="0401" code="04010033">183</site>
+                <site group="0401" code="04010034">184</site>
+                <site group="0401" code="04010035">185</site>
+                <site group="0401" code="04010036">186</site>
+                <site group="0401" code="04010037">187</site>
+                <site group="0401" code="04010038">188</site>
+                <site group="0401" code="04010039">189</site>
+                <site group="0401" code="04010040">190</site>
+                <site group="0401" code="04010041">191</site>
+                <site group="0401" code="04010042">192</site>
+                <site group="0401" code="04010043">193</site>
+                <site group="0401" code="04010044">194</site>
+                <site group="0401" code="04010045">195</site>
+                <site group="0401" code="04010046">196</site>
+                <site group="0401" code="04010047">197</site>
+                <site group="0401" code="04010048">198</site>
+                <site group="0401" code="04010049">199</site>
+                <site group="0401" code="04010050">100</site>
+               
             </sites>
-        </campsite>
-
+        </campsite>        
 
         <campsite>
             <name>벽계야영장</name>
-            <shopEncode>d92f3bd48a33183707d6d8bfce8238949624e25b7f23c18487570e3edac7fc3e</shopEncode>
-            <shopCode>577010123901</shopCode>
+            <code>d92f3bd48a33183707d6d8bfce8238949624e25b7f23c18487570e3edac7fc3e</code>
+            <groupCode>577010123901</groupCode>
             <maxStayDay>3</maxStayDay>
             <sites>
                 <site code="0001"><![CDATA[제1야영장( 오토캠핑)]]></site>
@@ -48,29 +241,19 @@
 
         <campsite>
             <name>칠곡보오토캠핑장</name>
-            <shopEncode>3b8dfd4fe83ef398626319d169929b5df473aafca57da427af869db901ce8b86</shopEncode>
-            <shopCode>504830064001</shopCode>
+            <code>3b8dfd4fe83ef398626319d169929b5df473aafca57da427af869db901ce8b86</code>
+            <groupCode>504830064001</groupCode>
             <maxStayDay>3</maxStayDay>
             <sites>
                 <site code="0101"><![CDATA[오토캠핑장]]></site>
             </sites>
         </campsite>
 
-        <campsite>
-            <name>광주시민의숲(신)</name>
-            <shopEncode>0d1fe2a656f145151b3a890a13a0171d61db84b1a5dc4b35d3b1d4bd938c381d</shopEncode>
-            <shopCode>409830379302</shopCode>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="0101"><![CDATA[자동차야영장]]></site>
-                <site code="0201"><![CDATA[일반야영장]]></site>
-            </sites>
-        </campsite>
-
+     
         <campsite>
             <name>거장산오토캠핑장</name>
-            <shopEncode>667c173243c00bb69154fdc8cf5375732d317848177955d49f25856aa246b6ce</shopEncode>
-            <shopCode>608830190302</shopCode>
+            <code>667c173243c00bb69154fdc8cf5375732d317848177955d49f25856aa246b6ce</code>
+            <groupCode>608830190302</groupCode>
             <maxStayDay>3</maxStayDay>
             <sites>
                 <site code="0001"><![CDATA[오캠 야영지]]></site>
@@ -80,45 +263,22 @@
             </sites>
         </campsite>
 
-        <campsite>
-            <name>서울 노원힐링킴핑장</name>
-            <shopEncode>7abfdde5d17b791a8b30c36ab6d1a53709c43a436f153880802d3c6a7c38a637</shopEncode>
-            <shopCode>217820482302</shopCode>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="0001">캠핑부지</site>
-                <site code="0002">VIP</site>
-                <site code="0003">편한존</site>
-                <site code="0004">세미방갈로</site>
-                <site code="0005">방갈로</site>
-                <site code="0006">2가족용</site>
-                <site code="0007">피크닉존(당일이용)</site>
-            </sites>
-        </campsite>
+   
 
         <campsite>
             <name>금산 인삼골오토캠핑장</name>
-            <shopEncode>15e1aaac36257a8e149e7dbb83f15fc65715e5f3d4b7687daf6165ce78c5ccf7</shopEncode>
+            <code>15e1aaac36257a8e149e7dbb83f15fc65715e5f3d4b7687daf6165ce78c5ccf7</code>
             <shopCode>305830128401</shopCode>
             <maxStayDay>4</maxStayDay>
             <sites>
                 <site code="0101">오토캠핑장</site>
             </sites>
         </campsite>
-
-        <campsite>
-            <name>서울 중랑구캠핑장</name>
-            <shopEncode>3ca13d7e35f571dd445d29950216553a5ece8a50aa56784c7a287e2f4f438131</shopEncode>
-            <shopCode>214881968700</shopCode>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="0001">캠핑장</site>
-            </sites>
-        </campsite>
+      
 
         <campsite>
             <name>강동 그린웨이 가족캠핑장</name>
-            <shopEncode>5f9422e223671b122a7f2c94f4e15c6f71cd1a49141314cf19adccb98162b5b0</shopEncode>
+            <code>5f9422e223671b122a7f2c94f4e15c6f71cd1a49141314cf19adccb98162b5b0</code>
             <shopCode>409830379302</shopCode>
             <maxStayDay>3</maxStayDay>
             <sites>
@@ -130,7 +290,7 @@
 
         <campsite>
             <name>하동군 평사리공원야영장</name>
-            <shopEncode>9a70806d9ece939f91136278845d34c118219969c03be87baf58f1c3f6733b31</shopEncode>
+            <code>9a70806d9ece939f91136278845d34c118219969c03be87baf58f1c3f6733b31</code>
             <shopCode>614830002501</shopCode>
             <maxStayDay>6</maxStayDay>
             <sites>
@@ -141,7 +301,7 @@
 
         <campsite>
             <name>함안군 강나루오토캠핑장</name>
-            <shopEncode>0ca2dbc468034c0554a59d50a00e1fa0d273547243cd913e8ffc7fe403c13729</shopEncode>
+            <code>0ca2dbc468034c0554a59d50a00e1fa0d273547243cd913e8ffc7fe403c13729</code>
             <shopCode>608830132002</shopCode>
             <maxStayDay>2</maxStayDay>
             <sites>
@@ -152,7 +312,7 @@
 
         <campsite>
             <name>김해 생림오토캠핑장</name>
-            <shopEncode>f5f32b56abe23f9aec682e337c7ee65772a4438ff09b56823d4c7d2a7528d940</shopEncode>
+            <code>f5f32b56abe23f9aec682e337c7ee65772a4438ff09b56823d4c7d2a7528d940</code>
             <shopCode>622830018001</shopCode>
             <maxStayDay>2</maxStayDay>
             <sites>
@@ -163,7 +323,7 @@
 
         <campsite>
             <name>광주 승촌보캠핑장</name>
-            <shopEncode>a1535c44b7b5b3ab38fd902f0c58f8600f1a57e45999ac4b1a7b8c321f1d2df5</shopEncode>
+            <code>a1535c44b7b5b3ab38fd902f0c58f8600f1a57e45999ac4b1a7b8c321f1d2df5</code>
             <shopCode>410821268801</shopCode>
             <maxStayDay>2</maxStayDay>
             <sites>
@@ -174,7 +334,7 @@
 
         <campsite>
             <name>대구 달서별빛캠프</name>
-            <shopEncode>f27ad3485cf140b64341e2cc975c376d14561a12aca07349ae393d97379882c7</shopEncode>
+            <code>f27ad3485cf140b64341e2cc975c376d14561a12aca07349ae393d97379882c7</code>
             <shopCode>514830218801</shopCode>
             <maxStayDay>3</maxStayDay>
             <sites>

@@ -108,7 +108,7 @@ class MirihaeMonitor:
 
         async with httpx.AsyncClient() as client:
             try:
-                response = await client.post(url, data=data, headers=current_headers,  cookies={"auth": "token"}, timeout=10.0)
+                response = await client.post(url, data=data, headers=current_headers,   cookies={"auth": "token"}, timeout=10.0)
 
                 result = response.json()
 
