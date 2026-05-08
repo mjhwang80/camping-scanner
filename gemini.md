@@ -21,6 +21,7 @@
 - /camping-scanner/app/platforms/thankq.py # 땡큐캠핑 크롤링 로직
 - /camping-scanner/app/platforms/maketicket.py # 메이크티켓 크롤링 로직
 - /camping-scanner/app/platforms/xticket.py # X티켓 크롤링 로직
+- /camping-scanner/app/platforms/camplink.py # camplink 크롤링 로직
 - /camping-scanner/app/services # 비즈니스 로직 처리 (모니터링 서비스 등)
 - /camping-scanner/app/services/monitor_service.py
 - /camping-scanner/app/services/notification.py

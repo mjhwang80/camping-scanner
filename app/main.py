@@ -25,6 +25,8 @@ from platforms.interpark import InterparkMonitor
 from platforms.mirihae import MirihaeMonitor
 from platforms.maketicket import MaketicketMonitor
 from platforms.xticket import XticketMonitor
+from platforms.campingtalk import CampingtalkQMonitor
+from platforms.camplink import CamplinkMonitor
 
 from core.tray_icon import TrayIcon
 
@@ -334,7 +336,10 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         monitor = MaketicketMonitor()
     elif platform_type == "Xticket":
         monitor = XticketMonitor()
-        
+    elif platform_type == "Campingtalk":
+        monitor = CampingtalkQMonitor()    
+    elif platform_type == "Camplink":
+        monitor = CamplinkMonitor()        
         
     else:
         return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}
