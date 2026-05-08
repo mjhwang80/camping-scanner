@@ -37,6 +37,8 @@ from core.websocket_manager import ws_manager
 from core.config_loader import load_full_config, save_config
 from core.browser_handler import get_browser_path
 
+from playwright.async_api import async_playwright
+
 import logging
 
 try:
@@ -499,6 +501,42 @@ async def save_info(info: dict = Body(...)):
     logger.info("[*] 시스템 환경설정이 업데이트되었습니다.")
     return {"status": "success"}
 
+@app.post("/api/auth/interpark-session")
+async def create_interpark_session():
+    async with async_playwright() as p:
+        # 1. 브라우저 실행 (사용자가 봐야 하므로 headless=False)
+        browser = await p.chromium.launch(
+            headless=False, 
+            args=["--disable-blink-features=AutomationControlled"]
+        )
+        context = await browser.new_context()
+        page = await context.new_page()
+
+        # 브라우저가 닫혔는지 확인할 플래그
+        closed_event = asyncio.Event()
+
+        # 사용자가 브라우저 탭이나 창을 닫을 때 실행될 콜백
+        async def on_close(p):
+            print("[*] 사용자가 브라우저를 닫았습니다. 세션을 저장합니다.")
+            # 창이 닫히기 직전 혹은 직후에 상태 저장
+            await context.storage_state(path="interpark_auth.json")
+            closed_event.set()
+
+        page.on("close", on_close)
+
+        # 2. 인터파크 상품 페이지로 이동
+        await page.goto("https://nol.interpark.com/ticket")
+        
+        # 3. 브라우저가 닫힐 때까지 대기 (사용자가 로그인을 완료하고 직접 브라우저를 닫음)
+        # 또는 특정 성공 페이지 URL이 나타날 때까지 대기하도록 설정 가능
+        print("[*] 사용자의 로그인 작업 대기 중...")
+
+        # 3. 사용자가 창을 닫을 때까지 비동기로 무한 대기
+        await closed_event.wait()
+
+        await browser.close()        
+        
+        return {"status": "success", "message": "interpark_auth.json 저장 완료"}
 
 def check_expiration():
     # 현재 시간 확인 (2026년 5월 30일 기준)

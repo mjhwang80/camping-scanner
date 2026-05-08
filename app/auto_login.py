@@ -7,24 +7,6 @@ from urllib.parse import urlparse, parse_qs
 from playwright.sync_api import expect
 
 
-
-def check_auth_json(self):
-
-    user_data_path = f"C:\Users\\{os.getlogin()}\\AppData\\Local\\Google\\Chrome\\User Data"
-    
-    with sync_playwright() as p:
-        context = p.chromium.launch_persistent_context(
-            user_data_dir=user_data_path,
-            channel="chrome"
-            headless=True,
-            slow_mo=500
-        )
-
-        page = context.pages[0]
-        page.goto("https://tickets.interpark.com/goods/21005592")
-
-
-
 # 1. 외부 다운로드 없이 핵심 스텔스 로직 직접 정의
 stealth_scripts = """
     Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
@@ -35,18 +17,18 @@ stealth_scripts = """
 
 with sync_playwright() as p:
 
+    #파라미터 정보
     site_code = "RGN001"
     play_date = "20260519"
     play_seq = "G64,G65"
-    goods_code = "21005592"
+    goods_code = "21005592"   
 
-    
 
     browser = p.chromium.launch(
         headless=False,
         args=["--disable-blink-features=AutomationControlled"]
     )
-    context = browser.new_context(storage_state="auth.json")
+    context = browser.new_context(storage_state="interpark_auth.json")
     page = context.new_page()
 
     page.add_init_script(stealth_scripts)

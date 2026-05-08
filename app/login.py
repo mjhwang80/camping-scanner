@@ -28,7 +28,4 @@ with sync_playwright() as p:
     
     print("✅ 로그인 상태가 'auth.json' 파일로 안전하게 저장되었습니다!")
 
-
-
-
     browser.close()

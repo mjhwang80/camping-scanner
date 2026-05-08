@@ -56,6 +56,8 @@ class MirihaeMonitor:
         camp_id = params.get("camp_id")
         groupCode = params.get("groupCode")
         hasCategory = params.get("hasCategory") #그룹으로 찾을지 사이트로 찾을지
+
+        auto_reserve = params.get("autoReserve", "N") #자동 예약
         
         uuid = params.get("watchUuid")
         req_date = params.get("date") # 예: "2026-05-14"

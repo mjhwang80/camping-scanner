@@ -38,6 +38,8 @@ class MaketicketMonitor:
         uuid = params.get("watchUuid")
         campsiteName = params.get("campsiteName")
 
+        auto_reserve = params.get("autoReserve", "N") #자동 예약
+
         #예약 정보
         req_date = params.get("date") # 예: "2026-05-14"
         stay_days = int(params.get("stay_day", "1"))

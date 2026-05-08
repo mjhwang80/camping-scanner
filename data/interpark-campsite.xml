@@ -11,12 +11,13 @@
             <code>22005895</code>
             <maxStayDay>2</maxStayDay>
             <sites>
-                <site code="1" match="RGN001">오토캠핑존</site>
-                <site code="2" match="RGN002">시민가족캠핑존</site>
-                <site code="51" match="RGN003">카라반A</site>
-                <site code="52" match="RGN003">카라반B</site>
-                <site code="53" match="RGN005">카라반C</site>
+                <site code="1:RGN001">오토캠핑존</site>
+                <site code="2:RGN002">시민가족캠핑존</site>
+                <site code="51:RGN003">카라반A</site>
+                <site code="52:RGN003">카라반B</site>
+                <site code="53:RGN005">카라반C</site>
             </sites>
+            <isSupportAutoReservation desc="자동 예약 지원 여부">N</isSupportAutoReservation>
         </campsite>
 
         <campsite>
@@ -24,11 +25,11 @@
             <code>21005592</code>
             <maxStayDay>3</maxStayDay>
             <sites>
-                <site code="1" match="RGN001">언덕야영장(파쇄석)</site>
-                <site code="2" match="RGN002|RGN007">강변야영장(파쇄석)</site>
-                <site code="31" match="RGN005">캐빈하우스</site>
-                <site code="51" match="RGN006">캐라반</site>
-                <site code="54" match="RGN006">캐라반(캐릭터)</site>
+                <site code="1:RGN001">언덕야영장(파쇄석)</site>
+                <site code="2:RGN002|RGN007">강변야영장(파쇄석)</site>
+                <site code="31:RGN005">캐빈하우스</site>
+                <site code="51:RGN006">캐라반</site>
+                <site code="54:RGN006">캐라반(캐릭터)</site>
             </sites>
             <discound>
                 <item name="PriceType" id="PriceType" value="0">주중가_연천군민할인20%</item>
@@ -42,10 +43,9 @@
                 <item name="PriceType" id="PriceType" value="8">주중가_연천군 관광주민 할인 20%</item>
                 <item name="PriceType" id="PriceType" value="9">주중가_아우른 군민 할인 20%</item>
                 <item name="PriceType" id="PriceType" value="10">주중가_한부모 가정  할인 20%</item>
-                <item name="PriceType" id="PriceType" value="11">주중가(비수기)</item>
-                
-                 
+                <item name="PriceType" id="PriceType" value="11">주중가(비수기)</item>              
             </discound>
+            <isSupportAutoReservation desc="자동 예약 지원 여부">Y</isSupportAutoReservation>
         </campsite>
 
         <campsite>
@@ -53,10 +53,11 @@
             <code>22016459</code>
             <maxStayDay>6</maxStayDay>
             <sites>
-                <site code="1" match="RGN001|RGN002">오토캠핑장</site>
-                <site code="52" match="RGN004">캐라반2인</site>
-                <site code="51" match="RGN004">캐라반4인</site>
+                <site code="1:RGN001|RGN002">오토캠핑장</site>
+                <site code="52:RGN004">캐라반2인</site>
+                <site code="51:RGN004">캐라반4인</site>
             </sites>
+            <isSupportAutoReservation desc="자동 예약 지원 여부">Y</isSupportAutoReservation>
         </campsite>
 
         <campsite>
@@ -64,13 +65,14 @@
             <code>24005552</code>
             <maxStayDay>6</maxStayDay>
             <sites>
-                <site code="1" match="RGN001">A존 캠핑 데크</site>
-                <site code="2" match="RGN002">B존 오토캠핑 데크</site>
-                <site code="3" match="RGN003">글램핑</site>
-                <site code="51" match="RGN004">유럽카라반 2인</site>
-                <site code="52" match="RGN005">유럽카라반 4인</site>
-                <site code="53" match="RGN006">정박형카라반</site>
+                <site code="1:RGN001">A존 캠핑 데크</site>
+                <site code="2:RGN002">B존 오토캠핑 데크</site>
+                <site code="3:RGN003">글램핑</site>
+                <site code="51:RGN004">유럽카라반 2인</site>
+                <site code="52:RGN005">유럽카라반 4인</site>
+                <site code="53:RGN006">정박형카라반</site>
             </sites>
+            <isSupportAutoReservation desc="자동 예약 지원 여부">Y</isSupportAutoReservation>
         </campsite>
 
         <campsite>
@@ -78,7 +80,7 @@
             <code>21009223</code>
             <maxStayDay>2</maxStayDay>
             <sites>
-                <site code="1" match="RGN001|RGN002">캠핑장</site>
+                <site code="1:RGN001|RGN002">캠핑장</site>
             </sites>
         </campsite>
 x
@@ -87,8 +89,8 @@ x
             <code>20003623</code>
             <maxStayDay>1</maxStayDay>
             <sites>
-                <site code="1" match="RGN001|RGN002|RGN003|RGN004">캠핑권</site>
-                <site code="5" match="RGN001">이지캠핑권</site>
+                <site code="1:RGN001|RGN002|RGN003|RGN004">캠핑권</site>
+                <site code="5:RGN001">이지캠핑권</site>
             </sites>
         </campsite>        
         
@@ -97,7 +99,7 @@ x
             <code>20003499</code>
             <maxStayDay>2</maxStayDay>
             <sites>
-                <site code="1">캠핑장</site>
+                <site code="1:RGN001">캠핑장</site>
             </sites>
         </campsite>   
 
@@ -106,9 +108,9 @@ x
             <code>20008285</code>
             <maxStayDay>6</maxStayDay>
             <sites>
-                <site code="1" match="RGN001">캠핑</site>
-                <site code="2" match="RGN001">폴딩텐트</site>
-                <site code="51" match="RGN001">카라반</site>
+                <site code="1:RGN001">캠핑</site>
+                <site code="2:RGN001">폴딩텐트</site>
+                <site code="51:RGN001">카라반</site>
             </sites>
         </campsite>
 

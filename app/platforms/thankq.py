@@ -37,6 +37,8 @@ class ThankQMonitor:
         req_date = params.get("date")
         stay_days = int(params.get("stay_day", "1"))
 
+        auto_reserve = params.get("autoReserve", "N") #자동 예약
+
         # 1. 문자열을 datetime 객체로 변환
         start_dt = datetime.strptime(req_date, "%Y-%m-%d")
         # 2. 종료일 계산: (숙박일수 - 1)을 더함

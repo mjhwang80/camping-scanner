@@ -16,6 +16,7 @@
 - /camping-scanner/app/platforms # 사이트별 크롤링 모듈 (전략 패턴)
 - /camping-scanner/app/platforms/base.py # 추상 베이스 클래스
 - /camping-scanner/app/platforms/interpark.py # 인터파크 크롤링 로직
+- /camping-scanner/app/platforms/interpark_reserver.py # 자동예약처리 로직
 - /camping-scanner/app/platforms/mirihae.py # 미래해 크롤링 로직
 - /camping-scanner/app/platforms/thankq.py # 땡큐캠핑 크롤링 로직
 - /camping-scanner/app/platforms/maketicket.py # 메이크티켓 크롤링 로직

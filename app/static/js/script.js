@@ -227,6 +227,14 @@ const Comp = {
             autoReserveArea.classList.add("hidden");
         }
 
+        // 인터파크일 때만 패널 노출
+        const authPanel = document.getElementById("interparkAuthPanel");
+        if (type === "Interpark" && supportAuto === "Y") {
+            authPanel.classList.remove("hidden");
+        } else {
+            authPanel.classList.add("hidden");
+        }
+
         this.generatorMaxDayOption(site);
         this.generatorSiteChecker(site);
     },
@@ -394,6 +402,10 @@ const Comp = {
         const findNextRunChecked = document.getElementById("findNextRun").checked;
         const findNextRunValue = findNextRunChecked ? "N" : "Y";
 
+        //자동 예약
+        const autoReserveChecked = document.getElementById("autoReserve").checked;
+        const autoReserveValue = autoReserveChecked ? "Y" : "N";
+
         if (parent.checkExistingMonitoring(watchUuid)) {
             alert("이미 동일한 감시 항목이 존재합니다.");
             return;
@@ -428,6 +440,7 @@ const Comp = {
             watchUuid: watchUuid, // UUID for tracking the monitoring session
             groupCode: groupCode, //그룹코드 하위 그룹이 있을 경우
             hasCategory: hasCategory, //사이트 목록의 상위 그룹이 포함된건지 체크
+            autoReserve: autoReserveValue, //자동 예약 수행 여부
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
             site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
         };
@@ -681,7 +694,24 @@ const Comp = {
             }
         }
     },
+    //인터파크 모달창
+    renewInterparkSession: async function () {
+        if (!confirm("로그인 브라우저를 실행하시겠습니까? \n로그인 완료 후 브라우저 창을 직접 닫아주세요.")) return;
 
+        Logger.addLog("인터파크 로그인 세션 갱신 시작...", "system");
+
+        try {
+            const response = await fetch("/api/auth/interpark-session", { method: "POST" });
+            const result = await response.json();
+
+            if (result.status === "success") {
+                Logger.addLog("세션 저장 완료", "info");
+                alert("로그인 세션이 성공적으로 저장되었습니다.");
+            }
+        } catch (error) {
+            Logger.addLog("세션 갱신 실패", "error");
+        }
+    },
     bindAllCheckEvent: function () {
         const allCheck = document.getElementById("allCheck");
         const groupChecks = document.querySelectorAll(".group-item");

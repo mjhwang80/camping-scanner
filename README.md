@@ -40,7 +40,8 @@ deactivate
 - pip install pystray Pillow
 - pip install playwright-stealth
 - pip install nodriver
-  pip install nest_asyncio
+- pip install nest_asyncio
+- pip install python-telegram-bot
 
 ## GIT 사용법
 
