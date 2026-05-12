@@ -1,6 +1,6 @@
 server:
     port: 7777
-    host: 127.0.0.1
+    host: 0.0.0.0
 telegram:
     use_yn: Y
     token: 5626123:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk

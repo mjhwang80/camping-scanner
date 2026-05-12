@@ -147,7 +147,6 @@ def load_campsites():
         "땡큐캠핑": "thankqcamping-campsite.xml",
         "캠핑톡": "campingtalk-campsite.xml",
         "네이버": "naver-campsite.xml",
-        "포캠퍼": "forcamper-campsite.xml",
         "캠핏": "camfit-campsite.xml",
         "미리해": "mirihae-campsite.xml",
         "기타": "etc-campsite.xml"
