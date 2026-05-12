@@ -42,6 +42,13 @@ function closeTgModal() {
     document.getElementById("telegramModal").classList.add("hidden");
 }
 
+// [추가] 모바일에서 뒤로가기 버튼 등으로 메뉴 닫기 대응
+window.addEventListener("popstate", function () {
+    if (!document.getElementById("menuLayer").classList.contains("hidden-layer")) {
+        toggleMenu();
+    }
+});
+
 async function confirmShutdown() {
     if (confirm("프로그램을 완전히 종료하시겠습니까?")) {
         try {
@@ -237,6 +244,11 @@ const Comp = {
 
         this.generatorMaxDayOption(site);
         this.generatorSiteChecker(site);
+
+        // [추가] 모바일 대응: 캠핑장 선택 시 상세 패널로 자동 스크롤
+        if (window.innerWidth < 768) {
+            document.getElementById("reservationPanel").scrollIntoView({ behavior: "smooth" });
+        }
     },
     onChangeWatchDate: function (e) {
         const type = Comp.currentCampsiteData.getElementsByTagName("type")[0]?.textContent;

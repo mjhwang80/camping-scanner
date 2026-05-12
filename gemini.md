@@ -58,320 +58,1318 @@
 
 ## 2. 질문 사항
 
-- [] ** 토큰 추출 :** 여러단계를 리다이렉트 하는거 같은데 끝가지 가도록 할 수 있어?.
+- [] ** 반응형 서비스 구축 :** 모바일로 접속해서 조작할 수 있도록 반응형으로 만들고 싶어.
 
 ## 3. 분석 대상 코드
 
-### [/camping-scanner/app/platforms/mirihae.py]
+### [/camping-scanner/app/static/css/style.css]
 
-```python
-from fastapi import params
-import httpx
-import asyncio
-from bs4 import BeautifulSoup
-import pprint  # Java의 Pretty Printer (Jackson 등) 역할
-import re
-from datetime import datetime, timedelta
+```css
+@import url("https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap");
 
-import logging
+body {
+    font-family: "Pretendard", sans-serif;
+    background-color: #f1f5f9;
+}
 
-from base import CampingMonitor
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
 
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 10px;
+}
 
-# 로거 가져오기
-logger = logging.getLogger("camping.mirihae")
+.hidden-layer {
+    transform: translateX(100%);
+}
 
+#menuLayer {
+    transition: transform 0.3s ease-in-out;
+}
 
-class MirihaeMonitor:
-
-    def __init__(self):
-        self.execution_count = 0  # 실행 횟수를 저장할 변수
-        self.token = None  # 토큰정보
-
-    async def check_availability(self, params: dict):
-
-        camp_id = params.get("camp_id")
-
-
-
-        token = await self.get_token(params)
-
-        print(token)
-
-        return True
-
-
-    async def get_token(self, params: dict):
-        camp_id = params.get("camp_id")
-
-        url = f"https://mirihae.com/pccamp/campsite/{camp_id}"
-
-        headers = {
-             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            ,"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
-            ,"Referer": "https://mirihae.com/"
-            ,"Upgrade-Insecure-Requests": "1"
-        }
-
-        async with httpx.AsyncClient(follow_redirects=True) as client:
-            try:
-                response = await client.get(url, headers=headers, timeout=15.0)
-                response.raise_for_status()
-
-                # 최종 도달한 페이지에서 BeautifulSoup으로 토큰 추출
-                soup = BeautifulSoup(response.text, "html.parser")
-                token_element = soup.find(id="tocken")
-
-                if token_element:
-                    self.token = token_element.get("value")
-                    logger.info(f"[*] 리다이렉트 완료 후 토큰 획득 성공: {self.token}")
-                else:
-                    logger.warning("[!] 토큰 엘리먼트를 찾을 수 없습니다. 보안 단계가 추가되었을 수 있습니다.")
-
-            except Exception as e:
-                logger.error(f"[!] 리다이렉트 추적 중 오류 발생: {e}")
-
-        return self.token
-
-
-
-if __name__ == "__main__":
-    # 테스트용 파라미터 (Map 구조)
-    test_params = {
-        "camp_id": "C27562955",       # 가평 용소캠핑장 예시
-        "date": "2026-05-14",   # 예약 희망일
-        "stay_day": 1,
-        "site_codes": []
-    }
-
-    # 비동기 함수를 실행하기 위한 엔트리 포인트
-    try:
-        print("=== 미리해 독립 실행 테스트 시작 ===")
-        asyncio.run(MirihaeMonitor().check_availability(test_params))
-    except KeyboardInterrupt:
-        print("\n중단되었습니다.")
+select,
+input {
+    border: 1px solid #d1d5db !important;
+}
 ```
 
-## 1. 질문 사항
+### [/camping-scanner/app/static/js/script.js]
 
-- [] ** 세센 유지 :** 요청시 세션을 유지할 수 있는 방법이 없을까?
+```javascript
+const resizer = document.getElementById("footer-resizer");
+const footer = document.getElementById("main-footer");
 
-## 2. 분석 대상 코드
+let isResizing = false;
+resizer.addEventListener("mousedown", (e) => {
+    isResizing = true;
+    // 드래그 중 텍스트 선택 방지
+    document.body.style.userSelect = "none";
+    resizer.classList.add("bg-indigo-500");
+});
 
-### [/camping-scanner/app/platforms/xticket.py]
+document.addEventListener("mousemove", (e) => {
+    if (!isResizing) return;
 
-```python
-from fastapi import params
-import httpx
-import asyncio
-from bs4 import BeautifulSoup
-import pprint  # Java의 Pretty Printer (Jackson 등) 역할
-import re
-from datetime import datetime, timedelta
+    // 전체 화면 높이에서 마우스의 현재 Y좌표를 빼서 footer의 높이를 계산
+    const newHeight = window.innerHeight - e.clientY;
 
-import logging
+    // 최소 높이(50px)와 최대 높이(화면의 80%) 제한
+    if (newHeight > 50 && newHeight < window.innerHeight * 0.8) {
+        footer.style.height = `${newHeight}px`;
+    }
+});
 
-from .base import CampingMonitor
-from core.notifier import notifier
+document.addEventListener("mouseup", () => {
+    isResizing = false;
+    document.body.style.userSelect = "auto";
+    resizer.classList.remove("bg-indigo-500");
+});
 
-from core.websocket_manager import ws_manager
-from core.termination_handler import handle_monitoring_stop
-from core.ua_generator import UAGenerator
-from core.browser_handler import BrowserHandler
-import time
-import logging
+function toggleMenu() {
+    document.getElementById("menuLayer").classList.toggle("hidden-layer");
+    document.getElementById("overlay").classList.toggle("hidden");
+}
 
-# 로거 가져오기
-logger = logging.getLogger("camping.xticket")
+// 2. 모달 제어 함수 (전역으로 선언)
+function openTgModal() {
+    document.getElementById("telegramModal").classList.remove("hidden");
+    toggleMenu(); // 사이드 메뉴 닫기
+}
 
+function closeTgModal() {
+    document.getElementById("telegramModal").classList.add("hidden");
+}
 
-class XticketMonitor:
+async function confirmShutdown() {
+    if (confirm("프로그램을 완전히 종료하시겠습니까?")) {
+        try {
+            const response = await fetch("/api/shutdown", { method: "POST" });
+            const result = await response.json();
 
-    def __init__(self):
-        self.execution_count = 0  # 실행 횟수를 저장할 변수
-        self.client = httpx.AsyncClient(timeout=15.0, )
-        self.cookies_initialized = False
+            if (result.status === "success") {
+                document.body.innerHTML = `
+                <div class="flex flex-col h-screen items-center justify-center bg-slate-900 text-white">
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-6xl mb-6"></i>
+                    <h1 class="text-3xl font-black mb-2">SYSTEM SHUTDOWN</h1>
+                    <p class="text-slate-400">프로그램이 안전하게 종료되었습니다. 이 창을 닫으셔도 됩니다.</p>
+                </div>
+              `;
+                setTimeout(() => {
+                    window.close();
+                }, 2000);
+            }
+        } catch (error) {
+            console.error("종료 요청 중 오류 발생:", error);
+            alert("서버 통신 오류가 발생했습니다.");
+        }
+    }
+}
 
-    async def check_availability(self, params: dict):
+const Comp = {
+    currentCampsiteData: null,
+    interparkStayOption: {}, //인터파크 박수 지정 옵션 값
 
-        self.execution_count += 1  # 호출될 때마다 1 증가
-        print(f"[*] {params['camp_id']} xticket 조회 중...")
+    init: function () {
+        this.initComponent();
+        this.bindEvents();
+        this.changeFlatform();
+        this.changeFlatform();
+        this.restoreMonitoringList();
+    },
 
-        #기본 값
-        camp_id = params.get("camp_id")
-        groupCode = params.get("groupCode") #idKey
-        uuid = params.get("watchUuid")
-        campsiteName = params.get("campsiteName")
+    bindEvents: function () {
+        document.getElementById("platformSelect").addEventListener("change", this.changeFlatform);
+        document.getElementById("watchBtn").addEventListener("click", this.watchCampsite);
+        //document.getElementById("stopWatchBtn").addEventListener("click", () => this.stopWatching()); //감시중지
+        document.getElementById("homePageBtn").addEventListener("click", () => this.openHomePage()); //홈페이지 열기
+        document.getElementById("weatherPageBtn").addEventListener("click", () => window.open("https://www.windy.com/ko?37.549,126.658,5,p:cities")); //홈페이지 열기
+        document.getElementById("seaPageBtn").addEventListener("click", () => window.open("https://www.badatime.com/")); //홈페이지 열기
+        document.getElementById("watchDate").addEventListener("change", () => this.onChangeWatchDate()); //날짜 변경 체크(인터파크)
+        document.getElementById("telegramConfigBtn").addEventListener("click", () => this.openTgModal()); //텔레그램 설정
+        document.getElementById("settingConfigBtn").addEventListener("click", () => this.openSettingsModal()); //환경설정 설정
+    },
 
-        #예약 정보
-        req_date = params.get("date") # 예: "2026-05-14"
-        stay_days = int(params.get("stay_day", "1"))
+    initComponent: function () {
+        const dateInput = document.getElementById("watchDate");
 
+        const today = moment().format("YYYY-MM-DD");
+        const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
+        dateInput.min = tomorrow;
+        dateInput.value = tomorrow;
+    },
 
-        start_datetime = datetime.strptime(req_date, "%Y-%m-%d")
-        end_dt = start_datetime + timedelta(days=stay_days - 1)
+    changeFlatform: async function () {
+        const selectEl = document.getElementById("platformSelect");
+        const listContainer = document.getElementById("campsiteList");
+        const filename = selectEl.value; // 예: "camfit-campsite.xml"
 
-        start_dt = req_date = req_date.replace("-", "")
+        // 1. 선택된 옵션의 텍스트(플랫폼 이름) 가져오기
+        const selectedPlatformName = selectEl.options[selectEl.selectedIndex].text;
 
+        // 3. 기존 리스트 초기화
+        listContainer.innerHTML = "";
 
-        #감시 사이트 대상
-        target_site_codes = params.get("site_codes", [])
-        target_site_codes = [str(code) for code in target_site_codes]
+        const _parent = this;
+        try {
+            // 1. API 호출 (Spring의 RestTemplate/WebClient 역할)
+            const response = await fetch(`/api/campsites/${filename}`);
+            if (!response.ok) throw new Error("네트워크 응답 에러");
 
-         #감시 정보 전달
-        await ws_manager.broadcast({"messageType" : "monitor", "data" : {"uuid" : uuid, "count" : self.execution_count}})
+            const xmlText = await response.text();
 
-        logger.info(f"[*] xticket 감시 시작 - 캠핑장 : {params['campsiteName']} 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days}")
+            // 2. XML 파싱 (Java의 XML Parser 역할)
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, "text/xml");
 
-        if not self.cookies_initialized:
-            await self.get_browser_cookies(camp_id)
+            // 3. 하위 목록 렌더링
+            Comp.renderCampsiteList(xmlDoc);
+        } catch (error) {
+            console.error("데이터 로드 중 오류 발생:", error);
+            listContainer.innerHTML = '<li class="p-4 text-center text-red-500">데이터를 불러오지 못했습니다.</li>';
+        }
+    },
+    //실행중인 감시 목록 조회
+    restoreMonitoringList: async function () {
+        const response = await fetch("/api/monitor/list");
+        const jobs = await response.json();
+        jobs.forEach((job) => this.addMonitoringEntry(job));
+    },
+    renderCampsiteList: function (xmlDoc) {
+        const listContainer = document.getElementById("campsiteList");
+        listContainer.innerHTML = "";
 
+        // <campsite> 노드들을 모두 가져옴
+        const campsites = xmlDoc.getElementsByTagName("campsite");
+        const type = xmlDoc.getElementsByTagName("type");
+        const homepage = xmlDoc.getElementsByTagName("homepage");
 
+        Array.from(campsites).forEach((site, index) => {
+            // <name> 태그 값 추출 (CDATA가 포함되어 있어도 textContent로 해결)
 
+            const nameNode = site.getElementsByTagName("name")[0];
+            const name = nameNode ? nameNode.textContent : "이름 없음";
 
+            // 하위 <site> 노드들(구역 정보) 추출[cite: 1]
+            const siteNodes = site.getElementsByTagName("site");
+            const sitesSummary = Array.from(siteNodes)
+                .map((s) => s.textContent)
+                .join(", ");
 
+            //사이트 플랫폼 정보 추가
+            const typeElement = xmlDoc.createElement("type");
+            typeElement.textContent = type[0].textContent;
+            site.appendChild(typeElement);
 
-        current_headers = UAGenerator.get_headers({
-            "Accept": "*/*",
-            "Host": "camp.xticket.kr",
-            "Origin": "https://forest.maketicket.co.kr",
-            "Referer": f"https://camp.xticket.kr/web/main?shopEncode={camp_id}",
-            "X-Requested-With": "XMLHttpRequest",
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        })
+            //홈페이지 정보 추가
 
+            if (homepage.length > 0) {
+                const homepageElement = xmlDoc.createElement("homepage");
+                homepageElement.textContent = homepage[0].textContent;
+                site.appendChild(homepageElement);
+            }
 
-        url = "https://camp.xticket.kr/Web/Book/GetBookProduct010001.json"
-        data = {
-            "start_date" : start_dt,
-            "end_date" : end_dt.strftime("%Y%m%d"),
-            "book_days" : stay_days,
-            "two_stay_days" : "0",
-            "shopCode" : groupCode,
-            "time" : int(time.time() * 1000),
+            const li = document.createElement("li");
+            li.className = "p-3 hover:bg-indigo-50 cursor-pointer border-b border-slate-100 transition";
+            li.innerHTML = `
+                <div class="flex flex-col">
+                  <span class="font-bold text-slate-800">${index + 1}. ${name}</span>
+                </div>
+              `;
+
+            // 캠핑장 클릭 이벤트: 상세 정보 표시 로직으로 연결
+            li.onclick = () => {
+                this.highlightSelection(li);
+                this.updateDetailPanel(site); // 상세 정보 렌더링 함수(별도 구현) 호출
+            };
+
+            listContainer.appendChild(li);
+
+            if (index == 0) {
+                this.highlightSelection(li);
+                this.updateDetailPanel(site);
+            }
+        });
+    },
+
+    highlightSelection: function (element) {
+        document.querySelectorAll("#campsiteList li").forEach((el) => el.classList.remove("bg-indigo-100"));
+        element.classList.add("bg-indigo-100");
+    },
+    //예약정보 판넬 업데이트
+    updateDetailPanel: function (site) {
+        this.currentCampsiteData = site;
+
+        const detailPanel = document.getElementById("detailPanel");
+        const name = site.getElementsByTagName("name")[0]?.textContent || "이름 없음";
+        const type = site.getElementsByTagName("type")[0]?.textContent || "정보 없음";
+
+        document.getElementById("campsiteName").textContent = site.getElementsByTagName("name")[0]?.textContent || "";
+        document.getElementById("platformName").textContent = site.getElementsByTagName("type")[0]?.textContent || "";
+        //campsiteName
+
+        // 1. 로그인 필드 제어 (showLoginField)
+        const showLogin = site.getElementsByTagName("showLoginField")[0]?.textContent || "N";
+        const loginArea = document.getElementById("loginFields");
+        if (showLogin === "Y") {
+            loginArea.classList.remove("hidden");
+        } else {
+            loginArea.classList.add("hidden");
         }
 
+        // 2. 자동 예약 체크박스 제어 (isSupportAutoReservation)
+        const supportAuto = site.getElementsByTagName("isSupportAutoReservation")[0]?.textContent || "N";
+        const autoReserveArea = document.getElementById("autoReserveField");
+        if (supportAuto === "Y") {
+            autoReserveArea.classList.remove("hidden");
+        } else {
+            autoReserveArea.classList.add("hidden");
+        }
 
+        // 인터파크일 때만 패널 노출
+        const authPanel = document.getElementById("interparkAuthPanel");
+        if (type === "Interpark" && supportAuto === "Y") {
+            authPanel.classList.remove("hidden");
+        } else {
+            authPanel.classList.add("hidden");
+        }
 
-        found_sites = []
+        this.generatorMaxDayOption(site);
+        this.generatorSiteChecker(site);
+    },
+    onChangeWatchDate: function (e) {
+        const type = Comp.currentCampsiteData.getElementsByTagName("type")[0]?.textContent;
+        if (type === "Interpark") {
+            //인터파크일 경우만 처리
+            const goodsCode = Comp.currentCampsiteData.getElementsByTagName("code")[0]?.textContent;
+            const selectedDate = document.getElementById("watchDate").value;
+            const start_date = moment(selectedDate).format("YYYYMMDD");
+            Comp.generatorInterparkDayOption(start_date, Comp.interparkStayOption[goodsCode]);
+        }
+    },
+    //사이트 최대 박수 지정
+    generatorMaxDayOption: function (site) {
+        const dayCountSelect = document.getElementById("dayCountSelect");
+        dayCountSelect.innerHTML = "";
 
-        for area in target_site_codes:
+        const type = site.getElementsByTagName("type")[0]?.textContent || "";
+        if (type === "Interpark") {
+            //인터파크일 경우 요청 값이 다름
+            const goodsCode = site.getElementsByTagName("code")[0]?.textContent; //최대 예약 박수
+            const watchDate = document.getElementById("watchDate").value;
+            const start_date = moment(watchDate).format("YYYYMMDD");
+            if (goodsCode in Comp.interparkStayOption) {
+                Comp.generatorInterparkDayOption(start_date, Comp.interparkStayOption[goodsCode]);
+            } else {
+                const end_date = moment(watchDate).add(2, "months").format("YYYYMMDD");
+                Comp.fetchInterParkStayDayOption(goodsCode, start_date, end_date);
+            }
+        } else {
+            const maxStayDay = site.getElementsByTagName("maxStayDay")[0]?.textContent || 2; //최대 예약 박수
+            for (let i = 0; i < maxStayDay; i++) {
+                const option = document.createElement("option");
+                option.value = `${i + 1}`;
+                option.textContent = `${i + 1}박`;
+                dayCountSelect.appendChild(option);
+            }
+        }
+    },
+    //인터파크 박수 옵션 체크
+    generatorInterparkDayOption: function (playDay, data) {
+        if (data) {
+            const targetOption = data.find((item) => item.playDate === playDay);
+            if (targetOption && targetOption.playSeqList) {
+                const stayList = targetOption.playSeqList;
+                const dayCountSelect = document.getElementById("dayCountSelect");
+                dayCountSelect.innerHTML = "";
+                stayList.forEach((stay) => {
+                    const option = document.createElement("option");
+                    option.value = `${stay.stayPlaySeq}`;
+                    option.textContent = `${stay.stayDay}`;
+                    dayCountSelect.appendChild(option);
+                });
+            }
+        }
+    },
+    fetchInterParkStayDayOption: async function (goodsCode, start_date, end_date) {
+        const url = `/api/interpark/play-seq?goodsCode=${goodsCode}&start_date=${start_date}&end_date=${end_date}`;
+        try {
+            const response = await fetch(url);
+            const result = await response.json();
 
-            data["product_group_code"] = area
+            if (result.common.message === "success") {
+                if (result.data) {
+                    Comp.interparkStayOption[goodsCode] = result.data;
+                    Comp.generatorInterparkDayOption(start_date, Comp.interparkStayOption[goodsCode]);
+                }
+            } else {
+                alert("데이터를 가져오는데 실패했습니다.");
+            }
+        } catch (error) {
+            console.error("서버 통신 오류:", error);
+        }
+    },
+    generatorSiteChecker: function (site) {
+        const siteCheckerContainer = document.getElementById("siteCheckerContainer");
+        const labelArea = document.querySelector("label.border-b");
 
-            pprint.pprint(data)
+        // 1. 전체 체크박스 초기화 및 생성
+        const oldAllCheck = document.getElementById("allCheckWrapper");
+        if (oldAllCheck) oldAllCheck.remove();
 
-            try:
-                response = await self.client.post(url, data=data, headers=current_headers)
-                print(response.status_code)
-                print(response.text)
-                result = response.json()
+        const allCheckWrapper = document.createElement("span");
+        allCheckWrapper.id = "allCheckWrapper";
+        allCheckWrapper.className = "ml-auto flex items-center text-[10px] font-normal cursor-pointer text-slate-500";
+        allCheckWrapper.innerHTML = `
+            <input type="checkbox" id="allCheck" class="mr-1 w-3 h-3 accent-indigo-600" checked />
+            전체 선택
+        `;
+        labelArea.classList.add("flex", "items-center", "justify-between");
+        labelArea.appendChild(allCheckWrapper);
 
-                site_list = result.get("data", {}).get("bookProductList", [])
+        siteCheckerContainer.innerHTML = "";
 
-                for find_site in site_list:
-                    select_yn = find_site.get("select_yn", "0")
-                    if select_yn == "1":
+        // 2. 사이트 그룹(groups) 렌더링
+        const groupsWrapper = site.getElementsByTagName("groups")[0];
+        if (groupsWrapper) {
+            const groups = groupsWrapper.getElementsByTagName("group");
+            if (groups.length > 0) {
+                // 그룹 섹션 타이틀
+                const groupTitle = document.createElement("div");
+                groupTitle.className = "col-span-2 text-[10px] font-black text-indigo-400 mt-2 border-b border-slate-200 pb-0.5";
+                groupTitle.innerHTML = `<i class="fa-solid fa-layer-group mr-1"></i> 사이트 그룹`;
+                siteCheckerContainer.appendChild(groupTitle);
 
-                        product_name = find_site.get("product_name")
-                        product_code = find_site.get("product_code")
+                Array.from(groups).forEach((group) => {
+                    const groupCode = group.getAttribute("code");
+                    const groupName = group.textContent;
 
-                        logger.info(f"[{campsiteName}] {product_name} 사이트 예약 가능! (ID: {product_code})")
-                        found_sites.append({
-                            "shopCode": groupCode,
-                            "shopEncode": camp_id,
-                            "product_name": product_name,
-                            "site_name": product_name,
-                            "product_code": product_code,
+                    const label = document.createElement("label");
+                    label.className = "flex items-center p-1 bg-indigo-50/50 rounded cursor-pointer hover:bg-indigo-50 transition";
+                    label.innerHTML = `
+                        <input type="checkbox" checked class="group-item mr-2 accent-indigo-600" data-group-code="${groupCode}" />
+                        <span class="text-xs font-bold text-indigo-700">${groupName}</span>
+                    `;
+                    siteCheckerContainer.appendChild(label);
+                });
+            }
+        }
 
-                        })
+        // 3. 개별 사이트(sites) 렌더링
+        const sites = site.getElementsByTagName("site");
+        if (sites.length > 0) {
+            const siteTitle = document.createElement("div");
+            siteTitle.className = "col-span-2 text-[10px] font-black text-slate-400 mt-2 border-b border-slate-200 pb-0.5";
+            siteTitle.innerHTML = `<i class="fa-solid fa-list mr-1"></i> 사이트 목록`;
+            siteCheckerContainer.appendChild(siteTitle);
 
-            except Exception as e:
-                logger.error(f"[{params['camp_id']}] 잔여석 확인 중 에러: {e}")
+            Array.from(sites).forEach((element) => {
+                const code = element.getAttribute("code") || "";
+                const groupAttr = element.getAttribute("group") || ""; // 그룹 속성 확인
+                const name = element.textContent || "";
 
-        sites_string = ""
-        if found_sites:
+                const label = document.createElement("label");
+                label.className = "flex items-center p-1 cursor-pointer hover:bg-slate-100 rounded transition";
+                label.innerHTML = `
+                    <input type="checkbox" checked class="site-item mr-2 accent-indigo-600" 
+                           value="${code}" data-parent-group="${groupAttr}" />
+                    <span class="text-xs text-slate-700">${name}</span>
+                `;
+                siteCheckerContainer.appendChild(label);
+            });
+        }
 
-            site_names = [s['site_name'] for s in found_sites]
-            sites_string = ", ".join(site_names)
+        // 4. 이벤트 바인딩 호출
+        this.bindAllCheckEvent();
+    },
+    //예약 감시 수행
+    watchCampsite: async function () {
+        const parent = Comp;
+        const currentCampsite = Comp.currentCampsiteData;
 
-            for site in found_sites:
-                #pprint.pprint(site)
+        const watchDate = document.getElementById("watchDate").value;
+        const stayDay = document.getElementById("dayCountSelect").value;
 
+        const type = currentCampsite.getElementsByTagName("type")[0]?.textContent;
+        const campId = currentCampsite.getElementsByTagName("code")[0]?.textContent;
 
-                link = f"https://camp.xticket.kr/web/main?shopEncode={camp_id}"
+        const requestInterval = document.getElementById("requestInterval").value;
+        const campsiteName = currentCampsite.getElementsByTagName("name")[0]?.textContent;
 
-                logger.info(f"예약 URL: {link}")
+        const watchUuid = `${type}_${campId}_${watchDate}_${stayDay}`;
 
-                msg = (
-                    f"<b>빈자리 발견!</b>\n"
-                    f"캠핑장: {campsiteName}\n"
-                    f"날짜: {params['date']} ({stay_days}박)\n"
-                    f"사이트명: {site["ri_name"]}\n"
-                    f"<a href='{link}'>예약하러 가기</a>"
-                )
-                # 알림 전송
-                await notifier.send_message(msg)
+        const findNextRunChecked = document.getElementById("findNextRun").checked;
+        const findNextRunValue = findNextRunChecked ? "N" : "Y";
 
-                alert_msg = {
-                    "messageType" : "alert",
-                    "data" : {
-                        "campseq" : camp_id,
-                        "groupCode" : groupCode,
-                        "res_dt" : start_dt,
-                        "res_days" : stay_days,
-                        "link" : link,
-                        "list" : found_sites,
-                        "site_name" : site["ri_name"],
+        //자동 예약
+        const autoReserveChecked = document.getElementById("autoReserve").checked;
+        const autoReserveValue = autoReserveChecked ? "Y" : "N";
 
-                        "shopCode" : groupCode,
-                        "shopEncode" : camp_id
+        if (parent.checkExistingMonitoring(watchUuid)) {
+            alert("이미 동일한 감시 항목이 존재합니다.");
+            return;
+        }
+
+        const selectedSites = Array.from(document.querySelectorAll(".site-item:checked")).map((cb) => cb.value);
+
+        if (selectedSites.length === 0) {
+            alert("최소 하나 이상의 사이트를 선택해주세요.");
+            return;
+        }
+
+        let groupCode = "";
+        const groupCodeElement = currentCampsite.getElementsByTagName("groupCode");
+        if (groupCodeElement.length > 0) {
+            groupCode = groupCodeElement[0].textContent || "";
+        }
+        const groupsElement = currentCampsite.getElementsByTagName("groups");
+        let hasCategory = "N"; //사이트 그룹의 카테고리 항목 존재 유무 판단.
+        if (groupsElement.length > 0) {
+            hasCategory = "Y";
+        }
+
+        const requestData = {
+            type: type, // "THANKQ"
+            campsiteName: campsiteName, // "THANKQ"
+            camp_id: campId, // "3446"
+            date: watchDate, // "2026-04-28"
+            stay_day: stayDay, // 1
+            findNextRun: findNextRunValue,
+            requestInterval: requestInterval, // 1
+            watchUuid: watchUuid, // UUID for tracking the monitoring session
+            groupCode: groupCode, //그룹코드 하위 그룹이 있을 경우
+            hasCategory: hasCategory, //사이트 목록의 상위 그룹이 포함된건지 체크
+            autoReserve: autoReserveValue, //자동 예약 수행 여부
+            // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
+            site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
+        };
+
+        try {
+            // 2. FastAPI 엔드포인트로 POST 요청 전송
+            const response = await fetch("/api/monitor/start", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData) // JSON 문자열로 직렬화
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                //alert(`${requestData.type} 감시가 시작되었습니다!`);
+                Logger.addLog(`${requestData.type} 감시가 시작되었습니다!`);
+                parent.addMonitoringEntry(requestData); // 모니터링 항목 추가 함수 호출
+            }
+        } catch (error) {
+            console.error("요청 실패:", error);
+        }
+    },
+    //동일한 감시 항목 존재 유무 체크
+    checkExistingMonitoring: function (watchUuid) {
+        const monitoringList = document.getElementById("monitoring-list");
+        return Array.from(monitoringList.children).some((tr) => tr.dataset.watchUuid === watchUuid);
+    },
+    //모니터링 항목 추가
+    addMonitoringEntry: function (entry) {
+        const monitoringList = document.getElementById("monitoring-list");
+
+        const emptyRow = document.querySelector("#monitoring-list .EMPTY-ROW");
+        if (emptyRow) {
+            emptyRow.remove();
+        }
+
+        let displayStayDay = entry.stay_day;
+
+        // Interpark 타입이고 stay_day에 콤마(,)가 포함된 경우 개수를 세어 "N박"으로 변환
+        if (entry.type === "Interpark" && String(entry.stay_day).includes(",")) {
+            const dayCount = String(entry.stay_day).split(",").length;
+            displayStayDay = `${dayCount}박`;
+        } else if (!String(displayStayDay).includes("박")) {
+            // 기존 숫자만 들어오는 경우를 위해 '박'이 없으면 붙여줌 (선택 사항)
+            displayStayDay = `${displayStayDay}박`;
+        }
+
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50 group"; // group 클래스 추가 (호버 시 버튼 강조용)
+        tr.innerHTML = `
+        <td class="p-2 border-r font-bold">${entry.campsiteName}</td>
+        <td class="p-2 border-r text-center">${entry.date}</td>
+        <td class="p-2 border-r text-center">${displayStayDay}</td>
+        <td class="p-2 border-r text-center font-bold text-indigo-600 MNT-COUNT">0</td>
+        <td class="p-2 text-center">
+            <div class="flex items-center justify-center space-x-3">
+                <span class="text-green-600 font-bold italic text-[10px]">Monitoring..</span>
+                <button class="stop-row-btn px-3 py-1 bg-red-500 text-white text-[10px] font-black rounded shadow-sm hover:bg-red-600 transition-colors" 
+                        data-uuid="${entry.watchUuid}">
+                    중지
+                </button>
+            </div>
+        </td>
+    `;
+        tr.dataset.watchuuid = entry.watchUuid;
+
+        // 행 클릭 시 하이라이트 유지 (기존 로직)
+        tr.onclick = (e) => {
+            // 버튼 클릭 시에는 행 클릭 이벤트가 발생하지 않도록 방지
+            if (e.target.classList.contains("stop-row-btn")) return;
+            this.highlightMonitoringRow(tr);
+            this.selectedMonitoringUuid = entry.watchUuid;
+        };
+
+        // 중지 버튼에 이벤트 리스너 추가
+        const stopBtn = tr.querySelector(".stop-row-btn");
+        stopBtn.onclick = (e) => {
+            e.stopPropagation(); // 행 클릭 이벤트 전파 방지
+            this.stopWatchingRow(entry.watchUuid);
+        };
+
+        monitoringList.appendChild(tr);
+    },
+    stopWatchingRow: async function (watchUuid) {
+        if (!watchUuid) return;
+
+        if (confirm("이 감시 작업을 중지하시겠습니까?")) {
+            try {
+                const response = await fetch(`/api/monitor/stop/${watchUuid}`, {
+                    method: "POST"
+                });
+
+                if (response.ok) {
+                    // 해당 행 삭제
+                    const row = document.querySelector(`tr[data-watchuuid="${watchUuid}"]`);
+                    if (row) {
+                        row.style.transition = "all 0.3s";
+                        row.style.opacity = "0";
+                        row.style.transform = "translateX(20px)";
+
+                        setTimeout(() => {
+                            row.remove();
+                            // 목록이 비었는지 확인
+                            const monitoringList = document.getElementById("monitoring-list");
+                            if (monitoringList.children.length === 0) {
+                                monitoringList.innerHTML = `
+                                <tr class="hover:bg-slate-50 EMPTY-ROW">
+                                    <td class="p-2 text-center text-green-600 font-bold italic" colspan="5">감시 중인 항목이 없습니다.</td>
+                                </tr>`;
+                            }
+                        }, 300);
+                    }
+
+                    if (this.selectedMonitoringUuid === watchUuid) {
+                        this.selectedMonitoringUuid = null;
+                    }
+
+                    Logger.addLog(`감시 중단 완료: ${watchUuid}`);
+                }
+            } catch (error) {
+                console.error("중지 요청 실패:", error);
+                alert("서버 통신 오류가 발생했습니다.");
+            }
+        }
+    },
+    // [추가] 감시 목록 행 하이라이트
+    highlightMonitoringRow: function (element) {
+        document.querySelectorAll("#monitoring-list tr").forEach((el) => el.classList.remove("bg-red-50"));
+        element.classList.add("bg-red-50"); // 선택된 행은 붉은색 계열로 표시
+    },
+    // 텔레그램 설정 저장
+    saveTgSettings: async function () {
+        const useYn = document.getElementById("tgUseYn").value;
+        const token = document.getElementById("tgToken").value;
+        const chatIdsStr = document.getElementById("tgChatIds").value;
+
+        // 문자열을 배열로 변환 (공백 제거)
+        const chatIds = chatIdsStr
+            .split(",")
+            .map((id) => id.trim())
+            .filter((id) => id !== "");
+
+        const response = await fetch("/api/settings/telegram", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ use_yn: useYn, token: token, chat_ids: chatIds })
+        });
+
+        if (response.ok) {
+            Logger.addLog("텔레그램 설정이 성공적으로 저장되었습니다.");
+            closeTgModal();
+        }
+    },
+    // 모달 열기 및 데이터 로드
+    openSettingsModal: async function () {
+        try {
+            const response = await fetch("/api/settings");
+            const data = await response.json();
+
+            // Form에 데이터 채우기
+            const form = document.getElementById("infoSettingsForm");
+            for (const [key, value] of Object.entries(data.info)) {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input) input.value = value;
+            }
+
+            document.getElementById("settingsModal").classList.remove("hidden");
+            toggleMenu();
+        } catch (e) {
+            alert("설정을 불러오는데 실패했습니다.");
+        }
+    },
+
+    closeSettingsModal: function () {
+        document.getElementById("settingsModal").classList.add("hidden");
+    },
+
+    // 환경설정(Info) 저장
+    saveInfoSettings: async function () {
+        const form = document.getElementById("infoSettingsForm");
+        const inputs = form.querySelectorAll("input");
+        const infoData = {};
+
+        inputs.forEach((input) => {
+            // 숫자형 데이터 변환 처리
+            const val = input.type === "number" ? parseInt(input.value) : input.value;
+            infoData[input.name] = val;
+        });
+
+        const response = await fetch("/api/settings/info", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(infoData)
+        });
+
+        if (response.ok) {
+            Logger.addLog("시스템 환경설정이 저장되었습니다.");
+            this.closeSettingsModal();
+        }
+    },
+
+    // 텔레그램 모달 열기 시 기존 값 세팅 (수정)
+    openTgModal: async function () {
+        const response = await fetch("/api/settings");
+        const data = await response.json();
+
+        document.getElementById("tgUseYn").value = data.telegram.use_yn || "N";
+        document.getElementById("tgToken").value = data.telegram.token || "";
+        // 배열을 콤마 구분 문자열로 변환하여 표시
+        document.getElementById("tgChatIds").value = (data.telegram.chat_ids || []).join(", ");
+
+        document.getElementById("telegramModal").classList.remove("hidden");
+        toggleMenu();
+    },
+    // [추가] 감지 중지 로직 수행
+    stopWatching: async function () {
+        if (!this.selectedMonitoringUuid) {
+            alert("중지할 감시 항목을 목록에서 선택해주세요.");
+            return;
+        }
+
+        if (confirm("해당 감시 작업을 중지하시겠습니까?")) {
+            try {
+                // 백엔드 FastAPI에 중지 요청 (Java의 DELETE/POST 요청과 유사)
+                const response = await fetch(`/api/monitor/stop/${this.selectedMonitoringUuid}`, {
+                    method: "POST"
+                });
+
+                if (response.ok) {
+                    // 화면에서 해당 행 삭제
+                    const row = document.querySelector(`tr[data-watchuuid="${this.selectedMonitoringUuid}"]`);
+                    if (row) row.remove();
+
+                    // 목록이 비었으면 다시 EMPTY-ROW 추가
+                    const monitoringList = document.getElementById("monitoring-list");
+                    if (monitoringList.children.length === 0) {
+                        monitoringList.innerHTML = `
+                            <tr class="hover:bg-slate-50 EMPTY-ROW">
+                                <td class="p-2 text-center text-green-600 font-bold italic" colspan="5">감시 중인 항목이 없습니다.</td>
+                            </tr>`;
+                    }
+
+                    this.selectedMonitoringUuid = null;
+                    Logger.addLog("감시가 중지되었습니다.");
+                    //alert("감시가 중지되었습니다.");
+                }
+            } catch (error) {
+                console.error("중지 요청 실패:", error);
+            }
+        }
+    },
+    //인터파크 모달창
+    renewInterparkSession: async function () {
+        if (!confirm("로그인 브라우저를 실행하시겠습니까? \n로그인 완료 후 브라우저 창을 직접 닫아주세요.")) return;
+
+        Logger.addLog("인터파크 로그인 세션 갱신 시작...", "system");
+
+        try {
+            const response = await fetch("/api/auth/interpark-session", { method: "POST" });
+            const result = await response.json();
+
+            if (result.status === "success") {
+                Logger.addLog("세션 저장 완료", "info");
+                alert("로그인 세션이 성공적으로 저장되었습니다.");
+            }
+        } catch (error) {
+            Logger.addLog("세션 갱신 실패", "error");
+        }
+    },
+    bindAllCheckEvent: function () {
+        const allCheck = document.getElementById("allCheck");
+        const groupChecks = document.querySelectorAll(".group-item");
+        const siteChecks = document.querySelectorAll(".site-item");
+
+        // 1) 전체 선택 이벤트
+        allCheck.addEventListener("change", function () {
+            const isChecked = allCheck.checked;
+            groupChecks.forEach((gc) => (gc.checked = isChecked));
+            siteChecks.forEach((sc) => (sc.checked = isChecked));
+        });
+
+        // 2) 그룹 선택 이벤트 (사이트 일괄 제어)
+        groupChecks.forEach((gc) => {
+            gc.addEventListener("change", function () {
+                const groupCode = this.dataset.groupCode;
+                const isChecked = this.checked;
+
+                // 해당 그룹 코드를 부모로 가진 사이트들만 필터링하여 체크
+                document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]`).forEach((sc) => {
+                    sc.checked = isChecked;
+                });
+
+                // 전체 선택 상태 업데이트
+                updateAllCheckStatus();
+            });
+        });
+
+        // 3) 개별 사이트 선택 이벤트 (그룹 및 전체 선택 상태 업데이트)
+        siteChecks.forEach((sc) => {
+            sc.addEventListener("change", function () {
+                const groupCode = this.dataset.parentGroup;
+
+                if (groupCode) {
+                    const sameGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]`);
+                    const checkedGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]:checked`);
+                    const groupHeader = document.querySelector(`.group-item[data-group-code="${groupCode}"]`);
+
+                    if (groupHeader) {
+                        groupHeader.checked = sameGroupSites.length === checkedGroupSites.length;
                     }
                 }
-                pprint.pprint(alert_msg)
-                # 실시간 웹소켓 알림 전송
-                await ws_manager.broadcast(alert_msg)
 
-                #한바퀴만 돌고 멈춤
-                break
+                updateAllCheckStatus();
+            });
+        });
 
-             # 시스템 트레이 알림 호출
-            try:
-                from main import tray_manager # 순환 참조 방지
-                if tray_manager:
-                    tray_manager.notify(
-                        "빈자리 알림",
-                        f"[{params['campsiteName']}] 구역에 자리가 났습니다."
-                    )
-            except Exception as e:
-                logger.error(f"트레이 알림 호출 실패: {e}")
+        // 4) 공통 상태 업데이트 함수
+        function updateAllCheckStatus() {
+            const allItems = document.querySelectorAll(".site-item");
+            const checkedItems = document.querySelectorAll(".site-item:checked");
+            allCheck.checked = allItems.length === checkedItems.length;
+        }
+    },
+    //홈페이지 열기
+    openHomePage: function () {
+        const homepageUrl = this.currentCampsiteData.getElementsByTagName("homepage")[0]?.textContent;
+        const campId = this.currentCampsiteData.getElementsByTagName("code")[0]?.textContent;
+        window.open(`${homepageUrl}${campId}`, "_blank");
+    },
+    //감시 모니터링 증가
+    changeMonitoringCount: function (data) {
+        if (data) {
+            const uuid = data.uuid || "";
+            const count = data.count || 0;
+            const row = document.querySelector(`tr[data-watchuuid="${uuid}"]`);
 
-            # 모니터링 종료 체크
-            from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
-            await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
+            // debugger;
 
-            logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")
-            print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}")
+            if (row) {
+                //let currentCount = row.dataset.reqcnt;
+                //let numericCount = parseInt(currentCount || 0, 10) + 1;
+                //row.dataset.reqcnt = numericCount;
+                const countCell = row.querySelector("td.MNT-COUNT");
+                if (countCell) {
+                    countCell.innerText = count;
+                    countCell.classList.add("text-indigo-600", "font-bold");
+                }
+            }
+        }
+    }
+};
 
-            return True
+const Alert = {
+    retryCount: 0,
 
-        return False
+    init: function () {
+        this.connect();
+    },
 
-    async def get_browser_cookies(self, camp_id:str):
+    connect: function () {
+        const socket = new WebSocket(`ws://${window.location.host}/ws/alerts`);
 
-        url = f"https://camp.xticket.kr/web/main?shopEncode={camp_id}"
+        socket.onopen = () => {
+            console.log("알람 서버와 실시간 연결 성공");
+            this.retryCount = 0; // 연결 성공 시 재시도 횟수 초기화
+        };
 
-        logger.info(f"[*] {url}에서 쿠키를 새로 받습니다.")
+        socket.onclose = () => {
+            this.retryCount++;
+            const delay = Math.min(1000 * Math.pow(2, this.retryCount), 30000); // 최대 30초 대기
+            console.warn(`연결 끊김. ${delay / 1000}초 후 재연결 시도... (횟수: ${this.retryCount})`);
+            setTimeout(() => this.connect(), delay);
+        };
 
-        current_headers = UAGenerator.get_headers({
-            "Host": "camp.xticket.kr" ,
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
-        })
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            switch (data.messageType) {
+                case "alert":
+                    Alert.showToast(data.data); // 알림 표시
+                    break;
 
-        response = await self.client.get(url, headers=current_headers)
-        self.cookies_initialized = True
-        # 2. 서버가 보낸 쿠키 확인
-        print(f"[*] 획득한 쿠키: {self.client.cookies}")
+                case "monitor":
+                    Comp.changeMonitoringCount(data.data);
+                    break;
+
+                case "remove_monitor":
+                    const uuid = data.data.uuid;
+                    const row = document.querySelector(`tr[data-watchuuid="${uuid}"]`);
+
+                    if (row) {
+                        // 부드럽게 사라지는 효과
+                        row.style.transition = "all 0.5s";
+                        row.style.backgroundColor = "#fee2e2"; // 살짝 붉은색으로 변함
+                        row.style.opacity = "0";
+
+                        setTimeout(() => {
+                            row.remove(); // DOM에서 삭제
+                            console.log(`감시 종료된 행 제거 완료: ${uuid}`);
+                        }, 500);
+                    }
+                    break;
+            }
+        };
+    },
+    showToast: function (msg) {
+        //alert("알림:" + msg);
+        Toast.showToast(msg);
+    }
+};
+
+const Logger = {
+    MAX_LOG_COUNT: 100,
+    retryCount: 0,
+
+    init: function () {
+        this.connect();
+    },
+
+    connect: function () {
+        const ws = new WebSocket(`ws://${window.location.host}/ws/logs`);
+
+        ws.onopen = () => {
+            console.log("서버와 실시간 연결 성공");
+            this.retryCount = 0; // 연결 성공 시 재시도 횟수 초기화
+            this.addLog("--- 시스템 실시간 감시 연결됨 ---", "system");
+        };
+
+        ws.onmessage = (event) => {
+            this.addLog(event.data);
+        };
+
+        ws.onclose = () => {
+            this.retryCount++;
+            const delay = Math.min(1000 * Math.pow(2, this.retryCount), 30000); // 최대 30초 대기
+            console.warn(`연결 끊김. ${delay / 1000}초 후 재연결 시도... (횟수: ${this.retryCount})`);
+
+            setTimeout(() => this.connect(), delay);
+        };
+    },
+
+    addLog: function (message, type = "normal") {
+        const logContainer = document.getElementById("log-container");
+        const logLine = document.createElement("div");
+
+        logLine.className = "border-b border-gray-800 py-1 opacity-0 transition-opacity duration-300";
+        logLine.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+
+        // 1. 하단에 로그 추가 (append)
+        logContainer.appendChild(logLine);
+
+        // 애니메이션 효과
+        setTimeout(() => logLine.classList.remove("opacity-0"), 10);
+
+        // 2. 최대 로그 개수 유지 (오래된 로그는 상단에서 삭제)
+        if (logContainer.children.length > this.MAX_LOG_COUNT) {
+            logContainer.removeChild(logContainer.firstChild);
+        }
+
+        // 3. 자동 스크롤 (사용자가 위로 올려보고 있지 않을 때만 내리는 로직 추가 가능)
+        const footer = document.getElementById("main-footer");
+        footer.scrollTo({
+            top: footer.scrollHeight,
+            behavior: "smooth" // 부드럽게 스크롤
+        });
+    }
+};
+
+const Toast = {
+    showToast: function (data) {
+        const container = document.getElementById("toast-container");
+        // Toast 요소 생성
+        const toast = document.createElement("div");
+        toast.className = "bg-white border-l-4 border-indigo-500 shadow-lg rounded-lg p-4 min-w-[300px] transform transition-all duration-300 translate-y-10 opacity-0";
+
+        // 메시지 구성 (found_sites 배열에서 이름만 추출)
+        const siteNames = data.list.map((site) => site.site_name).join(", ");
+
+        const findNextOpenBroswerChecked = document.getElementById("findNextOpenBroswer").checked;
+        if (data.link && findNextOpenBroswerChecked) {
+            window.open(data.link);
+        }
+
+        toast.innerHTML = `
+        <div class="flex items-start">
+            <div class="flex-shrink-0 text-indigo-500">
+                <i class="fa-solid fa-bell-concierge"></i>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-black text-slate-800">빈자리 발견!</p>
+                <p class="text-xs text-slate-600 mt-1">${data.res_dt} (${data.res_days}박)</p>
+                <p class="text-xs font-bold text-indigo-600">${siteNames}</p>
+                <p class="text-xs font-bold text-indigo-600"><a href="${data.link}" target="_blank">바로가기</a></p>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-auto text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    `;
+
+        container.appendChild(toast);
+
+        // 애니메이션 효과 (나타나기)
+        setTimeout(() => {
+            toast.classList.remove("translate-y-10", "opacity-0");
+        }, 10);
+
+        // 5초 후 자동 삭제
+        setTimeout(() => {
+            toast.classList.add("opacity-0");
+            setTimeout(() => toast.remove(), 300);
+        }, 1000 * 60);
+    }
+};
+
+
+```
+
+### [/camping-scanner/app/templates/index.html]
+
+```html
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>캠핑가자 Web Admin</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="stylesheet" href="/static/css/style.css" />
+        <style></style>
+    </head>
+    <body class="flex flex-col h-screen overflow-hidden">
+        <header class="w-full h-14 bg-white border-b shadow-sm flex items-center justify-between px-6 z-20">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-tent text-indigo-600 text-xl"></i>
+                <h1 class="text-xl font-black text-slate-800">
+                    캠핑가자
+                    <span class="text-slate-400 text-xs font-medium">ver 1.4.2 (Py)</span>
+                </h1>
+            </div>
+
+            <!-- 우측 상단 버튼 그룹 -->
+            <div class="flex items-center space-x-2">
+                <!-- 프로그램 종료 버튼 추가 -->
+
+                <!-- 기존 햄버거 메뉴 -->
+                <button onclick="toggleMenu()" class="p-2 hover:bg-slate-100 rounded-lg transition">
+                    <i class="fa-solid fa-bars text-xl text-slate-600"></i>
+                </button>
+
+                <button onclick="confirmShutdown()" class="flex items-center space-x-2 px-3 py-1.5 bg-white border border-red-200 text-red-600 text-xs font-black rounded-lg hover:bg-red-50 hover:border-red-300 transition-all shadow-sm" title="애플리케이션 종료">
+                    <i class="fa-solid fa-power-off"></i>
+                    <span>프로그램 종료</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex flex-1 overflow-hidden">
+            <aside class="w-64 bg-white border-r flex flex-col shadow-inner">
+                <div class="p-4 space-y-4">
+                    <div class="space-y-2">
+                        <label class="text-xs font-black text-indigo-600 uppercase">Camping Platform</label>
+                        <select id="platformSelect" class="w-full p-2 text-sm font-bold bg-slate-50 rounded border-slate-300 outline-none focus:ring-2 focus:ring-indigo-500">
+                            {% for platform in platform_list %}
+                            <option value="{{ platform.filename }}">{{ platform.typeName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="px-4 pb-2">
+                    <label class="text-xs font-black text-slate-400 uppercase">Camping Sites</label>
+                </div>
+                <nav class="flex-1 overflow-y-auto custom-scrollbar px-2 pb-4">
+                    <ul id="campsiteList" class="space-y-0.5 text-sm">
+                        <!--
+              <li class="p-2.5 hover:bg-indigo-50 hover:text-indigo-700 rounded cursor-pointer transition border-b border-slate-50">1) 평택 진위천유원지</li>
+              <li class="p-2.5 hover:bg-indigo-50 hover:text-indigo-700 rounded cursor-pointer transition border-b border-slate-50">2) 안성 안성맞춤캠핑장</li>
+              <li class="p-2.5 bg-indigo-600 text-white shadow-md rounded font-bold">4) 연천 한탄강오토캠핑장</li>
+              <li class="p-2.5 hover:bg-indigo-50 hover:text-indigo-700 rounded cursor-pointer transition border-b border-slate-50">13) 서울 우이동가족캠핑장</li>
+              -->
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="flex-1 flex flex-col overflow-hidden">
+                <div class="flex-1 p-4 grid grid-cols-12 gap-4 overflow-y-auto custom-scrollbar">
+                    <section id="reservationPanel" class="col-span-5 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
+                        <div class="p-3 border-b bg-slate-50 flex justify-between items-center">
+                            <h2 class="font-black text-slate-700 text-sm"><i class="fa-solid fa-pen-to-square mr-1"></i> 예약 정보</h2>
+                            <div class="space-x-1">
+                                <button class="px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded hover:bg-indigo-700" id="watchBtn">감시</button>
+                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="homePageBtn">홈페이지</button>
+                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="weatherPageBtn">날씨정보</button>
+                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="seaPageBtn">바다정보</button>
+                            </div>
+                        </div>
+
+                        <div id="interparkAuthPanel" class="mx-4 mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg hidden">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] font-bold text-amber-800"> <i class="fa-solid fa-key mr-1"></i> 로그인 세션이 만료되었나요? </span>
+                                <button onclick="Comp.renewInterparkSession()" class="px-2 py-1 bg-amber-600 text-white text-[10px] font-black rounded hover:bg-amber-700 transition shadow-sm">브라우저 열기 & 로그인</button>
+                            </div>
+                            <p class="text-[10px] text-amber-600 mt-1.5 leading-tight">
+                                * 버튼 클릭 후 열리는 창에서 로그인 완료 후, <br />
+                                &nbsp;&nbsp;메인 화면이 나오면 브라우저 창을 <b>직접 닫아주세요.</b>
+                            </p>
+                        </div>
+
+                        <div class="p-4 space-y-4 text-sm">
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">플랫폼 :</label>
+                                <span class="font-black text-indigo-600" id="platformName"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">캠핑장 :</label>
+                                <span class="font-black text-indigo-600" id="campsiteName"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">예약일 :</label>
+                                <input type="date" value="" class="flex-1 p-1.5 border rounded" id="watchDate" />
+                            </div>
+                            <div class="flex items-center">
+                                <label class="w-24 font-bold text-slate-600">연박 :</label>
+                                <select class="flex-1 p-1.5 border rounded bg-white" id="dayCountSelect">
+                                    <option value="1">1박</option>
+                                    <option value="2">2박</option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col space-y-2">
+                                <label class="font-bold text-slate-600 border-b pb-1">사이트 :</label>
+                                <div class="grid grid-cols-2 gap-2 p-3 bg-slate-50 rounded border border-dashed" id="siteCheckerContainer">
+                                    <!--
+                                      <label class="flex items-center"><input type="checkbox" checked class="mr-2 accent-indigo-600" /> 전체</label>
+                                      <label class="flex items-center"><input type="checkbox" checked class="mr-2 accent-indigo-600" /> 언덕야영장</label>
+                                      <label class="flex items-center"><input type="checkbox" checked class="mr-2 accent-indigo-600" /> 강변야영장</label>
+                                      <label class="flex items-center"><input type="checkbox" class="mr-2 accent-indigo-600" /> 캐라반</label>
+                                      -->
+                                </div>
+                            </div>
+                            <div class="space-y-3 pt-2 border-t">
+                                <div class="flex items-center">
+                                    <label class="w-24 font-bold text-slate-600 text-xs">최대요청주기</label>
+                                    <select class="flex-1 p-1 border rounded text-xs" id="requestInterval">
+                                        <option value="60">1분</option>
+                                        <option value="30" selected>30초</option>
+                                        <option value="10">10초</option>
+                                    </select>
+                                </div>
+                                <div id="loginFields" class="hidden space-y-3 pt-2">
+                                    <!-- 기본적으로 숨김 -->
+                                    <div class="flex items-center">
+                                        <label class="w-24 font-bold text-slate-600 text-xs">아이디</label>
+                                        <input type="text" id="userId" class="flex-1 p-1 border rounded text-xs" />
+                                    </div>
+                                    <div class="flex items-center">
+                                        <label class="w-24 font-bold text-slate-600 text-xs">비밀번호</label>
+                                        <input type="password" id="userPw" class="flex-1 p-1 border rounded text-xs" />
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-end space-x-4">
+                                    <!-- space-x-4 추가로 간격 조절 -->
+                                    <label class="flex items-center font-bold text-slate-600 text-xs cursor-pointer">
+                                        <input type="checkbox" checked id="findNextRun" class="mr-1 w-4 h-4 accent-indigo-600" />
+                                        검색후 감시 종료
+                                    </label>
+
+                                    <label class="flex items-center font-bold text-slate-600 text-xs cursor-pointer">
+                                        <input type="checkbox" checked id="findNextOpenBroswer" class="mr-1 w-4 h-4 accent-indigo-600" />
+                                        검색후 브라우저 열기
+                                    </label>
+
+                                    <!-- 기존 자동 예약 요청 -->
+                                    <div id="autoReserveField" class="hidden">
+                                        <label class="flex items-center font-bold text-red-600 text-xs cursor-pointer">
+                                            <input type="checkbox" id="autoReserve" name="autoReserve" class="mr-1 w-4 h-4" />
+                                            자동 예약 요청
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="col-span-7 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
+                        <div class="p-3 border-b bg-slate-50">
+                            <h2 class="font-black text-slate-700 text-sm"><i class="fa-solid fa-chart-line mr-1"></i> 감시 정보</h2>
+                        </div>
+                        <div class="flex-1 overflow-auto custom-scrollbar">
+                            <table class="w-full text-xs text-left border-collapse">
+                                <thead class="bg-slate-100 sticky top-0 border-b border-slate-300">
+                                    <tr class="text-slate-600">
+                                        <th class="p-2 border-r font-bold">사이트명</th>
+                                        <th class="p-2 border-r font-bold text-center">예약일</th>
+                                        <th class="p-2 border-r font-bold text-center">박수</th>
+                                        <th class="p-2 border-r font-bold text-center">요청수</th>
+                                        <th class="p-2 font-bold text-center">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y" id="monitoring-list">
+                                    <tr class="hover:bg-slate-50 EMPTY-ROW">
+                                        <td class="p-2 text-center text-green-600 font-bold italic" colspan="5">감시 중인 항목이 없습니다.</td>
+                                        <!--
+                                            <td class="p-2 border-r font-bold">연천 한탄강오토캠핑장</td>
+                                            <td class="p-2 border-r text-center">2026-05-03</td>
+                                            <td class="p-2 border-r text-center">1</td>
+                                            <td class="p-2 border-r text-center font-bold text-indigo-600">12</td>
+                                            <td class="p-2 text-center text-green-600 font-bold italic">Monitoring..</td>
+                                            -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--
+                        <div class="p-3 border-t bg-slate-50 flex justify-center">
+                            <button class="px-6 py-2 bg-red-50 border border-red-200 text-red-600 font-black rounded hover:bg-red-100 transition text-sm" id="stopWatchBtn">감지 중지</button>
+                        </div>
+                        -->
+                    </section>
+                </div>
+
+                <div id="footer-resizer" class="h-1 bg-slate-700 hover:bg-indigo-500 cursor-ns-resize transition-colors z-30"></div>
+                <footer id="main-footer" style="height: 176px" class="bg-[#1e1e1e] text-[#d4d4d4] p-3 font-mono text-[11px] overflow-y-auto border-t-2 border-indigo-500">
+                    <div class="flex items-center justify-between mb-2 text-slate-500 border-b border-slate-800 pb-1">
+                        <span><i class="fa-solid fa-terminal mr-1"></i> LOG CONSOLE</span>
+                        <span class="text-[10px] uppercase opacity-50">v1.4.2 build 20260428</span>
+                    </div>
+                    <div class="space-y-0.5" id="log-container">
+                        <!--
+                            <p><span class="text-slate-500">[ 2026-04-28 14:23:16 INFO ]</span> - [ 연천 한탄강오토캠핑장 ] 2026-05-03 1박 예약 자리 없음</p>
+                            <p><span class="text-slate-500">[ 2026-04-28 14:23:09 INFO ]</span> - [ 연천 한탄강오토캠핑장 ] 검색 사이트 : 언덕야영장(파쇄석), 강변야영장(파쇄석)...</p>
+                            <p class="text-emerald-400 font-bold underline underline-offset-2">▶ [ 2026-04-28 14:23:00 INFO ] - 다음 감시 대기 중... (7초)</p>
+                            -->
+                    </div>
+                </footer>
+            </main>
+        </div>
+
+        <div id="menuLayer" class="fixed inset-y-0 right-0 w-72 bg-white shadow-2xl z-30 p-6 hidden-layer border-l">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-lg font-black text-slate-800 italic">SYSTEM MENU</h2>
+                <button onclick="toggleMenu()" class="text-slate-400 hover:text-slate-800">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <ul class="space-y-4 font-bold text-sm text-slate-600">
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition" id="settingConfigBtn"><i class="fa-solid fa-gear w-8 text-indigo-500"></i><span>환경 설정</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition" id="telegramConfigBtn"><i class="fa-solid fa-bell w-8 text-indigo-500"></i><span>텔레그램 봇 연동</span></li>
+                <li class="flex items-center p-2 hover:bg-slate-50 rounded cursor-pointer transition border-t pt-4 mt-4"><i class="fa-solid fa-circle-info w-8 text-slate-400"></i><span>도움말 및 정보</span></li>
+            </ul>
+        </div>
+        <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 hidden"></div>
+        <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+        <!-- 텔레그램 연동 화면 -->
+        <div id="telegramModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+            <div class="bg-white p-6 rounded-xl w-96 shadow-2xl border border-slate-200">
+                <h2 class="text-lg font-black text-slate-800 italic mb-6">TELEGRAM BOT SETTING</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[10px] font-black text-indigo-600">사용 여부</label>
+                        <select id="tgUseYn" class="text-xs border rounded p-1">
+                            <option value="Y">사용 (Y)</option>
+                            <option value="N">미사용 (N)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase">Bot Token</label>
+                        <input type="password" id="tgToken" class="w-full p-2 border rounded text-xs font-mono" />
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase">Chat IDs (콤마구분)</label>
+                        <textarea id="tgChatIds" class="w-full p-2 border rounded text-xs font-mono h-20" placeholder="12345, 67890"></textarea>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8 space-x-2">
+                    <button onclick="closeTgModal()" class="px-4 py-2 text-xs font-bold text-slate-400">취소</button>
+                    <button onclick="Comp.saveTgSettings()" class="px-6 py-2 text-xs font-black bg-indigo-600 text-white rounded-lg">저장</button>
+                </div>
+            </div>
+        </div>
+        <!-- 텔레그램 연동 화면 -->
+
+        <!-- 환경 설정 모달 -->
+        <div id="settingsModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+            <div class="bg-white p-6 rounded-xl w-[500px] shadow-2xl border border-slate-200">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-lg font-black text-slate-800 italic">SYSTEM CONFIGURATION</h2>
+                    <button onclick="Comp.closeSettingsModal()" class="text-slate-400 hover:text-slate-800"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-sm" id="infoSettingsForm">
+                    <!-- JS에서 동적 생성하거나 직접 작성 -->
+                    <div class="col-span-2"><label class="text-[10px] font-black text-indigo-600 uppercase">이메일</label> <input type="text" name="email" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">이름</label> <input type="text" name="name" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">닉네임</label> <input type="text" name="nickname" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">생년월일(YYMMDD)</label> <input type="text" name="birth_date" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">전화번호</label> <input type="text" name="phone" class="w-full p-2 border rounded text-xs" /></div>
+                    <div><label class="text-[10px] font-black text-indigo-600 uppercase">차량번호</label> <input type="text" name="car_number" class="w-full p-2 border rounded text-xs" /></div>
+                    <div class="flex space-x-2">
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">성인</label> <input type="number" name="member_adult" class="w-full p-2 border rounded text-xs" /></div>
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">학생</label> <input type="number" name="member_teen" class="w-full p-2 border rounded text-xs" /></div>
+                        <div class="flex-1"><label class="text-[10px] font-black text-indigo-600 uppercase">미취학</label> <input type="number" name="member_child" class="w-full p-2 border rounded text-xs" /></div>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-8 space-x-2">
+                    <button onclick="Comp.closeSettingsModal()" class="px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-50 rounded-lg transition">취소</button>
+                    <button onclick="Comp.saveInfoSettings()" class="px-6 py-2 text-xs font-black bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition">설정 저장</button>
+                </div>
+            </div>
+        </div>
+        <!-- 환경 설정 모달 종료 -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script>
+            const campsiteData = {{ campsites | tojson }};
+        </script>
+        <script src="/static/js/script.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                Comp.init();
+                Logger.init();
+                Alert.init();
+            });
+        </script>
+    </body>
+</html>
 
 
 ```
