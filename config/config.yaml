@@ -3,16 +3,16 @@ server:
     host: 127.0.0.1
 telegram:
     use_yn: Y
-    token: 5626123915:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk
+    token: 5626123:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk
     chat_ids:
-        - "5616601566"
+        - "5616601555"
 info:
-    email: hmjkor@gmail.com
-    name: 황명진
-    nickname: 명진
+    email: test@test.com
+    name: 홍길동
+    nickname: 길동
     birth_date: 800622
     phone: 010-1234-5678
-    car_number: 283구2941
+    car_number: 123구1234
     member_adult: 2
     member_teen: 0
     member_child: 1
