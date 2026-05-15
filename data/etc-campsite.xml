@@ -1,133 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
-    <typeName>기타[미작업]</typeName>
+    <typeName>기타</typeName>
     <type>Etc</type>
-    <typeOrder>10</typeOrder>
+    <typeOrder>8</typeOrder>
     <campsites>
         <campsite>
             <type>Dugsan</type>
+            <code>dscamp</code>
             <name>강화 덕산국민여가캠핑장</name>
             <homepage><![CDATA[https://www.ghss.or.kr/ttreserve/reserve/dscamp.do]]></homepage>
-            <maxStayDay>2</maxStayDay>
-            <sites>
-                <site code="INSAM">인삼마을</site>
-                <site code="SUNMU">순무마을</site>
-                <site code="YACKSSUK">약쑥마을</site>
-            </sites>
-        </campsite>
-
-         <campsite>
-            <type>Gugu</type>
-            <name>포천 비둘기낭캠핑장</name>
-             <homepage><![CDATA[https://www.pcuc.kr/open_content/reservation/camping/facilities.jsp]]></homepage>
             <maxStayDay>3</maxStayDay>
+            <groups>
+                <group code="INSAM">인삼마을</group>
+                <group code="SUNMU">순무마을</group>
+                <group code="YACKSSUK">약쑥마을</group>
+            </groups>
             <sites>
-                <site code="A0">A사이트</site>
-                <site code="B0">B사이트</site>
-                <site code="C0">C사이트</site>
-                <site code="D0">D사이트</site>
-                <site code="E0">E사이트</site>
-            </sites>
-            <showLoginField desc="로그인 필드 노출 여부">Y</showLoginField>
-            <isSupportAutoReservation desc="자동 예약 지원 여부">Y</isSupportAutoReservation>
-        </campsite>
+                <site group="INSAM" code="00001">인삼마을 01 데크</site>
+                <site group="INSAM" code="00002">인삼마을 02 데크</site>
+                <site group="INSAM" code="00003">인삼마을 03 데크</site>
+                <site group="INSAM" code="00004">인삼마을 04 데크</site>
+                <site group="INSAM" code="00005">인삼마을 05 데크</site>
+                <site group="INSAM" code="00006">인삼마을 06 데크</site>
+                <site group="INSAM" code="00007">인삼마을 07 데크</site>
+                <site group="INSAM" code="00008">인삼마을 08 데크</site>
+                <site group="INSAM" code="00009">인삼마을 09 데크</site>
+                <site group="INSAM" code="00010">인삼마을 10 데크</site>
+                <site group="INSAM" code="00011">인삼마을 11 데크</site>
+                <site group="INSAM" code="00012">인삼마을 12 데크</site>
+                <site group="INSAM" code="00013">인삼마을 13 데크</site>
+                <site group="INSAM" code="00014">인삼마을 14 데크</site>
+                <site group="INSAM" code="00015">인삼마을 15 데크</site>
+                <site group="INSAM" code="00016">인삼마을 16 데크</site>
+                <site group="INSAM" code="00017">인삼마을 17 데크</site>
+                <site group="INSAM" code="00018">인삼마을 18 데크</site>
+                <site group="INSAM" code="00019">인삼마을 19 데크</site>
 
-        <campsite>
-            <type>Sagehill</type>
-            <name>홍천 세이지힐캠핑장</name>
-            <homepage><![CDATA[http://sagehill.co.kr/]]></homepage>
-            <maxStayDay>3</maxStayDay>
-            <sites>
-                <site code="1">A구역</site>
-                <site code="2">B구역</site>
-                <site code="3">C구역</site>
-                <site code="4">D구역</site>
-                <site code="5">P구역(반려견동반)</site>
-            </sites>
-        </campsite>
+                <site group="SUNMU" code="00020">순무마을 01 데크</site>
+                <site group="SUNMU" code="00021">순무마을 02 데크</site>
+                <site group="SUNMU" code="00022">순무마을 03 데크</site>
+                <site group="SUNMU" code="00023">순무마을 04 데크</site>
+                <site group="SUNMU" code="00024">순무마을 05 데크</site>
+                <site group="SUNMU" code="00025">순무마을 06 데크</site>
+                <site group="SUNMU" code="00026">순무마을 07 데크</site>
+                <site group="SUNMU" code="00027">순무마을 08 데크</site>
+                <site group="SUNMU" code="00028">순무마을 09 데크</site>
+                <site group="SUNMU" code="00029">순무마을 10 데크</site>
+                <site group="SUNMU" code="00030">순무마을 11 데크</site>
+                <site group="SUNMU" code="00031">순무마을 12 데크</site>
+                <site group="SUNMU" code="00032">순무마을 13 데크</site>
+                <site group="SUNMU" code="00033">순무마을 14 데크</site>
+                <site group="SUNMU" code="00034">순무마을 15 데크</site>
+                <site group="SUNMU" code="00035">순무마을 16 데크</site>
+                <site group="SUNMU" code="00036">순무마을 17 데크</site>
+                <site group="SUNMU" code="00037">순무마을 18 데크</site>
+                <site group="SUNMU" code="00038">순무마을 19 데크</site>
+                <site group="SUNMU" code="00039">순무마을 20 데크</site>
 
-        <campsite>
-            <type>Imjingak</type>
-            <name>파주 임진각평화누리캠핑장</name>
-            <homepage><![CDATA[https://imjingakcamping.co.kr/]]></homepage>
-            <maxStayDay>3</maxStayDay>
-            <sites>
-                <site code="ph_a">평화캠핑존</site>
-                <site code="hl">힐링캠핑존</site>
-                <site code="nr">누리캠핑존</site>
-                <site code="ec_b">에코캠핑존</site>
-                <site code="rc_a">렌탈캠핑존A</site>
-                <site code="rc_b">렌탈캠핑존B</site>
-                <site code="cv_a">카라반존A</site>
-                <site code="cv_b">카라반존B</site>
-                <site code="cv_c">카라반존C</site>
+                <site group="YACKSSUK" code="00040">약쑥마을 01 데크</site>
+                <site group="YACKSSUK" code="00041">약쑥마을 02 데크</site>
+                <site group="YACKSSUK" code="00042">약쑥마을 03 데크</site>
+                <site group="YACKSSUK" code="00043">약쑥마을 04 데크</site>
+                <site group="YACKSSUK" code="00044">약쑥마을 05 데크</site>
+                <site group="YACKSSUK" code="00045">약쑥마을 06 데크</site>
+                <site group="YACKSSUK" code="00046">약쑥마을 07 데크</site>
+                <site group="YACKSSUK" code="00047">약쑥마을 08 데크</site>
+                <site group="YACKSSUK" code="00048">약쑥마을 09 데크</site>
+                <site group="YACKSSUK" code="00049">약쑥마을 10 데크</site>
+                <site group="YACKSSUK" code="00050">약쑥마을 11 데크</site>
+                <site group="YACKSSUK" code="00051">약쑥마을 12 데크</site>
+                <site group="YACKSSUK" code="00052">약쑥마을 13 데크</site>
+                <site group="YACKSSUK" code="00053">약쑥마을 14 데크</site>
+                <site group="YACKSSUK" code="00054">약쑥마을 15 데크</site>
+                <site group="YACKSSUK" code="00055">약쑥마을 16 데크</site>
+                <site group="YACKSSUK" code="00056">약쑥마을 17 데크</site>
+                <site group="YACKSSUK" code="00057">약쑥마을 18 데크</site>
+                <site group="YACKSSUK" code="00058">약쑥마을 19 데크</site>
+                <site group="YACKSSUK" code="00059">약쑥마을 20 데크</site>
+                <site group="YACKSSUK" code="00060">약쑥마을 21 데크</site>
+                <site group="YACKSSUK" code="00061">약쑥마을 22 데크</site>
+                <site group="YACKSSUK" code="00062">약쑥마을 23 데크</site>
             </sites>
-        </campsite>
-
-        <campsite>
-            <type>Hwarangcamp</type>
-            <name>안산 안산화랑오토캠핑장</name>
-            <homepage><![CDATA[https://hwarangcamp.ansanuc.net/]]></homepage>
-            <maxStayDay>1</maxStayDay>
-            <sites>
-                <site code="0">오토사이트</site>
-                <site code="3">준글램핑</site>
-                <site code="1">글램핑</site>
-                <site code="2">카라반</site>
-            </sites>
-            <showLoginField desc="로그인 필드 노출 여부">Y</showLoginField>
-        </campsite>
-
-        <campsite>
-            <type>Songjiho</type>
-            <name>고성 송지호오토캠핑장</name>
-            <homepage><![CDATA[https://gwgs.ticketplay.zone/portal/index]]></homepage>
-            <maxStayDay>3</maxStayDay>
-            <sites>
-                <site code="1">통나무</site>
-                <site code="2">제1구역</site>
-                <site code="3">2층데크</site>
-                <site code="9">제2구역</site>
-                <site code="4">제3구역</site>
-                <site code="5">제4구역</site>
-            </sites>
-        </campsite>
-
-        <campsite>
-            <type>Bongsucamp</type>
-            <name>고성 봉수대오토캠핑장</name>
-            <homepage><![CDATA[http://www.bongsucamp.com/g5/]]></homepage>
-            <maxStayDay>6</maxStayDay>
-            <sites>
-                <site code="1">캠핑장</site>
-                <site code="2">카라반4인</site>
-                <site code="3">카라반6인</site>
-            </sites>
-        </campsite>
-
-        <campsite>
-            <type>Golohas</type>
-            <name>대청호 로하스캠핑장</name>
-            <homepage><![CDATA[https://golohas.kr]]></homepage>
-            <maxStayDay>3</maxStayDay>
-            <sites>
-                <site code="2">바비큐장</site>
-                <site code="3">글램핑</site>
-                <site code="4">캠핑장</site>
-            </sites>
-        </campsite>
-
-        <campsite>
-            <type>Gtdc</type>
-            <name>강릉 연곡해변캠핑장</name>
-            <homepage><![CDATA[https://camping.gtdc.or.kr]]></homepage>
-            <maxStayDay>3</maxStayDay>
-            <sites>
-                <site code="A">A-구역</site>
-                <site code="B">B-구역</site>
-                <site code="C">C-구역</site>
-            </sites>
-        </campsite>
+        
+            
+        </campsite>       
 
     </campsites>
 </configuration>

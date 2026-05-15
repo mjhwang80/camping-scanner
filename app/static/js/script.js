@@ -454,7 +454,9 @@ const Comp = {
             hasCategory: hasCategory, //사이트 목록의 상위 그룹이 포함된건지 체크
             autoReserve: autoReserveValue, //자동 예약 수행 여부
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
-            site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
+            //site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
+            site_group_codes: Array.from(document.querySelectorAll("#siteCheckerContainer .group-item:checked")).map((cb) => cb.dataset.groupCode),
+            site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer .site-item:checked")).map((cb) => cb.value)
         };
 
         try {

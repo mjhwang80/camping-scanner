@@ -27,6 +27,7 @@ from platforms.maketicket import MaketicketMonitor
 from platforms.xticket import XticketMonitor
 from platforms.campingtalk import CampingtalkQMonitor
 from platforms.camplink import CamplinkMonitor
+from platforms.dugsan import DugsanMonitor
 
 from core.tray_icon import TrayIcon
 
@@ -76,7 +77,7 @@ def run_server():
     """FastAPI 서버를 실행하는 함수 (백그라운드 스레드용)"""
     target_port = int(CONFIG['server']['port'])
     target_host = CONFIG['server']['host']
-    uvicorn.run(app, host=target_host, port=target_port, log_config=None, workers=1)
+    uvicorn.run(app, host="127.0.0.1", port=target_port, log_config=None, workers=1)
  
 
 def stop_server():
@@ -338,7 +339,10 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
     elif platform_type == "Campingtalk":
         monitor = CampingtalkQMonitor()    
     elif platform_type == "Camplink":
-        monitor = CamplinkMonitor()        
+        monitor = CamplinkMonitor()   
+    elif platform_type == "Dugsan":     
+            monitor = DugsanMonitor()
+
         
     else:
         return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}
@@ -544,9 +548,9 @@ async def create_interpark_session():
 
 def check_expiration():
     # 현재 시간 확인 (2026년 5월 30일 기준)
-    expiration_date = datetime(2026, 5, 29)
+    expiration_date = datetime(2026, 6, 15)
     if datetime.now() > expiration_date:
-        print("[!] 프로그램 사용 기간이 만료되었습니다. (종료일: 2026-05-30)")
+        print("[!] 프로그램 사용 기간이 만료되었습니다. (종료일: 2026-06-15)")
         sys.exit() # 프로그램 강제 종료
 
 if __name__ == "__main__":
@@ -564,10 +568,10 @@ if __name__ == "__main__":
     server_thread = Thread(target=run_server, daemon=True)
     server_thread.start()
 
-    Timer(2.0, open_browser, args=[target_host, target_port]).start()
+    Timer(2.0, open_browser, args=["127.0.0.1", target_port]).start()
 
     # 3. 트레이 아이콘을 메인 스레드에서 실행 (Mac 오류 해결의 핵심)
-    tray_manager = TrayIcon(target_host, target_port, stop_server)
+    tray_manager = TrayIcon("127.0.0.1", target_port, stop_server)
     tray_manager.run()
 
     print(f"[*] Starting server on {target_host}:{target_port}")
