@@ -28,6 +28,7 @@ from platforms.xticket import XticketMonitor
 from platforms.campingtalk import CampingtalkQMonitor
 from platforms.camplink import CamplinkMonitor
 from platforms.dugsan import DugsanMonitor
+from platforms.pubcamping import PubcampingMonitor
 
 from core.tray_icon import TrayIcon
 
@@ -342,7 +343,8 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
         monitor = CamplinkMonitor()   
     elif platform_type == "Dugsan":     
             monitor = DugsanMonitor()
-
+    elif platform_type == "Pubcamping":     
+            monitor = PubcampingMonitor()
         
     else:
         return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}

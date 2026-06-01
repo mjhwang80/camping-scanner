@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configuration>
+    <typeName>캠핑토크</typeName>
+    <type>Pubcamping</type>
+    <typeOrder>7</typeOrder>
+    <homepage><![CDATA[https://gwgs.pubcamping.kr/Home/index]]></homepage>
+    <campsites>
+
+        <campsite>
+            <name>송지호 오토캠핑장</name>
+            <code>@song</code>
+            <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://gwgs.pubcamping.kr/@song/index]]></homepage>
+            <groups>
+                <group code="1">통나무</group>
+                <group code="2">제1구역</group>
+                <group code="28">제1구역(더블데크)</group>
+                <group code="4">제2구역</group>
+                <group code="3">2층데크</group>
+                <group code="5">제3구역</group>
+                <group code="6">제4구역</group>
+            </groups>
+            <sites>
+                <site group='1' code='1'><![CDATA[[통나무-01]]></site>
+                <site group='1' code='2'><![CDATA[[통나무-02]]></site>
+                <site group='1' code='4'><![CDATA[[통나무-03]]></site>
+                <site group='1' code='5'><![CDATA[[통나무-04]]></site>
+                <site group='1' code='6'><![CDATA[[통나무-05]]></site>
+                <site group='1' code='7'><![CDATA[[통나무-06]]></site>
+                <site group='1' code='8'><![CDATA[[통나무-07]]></site>
+                <site group='1' code='9'><![CDATA[[통나무-08]]></site>
+                <site group='1' code='10'><![CDATA[[통나무-09]]></site>
+                <site group='1' code='369'><![CDATA[[통나무-10]]></site>                
+            </sites>
+        </campsite>
+        
+
+    </campsites>
+</configuration>

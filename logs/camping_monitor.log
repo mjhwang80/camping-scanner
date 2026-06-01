@@ -2767,3 +2767,8 @@
 2026-05-15 18:52:13,146 [INFO] camping.termination: [자동 종료 프로세스 시작] 강화 덕산국민여가캠핑장 (ID: Dugsan_dscamp_2026-05-20_1)
 2026-05-15 18:52:13,147 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Dugsan_dscamp_2026-05-20_1
 2026-05-15 18:53:14,570 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-01 19:08:21,778 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-01 19:08:23,048 [INFO] camping: 서버가 정상 기동중...
+2026-06-01 19:08:57,203 [INFO] camping: Monitor started for: @song
+2026-06-01 19:08:57,494 [INFO] camping.pubcamping: [*] pubcamping 감시 시작 - 캠핑장 : 송지호 오토캠핑장 캠핑장 ID: @song 예약일: 2026-06-02 숙박정보: 1
+2026-06-01 19:09:03,805 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-02_1
