@@ -2772,3 +2772,250 @@
 2026-06-01 19:08:57,203 [INFO] camping: Monitor started for: @song
 2026-06-01 19:08:57,494 [INFO] camping.pubcamping: [*] pubcamping 감시 시작 - 캠핑장 : 송지호 오토캠핑장 캠핑장 ID: @song 예약일: 2026-06-02 숙박정보: 1
 2026-06-01 19:09:03,805 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-02_1
+2026-06-02 22:47:45,715 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 22:47:47,527 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 22:48:00,964 [INFO] camping: Monitor started for: @song
+2026-06-02 22:48:01,460 [INFO] camping.pubcamping: [*] pubcamping 감시 시작 - 캠핑장 : 송지호 오토캠핑장 캠핑장 ID: @song 예약일: 2026-06-03 숙박정보: 1
+2026-06-02 22:48:16,316 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-03_1
+2026-06-02 22:50:47,530 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:24:04,749 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:24:05,107 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:24:31,676 [INFO] camping: Monitor started for: @song
+2026-06-02 23:24:31,682 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:25:03,737 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:25:35,777 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:25:43,475 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:25:43,819 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:26:07,119 [INFO] camping: Monitor started for: @song
+2026-06-02 23:26:07,131 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-25, 1박)
+2026-06-02 23:26:07,133 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260625, 1박)
+2026-06-02 23:26:07,135 [ERROR] camping.pubcamping: [!] 구역 1 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,136 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260625, 1박)
+2026-06-02 23:26:07,137 [ERROR] camping.pubcamping: [!] 구역 2 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,138 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260625, 1박)
+2026-06-02 23:26:07,139 [ERROR] camping.pubcamping: [!] 구역 4 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,139 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260625, 1박)
+2026-06-02 23:26:07,140 [ERROR] camping.pubcamping: [!] 구역 5 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,140 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260625, 1박)
+2026-06-02 23:26:07,141 [ERROR] camping.pubcamping: [!] 구역 6 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,141 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260625, 1박)
+2026-06-02 23:26:07,142 [ERROR] camping.pubcamping: [!] 구역 7 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,142 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260625, 1박)
+2026-06-02 23:26:07,143 [ERROR] camping.pubcamping: [!] 구역 8 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,143 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260625, 1박)
+2026-06-02 23:26:07,144 [ERROR] camping.pubcamping: [!] 구역 9 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,145 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260625, 1박)
+2026-06-02 23:26:07,145 [ERROR] camping.pubcamping: [!] 구역 10 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:07,145 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260625, 1박)
+2026-06-02 23:26:07,146 [ERROR] camping.pubcamping: [!] 구역 369 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,232 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-25, 1박)
+2026-06-02 23:26:38,234 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260625, 1박)
+2026-06-02 23:26:38,234 [ERROR] camping.pubcamping: [!] 구역 1 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,234 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260625, 1박)
+2026-06-02 23:26:38,235 [ERROR] camping.pubcamping: [!] 구역 2 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,235 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260625, 1박)
+2026-06-02 23:26:38,235 [ERROR] camping.pubcamping: [!] 구역 4 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,235 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260625, 1박)
+2026-06-02 23:26:38,236 [ERROR] camping.pubcamping: [!] 구역 5 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,236 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260625, 1박)
+2026-06-02 23:26:38,236 [ERROR] camping.pubcamping: [!] 구역 6 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,237 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260625, 1박)
+2026-06-02 23:26:38,237 [ERROR] camping.pubcamping: [!] 구역 7 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,237 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260625, 1박)
+2026-06-02 23:26:38,237 [ERROR] camping.pubcamping: [!] 구역 8 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,238 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260625, 1박)
+2026-06-02 23:26:38,238 [ERROR] camping.pubcamping: [!] 구역 9 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,238 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260625, 1박)
+2026-06-02 23:26:38,239 [ERROR] camping.pubcamping: [!] 구역 10 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:38,239 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260625, 1박)
+2026-06-02 23:26:38,239 [ERROR] camping.pubcamping: [!] 구역 369 파싱 중 오류: AsyncClient.get() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:26:48,525 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-25_1
+2026-06-02 23:26:50,179 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-02 23:27:12,161 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:27:12,500 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:27:37,822 [INFO] camping: Monitor started for: 22005895
+2026-06-02 23:27:37,828 [INFO] camping.interpark: [*] 인터파크(NOL) 감시 시작 - 캠핑장 : 고양 킨텍스캠핑장 캠핑장 ID: 22005895 예약일: 2026-06-24 숙박정보: 2
+2026-06-02 23:27:49,197 [INFO] camping: Monitor stopped for: Interpark_22005895_2026-06-24_D47,D48
+2026-06-02 23:27:58,069 [INFO] camping: Monitor started for: @song
+2026-06-02 23:27:58,072 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 1박)
+2026-06-02 23:27:58,074 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 1박)
+2026-06-02 23:27:58,075 [ERROR] camping.pubcamping: [!] 구역 1 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,075 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 1박)
+2026-06-02 23:27:58,076 [ERROR] camping.pubcamping: [!] 구역 2 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,076 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260624, 1박)
+2026-06-02 23:27:58,077 [ERROR] camping.pubcamping: [!] 구역 4 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,077 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 1박)
+2026-06-02 23:27:58,078 [ERROR] camping.pubcamping: [!] 구역 5 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,078 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260624, 1박)
+2026-06-02 23:27:58,079 [ERROR] camping.pubcamping: [!] 구역 6 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,079 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 1박)
+2026-06-02 23:27:58,080 [ERROR] camping.pubcamping: [!] 구역 7 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,081 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260624, 1박)
+2026-06-02 23:27:58,081 [ERROR] camping.pubcamping: [!] 구역 8 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,082 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 1박)
+2026-06-02 23:27:58,083 [ERROR] camping.pubcamping: [!] 구역 9 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,083 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 1박)
+2026-06-02 23:27:58,084 [ERROR] camping.pubcamping: [!] 구역 10 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:27:58,084 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 1박)
+2026-06-02 23:27:58,085 [ERROR] camping.pubcamping: [!] 구역 369 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,880 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 1박)
+2026-06-02 23:28:28,883 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 1박)
+2026-06-02 23:28:28,883 [ERROR] camping.pubcamping: [!] 구역 1 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,884 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 1박)
+2026-06-02 23:28:28,884 [ERROR] camping.pubcamping: [!] 구역 2 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,885 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260624, 1박)
+2026-06-02 23:28:28,885 [ERROR] camping.pubcamping: [!] 구역 4 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,885 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 1박)
+2026-06-02 23:28:28,885 [ERROR] camping.pubcamping: [!] 구역 5 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,886 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260624, 1박)
+2026-06-02 23:28:28,886 [ERROR] camping.pubcamping: [!] 구역 6 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,886 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 1박)
+2026-06-02 23:28:28,887 [ERROR] camping.pubcamping: [!] 구역 7 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,887 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260624, 1박)
+2026-06-02 23:28:28,887 [ERROR] camping.pubcamping: [!] 구역 8 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,888 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 1박)
+2026-06-02 23:28:28,888 [ERROR] camping.pubcamping: [!] 구역 9 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,888 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 1박)
+2026-06-02 23:28:28,889 [ERROR] camping.pubcamping: [!] 구역 10 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:28,889 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 1박)
+2026-06-02 23:28:28,889 [ERROR] camping.pubcamping: [!] 구역 369 파싱 중 오류: AsyncClient.post() takes 2 positional arguments but 3 positional arguments (and 2 keyword-only arguments) were given
+2026-06-02 23:28:46,379 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-24_1
+2026-06-02 23:28:47,972 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-02 23:28:53,086 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:28:53,624 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:29:12,103 [INFO] camping: Monitor started for: @song
+2026-06-02 23:29:12,110 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:29:12,113 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-02 23:29:12,115 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-02 23:29:12,119 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260624, 2박)
+2026-06-02 23:29:12,121 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-02 23:29:12,123 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260624, 2박)
+2026-06-02 23:29:12,126 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-02 23:29:12,128 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260624, 2박)
+2026-06-02 23:29:12,131 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-02 23:29:12,134 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-02 23:29:12,137 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-02 23:29:43,984 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:29:43,986 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-02 23:29:43,987 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-02 23:29:43,989 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260624, 2박)
+2026-06-02 23:29:43,991 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-02 23:29:43,992 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260624, 2박)
+2026-06-02 23:29:43,994 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-02 23:29:43,996 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260624, 2박)
+2026-06-02 23:29:43,997 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-02 23:29:43,999 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-02 23:29:44,001 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-02 23:29:54,773 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-24_2
+2026-06-02 23:31:53,627 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:34:53,639 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:37:53,644 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:40:53,646 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:43:53,650 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:46:53,656 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:49:53,660 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:52:53,664 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:55:53,668 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:56:11,330 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-02 23:56:20,883 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:56:21,236 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:58:00,005 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:58:00,349 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:58:27,368 [INFO] camping: Monitor started for: @song
+2026-06-02 23:58:27,378 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:58:27,380 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-02 23:58:27,382 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-02 23:58:27,385 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260624, 2박)
+2026-06-02 23:58:27,387 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-02 23:58:27,389 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260624, 2박)
+2026-06-02 23:58:27,391 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-02 23:58:27,393 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260624, 2박)
+2026-06-02 23:58:27,396 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-02 23:58:27,399 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-02 23:58:27,401 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-02 23:58:27,403 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 11 요청일: (20260624, 2박)
+2026-06-02 23:58:27,406 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 16 요청일: (20260624, 2박)
+2026-06-02 23:58:27,408 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 17 요청일: (20260624, 2박)
+2026-06-02 23:58:27,411 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 18 요청일: (20260624, 2박)
+2026-06-02 23:58:27,413 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 19 요청일: (20260624, 2박)
+2026-06-02 23:58:27,415 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 20 요청일: (20260624, 2박)
+2026-06-02 23:58:27,417 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 21 요청일: (20260624, 2박)
+2026-06-02 23:58:27,420 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 488 요청일: (20260624, 2박)
+2026-06-02 23:58:27,422 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 489 요청일: (20260624, 2박)
+2026-06-02 23:58:27,425 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 24 요청일: (20260624, 2박)
+2026-06-02 23:58:27,428 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 490 요청일: (20260624, 2박)
+2026-06-02 23:58:27,429 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 30 요청일: (20260624, 2박)
+2026-06-02 23:58:27,431 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 31 요청일: (20260624, 2박)
+2026-06-02 23:58:27,433 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 32 요청일: (20260624, 2박)
+2026-06-02 23:58:27,434 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 33 요청일: (20260624, 2박)
+2026-06-02 23:58:27,435 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 34 요청일: (20260624, 2박)
+2026-06-02 23:58:27,437 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 35 요청일: (20260624, 2박)
+2026-06-02 23:58:27,439 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 36 요청일: (20260624, 2박)
+2026-06-02 23:58:27,442 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 37 요청일: (20260624, 2박)
+2026-06-02 23:58:27,444 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 38 요청일: (20260624, 2박)
+2026-06-02 23:59:03,153 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:59:03,154 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-02 23:59:03,157 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-02 23:59:03,160 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 4 요청일: (20260624, 2박)
+2026-06-02 23:59:03,162 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-02 23:59:03,164 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 6 요청일: (20260624, 2박)
+2026-06-02 23:59:03,167 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-02 23:59:03,170 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 8 요청일: (20260624, 2박)
+2026-06-02 23:59:03,171 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-02 23:59:03,173 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-02 23:59:03,176 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-02 23:59:03,178 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 11 요청일: (20260624, 2박)
+2026-06-02 23:59:03,179 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 16 요청일: (20260624, 2박)
+2026-06-02 23:59:03,181 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 17 요청일: (20260624, 2박)
+2026-06-02 23:59:03,183 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 18 요청일: (20260624, 2박)
+2026-06-02 23:59:03,185 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 19 요청일: (20260624, 2박)
+2026-06-02 23:59:03,187 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 20 요청일: (20260624, 2박)
+2026-06-02 23:59:03,190 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 21 요청일: (20260624, 2박)
+2026-06-02 23:59:03,193 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 488 요청일: (20260624, 2박)
+2026-06-02 23:59:03,197 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 489 요청일: (20260624, 2박)
+2026-06-02 23:59:03,199 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 24 요청일: (20260624, 2박)
+2026-06-02 23:59:03,202 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 490 요청일: (20260624, 2박)
+2026-06-02 23:59:03,206 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 30 요청일: (20260624, 2박)
+2026-06-02 23:59:03,208 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 31 요청일: (20260624, 2박)
+2026-06-02 23:59:03,210 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 32 요청일: (20260624, 2박)
+2026-06-02 23:59:03,213 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 33 요청일: (20260624, 2박)
+2026-06-02 23:59:03,216 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 34 요청일: (20260624, 2박)
+2026-06-02 23:59:03,219 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 35 요청일: (20260624, 2박)
+2026-06-02 23:59:03,221 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 36 요청일: (20260624, 2박)
+2026-06-02 23:59:03,224 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 37 요청일: (20260624, 2박)
+2026-06-02 23:59:03,228 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 38 요청일: (20260624, 2박)
+2026-06-02 23:59:24,087 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-02 23:59:24,494 [INFO] camping: 서버가 정상 기동중...
+2026-06-02 23:59:50,047 [INFO] camping: Monitor started for: @song
+2026-06-02 23:59:50,057 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-02 23:59:50,059 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-02 23:59:50,062 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-02 23:59:50,064 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-02 23:59:50,067 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-02 23:59:50,068 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-02 23:59:50,070 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-02 23:59:50,073 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-03 00:00:20,787 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-03 00:00:20,789 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-03 00:00:20,791 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-03 00:00:20,793 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-03 00:00:20,795 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-03 00:00:20,797 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-03 00:00:20,800 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-03 00:00:20,802 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-03 00:00:53,858 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-03 00:00:53,860 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-03 00:00:53,862 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-03 00:00:53,863 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-03 00:00:53,865 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-03 00:00:53,867 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-03 00:00:53,868 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-03 00:00:53,871 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)
+2026-06-03 00:01:26,921 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 2박)
+2026-06-03 00:01:26,923 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 2박)
+2026-06-03 00:01:26,926 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260624, 2박)
+2026-06-03 00:01:26,931 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 5 요청일: (20260624, 2박)
+2026-06-03 00:01:26,934 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 7 요청일: (20260624, 2박)
+2026-06-03 00:01:26,936 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 9 요청일: (20260624, 2박)
+2026-06-03 00:01:26,939 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 10 요청일: (20260624, 2박)
+2026-06-03 00:01:26,942 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 369 요청일: (20260624, 2박)

@@ -23,6 +23,7 @@
 - /camping-scanner/app/platforms/xticket.py # X티켓 크롤링 로직
 - /camping-scanner/app/platforms/dugsan.py # 덕산 크롤링 로직
 - /camping-scanner/app/platforms/camplink.py # camplink 크롤링 로직
+- /camping-scanner/app/platforms/pubcamping.py # pubcamping 크롤링 로직
 - /camping-scanner/app/services # 비즈니스 로직 처리 (모니터링 서비스 등)
 - /camping-scanner/app/services/monitor_service.py
 - /camping-scanner/app/services/notification.py
@@ -44,6 +45,7 @@
 - /camping-scanner/data/mirihae-campsite.xml
 - /camping-scanner/data/naver-campsite.xml
 - /camping-scanner/data/xticket-campsite.xml
+- /camping-scanner/data/pubcamping-campsite.xml
 - /camping-scanner/logs # 로그 저장소
 - /camping-scanner/.gitignore # Git 관리 예외 설정 파일
 - /camping-scanner/.prettierignore
