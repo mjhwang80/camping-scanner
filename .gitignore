@@ -10,6 +10,8 @@ config/config.yaml      # 서버 포트, 텔레그램 토큰 등 민감 정보
 __pycache__/            # 파이썬 컴파일 캐시
 *.py[cod]               # 바이트코드 파일
 *$py.class              # 바이트코드 파일
+**/__pycache__/
+*.pyc
 
 # 3. 로그 및 빌드 파일
 logs/                   # 로컬 로그 저장소

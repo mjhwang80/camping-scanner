@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import re
 import logging
 from datetime import datetime, timedelta
-
+import pprint 
 from .base import CampingMonitor
 from core.notifier import notifier
 from core.websocket_manager import ws_manager
@@ -45,6 +45,7 @@ class PubcampingMonitor(CampingMonitor):
             pin_list = result.get("RESULT_DATA", [])
             found_sites = []
             for pin in pin_list:
+
                 room_area_no = pin.get("ROOM_AREA_NO")
                 stay_cnt = pin.get("STAY_CNT")
                 wait_state = pin.get("WAIT_STATE")
@@ -52,12 +53,13 @@ class PubcampingMonitor(CampingMonitor):
                 room_name = pin.get("ROOM_NAME")
 
                 # 예약 가능한 상태인지 체크 (예: 예약수가 0이고 사용가능 여부가 Y인 경우)
-                if stay_cnt == 1 and wait_state == 'Y':
+                if stay_cnt == int(stay_days) and wait_state == 'Y':
+                    pprint.pprint(pin)  # 디버깅용 전체 데이터 출력
                     found_sites.append({
-                        
                         "site_name": room_name,
                         "room_name": room_name,
                         "item_no": room_no,
+                        "room_no": room_no,
                         "room_area_no": room_area_no,
                     })      
 
@@ -78,6 +80,7 @@ class PubcampingMonitor(CampingMonitor):
         req_date = params.get("date")
         stay_days = int(params.get("stay_day", "1"))
         uuid = params.get("watchUuid")
+        target_site_groups = [str(code) for code in params.get("site_group_codes", [])]
         target_site_codes = [str(code) for code in params.get("site_codes", [])]
 
         next_date = datetime.strptime(req_date, "%Y-%m-%d") + timedelta(days=stay_days) 
@@ -100,63 +103,78 @@ class PubcampingMonitor(CampingMonitor):
             "x-requested-with": "XMLHttpRequest"
         })
 
+        found_sites = []
         # 비동기 클라이언트 생성 (커넥션 풀 재사용)
         async with httpx.AsyncClient(verify=False) as client:
             # 1. 모든 구역에 대해 Task 생성 (Java의 Stream -> List<CompletableFuture>와 유사)
             tasks = [
                 self._check_single_group(client, camp_id, group, start_dt, end_dt, stay_days, current_headers)
-                for group in target_site_codes
+                for group in target_site_groups
             ]
             
             # 2. 모든 요청을 동시에 실행 및 결과 수집 (Parallel Execution)
             results = await asyncio.gather(*tasks)
 
             # 3. 결과 중 None(실패/빈자리 없음)을 제외하고 유효한 데이터만 추출
-            found_sites = [r for r in results if r is not None]
+            raw_results = [r for r in results if r is not None]
+            
+            # 2차원 리스트를 1차원 리스트로 평탄화(Flattening)
+            for site_list in raw_results:
+                found_sites.extend(site_list)
 
         # 4. 빈자리 발견 시 처리
         if found_sites:
-            # 첫 번째 발견된 장소를 대표 링크로 사용
-            link = f"https://gwgs.pubcamping.kr/{camp_id}/reservation"
+
             sites_string = ", ".join([s['site_name'] for s in found_sites])
-
-            # 텔레그램 메시지 구성
-            msg = (
-                f"<b>[고성군 공공캠핑장] 빈자리 발견!</b>\n"
-                f"캠핑장: {campsite_name}\n"
-                f"날짜: {req_date} ({stay_days}박)\n"
-                f"구역: {sites_string}\n"
-                f"<a href='{link}'>👉 예약 페이지 바로가기</a>"
-            )
-            await notifier.send_message(msg)
-
-            # 웹소켓 알림 전송 (브라우저 팝업용)
-            await ws_manager.broadcast({
-                "messageType": "alert",
-                "data": {
-                    "campseq": camp_id,
-                    "res_dt": req_date,
-                    "res_days": stay_days,
-                    "link": link,
-                    "list": found_sites
-                }
-            })
-
-            # 시스템 트레이 알림 (Windows 알림)
-            try:
-                from main import tray_manager
-                if tray_manager:
-                    tray_manager.notify(
-                        "빈자리 발견!", 
-                        f"[{campsite_name}] {sites_string} 자리가 났습니다."
-                    )
-            except: pass
-
-            # 감시 자동 종료 처리
-            from main import scheduler
-            await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
             
-            logger.info(f"[SUCCESS] {campsite_name} 빈자리 발견: {sites_string}")
+            for site in found_sites:
+                item_no = site.get("item_no")
+                room_area_no = site.get("room_area_no")
+                
+                if item_no in target_site_codes:
+
+                    link = f"https://mjhwang80.github.io/camping-scanner/app/templates/pubcamping_gateway?camp_id={camp_id}&room_area_no={room_area_no}&check_in={start_dt}&check_out={end_dt}&roomNoArr={item_no}&stay_cnt={stay_days}"
+
+                    # 텔레그램 메시지 구성
+                    msg = (
+                        f"<b>[고성군 공공캠핑장] 빈자리 발견!</b>\n"
+                        f"캠핑장: {campsite_name}\n"
+                        f"날짜: {req_date} ({stay_days}박)\n"
+                        f"구역: {sites_string}\n"
+                        f"<a href='{link}'>👉 예약 페이지 바로가기</a>"
+                    )
+                    await notifier.send_message(msg)
+
+                    # 웹소켓 알림 전송 (브라우저 팝업용)
+                    await ws_manager.broadcast({
+                        "messageType": "alert",
+                        "data": {
+                            "campseq": camp_id,
+                            "res_dt": req_date,
+                            "res_days": stay_days,
+                            "link": link,
+                            "list": found_sites
+                        }
+                    })
+
+                    # 시스템 트레이 알림 (Windows 알림)
+                    try:
+                        from main import tray_manager
+                        if tray_manager:
+                            tray_manager.notify(
+                                "빈자리 발견!", 
+                                f"[{campsite_name}] {sites_string} 자리가 났습니다."
+                            )
+                    except: pass
+
+                    # 감시 자동 종료 처리
+                    from main import scheduler
+                    await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
+                    
+                    logger.info(f"[SUCCESS] {campsite_name} 빈자리 발견: {sites_string}")
+
+                    break
+            
             return True
 
-        return False
+        return False  # 마지막 오타 부분 수정 완료

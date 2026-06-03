@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="euc-kr" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <title>gateway</title>
+        <script type="text/javascript">
+            function getQueryParams(url) {
+                let params = url.split("?")[1];
+                let pair = params.split("&");
+                let result = {};
+
+                for (let i = 0; i < pair.length; i++) {
+                    let temp = pair[i].split("=");
+                    result[temp[0]] = temp[1];
+                }
+                return result;
+            }
+
+            function generatorForm(params) {
+                const gateForm = document.getElementById("gate_form");
+                const camp_id = params["camp_id"];
+
+                const btn1 = document.createElement("input");
+                btn1.type = "hidden";
+                btn1.name = "room_area_no";
+                btn1.value = params["room_area_no"];
+
+                const btn2 = document.createElement("input");
+                btn2.type = "hidden";
+                btn2.name = "stay_cnt";
+                btn2.value = params["stay_cnt"];
+
+                const btn3 = document.createElement("input");
+                btn3.type = "hidden";
+                btn3.name = "check_in";
+                btn3.value = params["check_in"];
+
+                const btn4 = document.createElement("input");
+                btn4.type = "hidden";
+                btn4.name = "check_out";
+                btn4.value = params["check_out"];
+
+                const btn5 = document.createElement("input");
+                btn5.type = "hidden";
+                btn5.name = "roomNoArr";
+                btn5.value = params["roomNoArr"];
+
+                gateForm.appendChild(btn1);
+                gateForm.appendChild(btn2);
+                gateForm.appendChild(btn3);
+                gateForm.appendChild(btn4);
+                gateForm.appendChild(btn5);
+
+                gateForm.action = `https://gwgs.pubcamping.kr/${camp_id}/reservation`;
+                gateForm.submit();
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var isParams = window.location.search ? true : false;
+
+                if (isParams == true) {
+                    var params = getQueryParams(window.location.href);
+                    generatorForm(params);
+                } else {
+                    console.log("not working");
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <form id="gate_form" method="POST"></form>
+    </body>
+</html>

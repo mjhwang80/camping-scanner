@@ -79,6 +79,7 @@ def run_server():
     target_port = int(CONFIG['server']['port'])
     target_host = CONFIG['server']['host']
     uvicorn.run(app, host="127.0.0.1", port=target_port, log_config=None, workers=1)
+    #uvicorn.run("main:app", host="127.0.0.1", port=target_port, log_config=None, reload=True)
  
 
 def stop_server():

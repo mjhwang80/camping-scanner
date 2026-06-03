@@ -3,14 +3,14 @@
     <typeName>고성군캠핑장통합예약</typeName>
     <type>Pubcamping</type>
     <typeOrder>7</typeOrder>
-    <homepage><![CDATA[https://gwgs.pubcamping.kr/Home/index]]></homepage>
+    <homepage><![CDATA[https://gwgs.pubcamping.kr/Home/index/]]></homepage>
     <campsites>
 
         <campsite>
             <name>송지호 오토캠핑장</name>
             <code>@song</code>
             <maxStayDay>3</maxStayDay>
-            <homepage><![CDATA[https://gwgs.pubcamping.kr/@song/index]]></homepage>
+            <homepage><![CDATA[https://gwgs.pubcamping.kr/@song/index?]]></homepage>
             <groups>
                 <group code="1">통나무</group>
                 <group code="2">제1구역</group>
