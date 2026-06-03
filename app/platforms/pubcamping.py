@@ -54,7 +54,7 @@ class PubcampingMonitor(CampingMonitor):
 
                 # 예약 가능한 상태인지 체크 (예: 예약수가 0이고 사용가능 여부가 Y인 경우)
                 if stay_cnt == int(stay_days) and wait_state == 'Y':
-                    pprint.pprint(pin)  # 디버깅용 전체 데이터 출력
+                    
                     found_sites.append({
                         "site_name": room_name,
                         "room_name": room_name,
@@ -122,6 +122,8 @@ class PubcampingMonitor(CampingMonitor):
             for site_list in raw_results:
                 found_sites.extend(site_list)
 
+        logger.info(f"{campsite_name} 캠핑장 빈자리 {len(found_sites)}개 발견")
+
         # 4. 빈자리 발견 시 처리
         if found_sites:
 
@@ -131,9 +133,9 @@ class PubcampingMonitor(CampingMonitor):
                 item_no = site.get("item_no")
                 room_area_no = site.get("room_area_no")
                 
-                if item_no in target_site_codes:
-
-                    link = f"https://mjhwang80.github.io/camping-scanner/app/templates/pubcamping_gateway?camp_id={camp_id}&room_area_no={room_area_no}&check_in={start_dt}&check_out={end_dt}&roomNoArr={item_no}&stay_cnt={stay_days}"
+                if str(item_no) in target_site_codes:
+                    pprint.pprint(site)  # 디버깅용 전체 데이터 출력
+                    link = f"https://mjhwang80.github.io/camping-scanner/app/templates/pubcamping_gateway.html?camp_id={camp_id}&room_area_no={room_area_no}&check_in={start_dt}&check_out={end_dt}&roomNoArr={item_no}&stay_cnt={stay_days}"
 
                     # 텔레그램 메시지 구성
                     msg = (

@@ -4755,3 +4755,84 @@
 2026-06-03 09:36:08,545 [INFO] camping: 서버가 정상 기동중...
 2026-06-03 09:39:08,545 [INFO] camping: 서버가 정상 기동중...
 2026-06-03 09:42:08,546 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:42:55,408 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-03 09:42:55,654 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:43:23,287 [INFO] camping: Monitor started for: @song
+2026-06-03 09:43:23,290 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 2박)
+2026-06-03 09:43:23,291 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 2박)
+2026-06-03 09:43:23,293 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260623, 2박)
+2026-06-03 09:43:56,170 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 2박)
+2026-06-03 09:43:56,172 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 2박)
+2026-06-03 09:43:56,174 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260623, 2박)
+2026-06-03 09:44:28,716 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 2박)
+2026-06-03 09:44:28,718 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 2박)
+2026-06-03 09:44:28,721 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260623, 2박)
+2026-06-03 09:44:58,762 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 2박)
+2026-06-03 09:44:58,763 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 2박)
+2026-06-03 09:44:58,764 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260623, 2박)
+2026-06-03 09:45:01,266 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-23_2
+2026-06-03 09:45:02,063 [INFO] camping: Monitor started for: @song
+2026-06-03 09:45:02,065 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 2박)
+2026-06-03 09:45:02,066 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 2박)
+2026-06-03 09:45:02,068 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260623, 2박)
+2026-06-03 09:45:11,079 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-23_2
+2026-06-03 09:45:55,659 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:46:48,227 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-03 09:46:48,585 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:47:08,667 [INFO] camping: Monitor started for: @song
+2026-06-03 09:47:08,670 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 1박)
+2026-06-03 09:47:08,671 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 1박)
+2026-06-03 09:47:28,674 [INFO] camping: Monitor stopped for: Pubcamping_@song_2026-06-24_1
+2026-06-03 09:49:31,297 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-03 09:49:31,550 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:49:43,600 [INFO] camping: Monitor started for: @song
+2026-06-03 09:49:43,604 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 1박)
+2026-06-03 09:49:43,605 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 1박)
+2026-06-03 09:49:43,674 [INFO] camping.pubcamping: 송지호 오토캠핑장 캠핑장 빈자리 2개 발견
+2026-06-03 09:49:44,675 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-03 09:49:44,686 [INFO] camping.termination: [자동 종료 프로세스 시작] 송지호 오토캠핑장 (ID: Pubcamping_@song_2026-06-23_1)
+2026-06-03 09:49:44,686 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Pubcamping_@song_2026-06-23_1
+2026-06-03 09:49:44,687 [INFO] camping.pubcamping: [SUCCESS] 송지호 오토캠핑장 빈자리 발견: 통나무-08, 통나무-10
+2026-06-03 09:52:31,562 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:55:31,561 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 09:58:07,227 [INFO] camping: Monitor started for: @song
+2026-06-03 09:58:07,229 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-24, 1박)
+2026-06-03 09:58:07,255 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260624, 1박)
+2026-06-03 09:58:07,357 [INFO] camping.pubcamping: 송지호 오토캠핑장 캠핑장 빈자리 2개 발견
+2026-06-03 09:58:10,476 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-03 09:58:10,477 [INFO] camping.termination: [자동 종료 프로세스 시작] 송지호 오토캠핑장 (ID: Pubcamping_@song_2026-06-24_1)
+2026-06-03 09:58:10,477 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Pubcamping_@song_2026-06-24_1
+2026-06-03 09:58:10,478 [INFO] camping.pubcamping: [SUCCESS] 송지호 오토캠핑장 빈자리 발견: 통나무-04, 통나무-08
+2026-06-03 09:58:33,767 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:01:33,767 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:04:33,768 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:05:56,365 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-03 10:05:56,714 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:06:16,138 [INFO] camping: Monitor started for: @song
+2026-06-03 10:06:16,143 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 1박)
+2026-06-03 10:06:16,145 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 1박)
+2026-06-03 10:06:16,146 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 2 요청일: (20260623, 1박)
+2026-06-03 10:06:16,225 [INFO] camping.pubcamping: 송지호 오토캠핑장 캠핑장 빈자리 20개 발견
+2026-06-03 10:06:17,176 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-03 10:06:17,186 [INFO] camping.termination: [자동 종료 프로세스 시작] 송지호 오토캠핑장 (ID: Pubcamping_@song_2026-06-23_1)
+2026-06-03 10:06:17,186 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Pubcamping_@song_2026-06-23_1
+2026-06-03 10:06:17,187 [INFO] camping.pubcamping: [SUCCESS] 송지호 오토캠핑장 빈자리 발견: 통나무-08, 통나무-10, 제1구역-06, 제1구역-07, 제1구역-08, 제1구역-09, 제1구역-10, 제1구역-11, 제1구역-12, 제1구역-13, 제1구역-14, 제1구역-15, 제1구역-20, 제1구역-21, 제1구역-22, 제1구역-23, 제1구역-24, 제1구역-25, 제1구역-27, 제1구역-28
+2026-06-03 10:08:56,713 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:11:56,713 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:14:56,717 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:17:56,722 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:20:56,727 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:23:56,729 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:26:47,841 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-03 10:26:48,224 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:27:15,899 [INFO] camping: Monitor started for: @song
+2026-06-03 10:27:15,904 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 송지호 오토캠핑장 (2026-06-23, 2박)
+2026-06-03 10:27:15,906 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 1 요청일: (20260623, 2박)
+2026-06-03 10:27:15,992 [INFO] camping.pubcamping: 송지호 오토캠핑장 캠핑장 빈자리 1개 발견
+2026-06-03 10:27:17,008 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-03 10:27:17,024 [INFO] camping.termination: [자동 종료 프로세스 시작] 송지호 오토캠핑장 (ID: Pubcamping_@song_2026-06-23_2)
+2026-06-03 10:27:17,024 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Pubcamping_@song_2026-06-23_2
+2026-06-03 10:27:17,024 [INFO] camping.pubcamping: [SUCCESS] 송지호 오토캠핑장 빈자리 발견: 통나무-08
+2026-06-03 10:29:36,449 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-03 10:29:36,824 [INFO] camping: 서버가 정상 기동중...
+2026-06-03 10:29:36,827 [INFO] camping: [*] 스케줄러가 성공적으로 종료되었습니다.

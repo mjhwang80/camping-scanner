@@ -550,11 +550,14 @@ async def create_interpark_session():
         return {"status": "success", "message": "interpark_auth.json 저장 완료"}
 
 def check_expiration():
-    # 현재 시간 확인 (2026년 5월 30일 기준)
-    expiration_date = datetime(2026, 6, 15)
+    # 현재 시간 확인
+    expiration_date = datetime(2026, 7, 30)
+    
     if datetime.now() > expiration_date:
-        print("[!] 프로그램 사용 기간이 만료되었습니다. (종료일: 2026-06-15)")
-        sys.exit() # 프로그램 강제 종료
+        # 2. strptime -> strftime으로 수정하여 날짜 객체를 문자열로 포맷팅합니다.
+        formatted_date = expiration_date.strftime('%Y-%m-%d')
+        print(f"[!] 프로그램 사용 기간이 만료되었습니다. (종료일: {formatted_date})")
+        sys.exit()  # 프로그램 강제 종료
 
 if __name__ == "__main__":
 

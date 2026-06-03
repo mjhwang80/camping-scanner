@@ -760,15 +760,21 @@ const Comp = {
                 const groupCode = this.dataset.parentGroup;
 
                 if (groupCode) {
+                    // 동일한 그룹에 속한 전체 사이트 체크박스들
                     const sameGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]`);
+                    // 동일한 그룹에 속한 체크박스 중 현재 '체크된' 것들
                     const checkedGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]:checked`);
+                    // 상위 그룹 헤더 체크박스
                     const groupHeader = document.querySelector(`.group-item[data-group-code="${groupCode}"]`);
 
                     if (groupHeader) {
-                        groupHeader.checked = sameGroupSites.length === checkedGroupSites.length;
+                        // [수정 핵심]: 상위 그룹 헤더의 체크 상태는 현재 그룹 내 체크된 사이트가 1개 이상일 때 true가 됩니다.
+                        // 자바의 `checkedGroupSites.size() > 0`과 동일한 논리입니다.
+                        groupHeader.checked = checkedGroupSites.length > 0;
                     }
                 }
 
+                // 전체 선택(#allCheck) 상태도 유기적으로 함께 업데이트합니다.
                 updateAllCheckStatus();
             });
         });

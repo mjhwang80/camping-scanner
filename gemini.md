@@ -32,6 +32,8 @@
 - /camping-scanner/app/static/js/script.js # 프론트엔드 메인 로직
 - /camping-scanner/app/templates # HTML 템플릿 (Jinja2)
 - /camping-scanner/app/templates/index.html # 웹 초기 화면
+- /camping-scanner/app/templates/pubcamping_gateway.html # 예약 페이지 이동을 위한 게이트웨이
+- /camping-scanner/app/templates/gugu_gateway.html # 예약 페이지 이동을 위한 게이트웨이
 - /camping-scanner/config # 배포시 외부에서 수정 가능한 설정 파일 경로
 - /camping-scanner/config/config.yaml # 서버 포트, API 토큰 등 설정 (Git 제외 대상)
 - /camping-scanner/data # 캠핑장 정보 XML 파일들
@@ -61,7 +63,7 @@
 
 ## 2. 질문 사항
 
-- [] ** 반응형 서비스 구축 :** 모바일로 접속해서 조작할 수 있도록 반응형으로 만들고 싶어.
+- [] \*\*
 
 ## 3. 분석 대상 코드
 
@@ -71,17 +73,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap");
 
 body {
-    font-family: "Pretendard", sans-serif;
-    background-color: #f1f5f9;
+    font-family:
+        "Pretendard",
+        -apple-system,
+        sans-serif;
+    -webkit-tap-highlight-color: transparent; /* 터치 하이라이트 제거 */
 }
 
+/* 모바일 스크롤바 가독성 */
 .custom-scrollbar::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 4px;
+    height: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
+    background-color: #e2e8f0;
     border-radius: 10px;
 }
 
@@ -93,9 +99,35 @@ body {
     transition: transform 0.3s ease-in-out;
 }
 
+/* 폼 요소 모바일 최적화 (Safari 줌 방지) */
 select,
 input {
-    border: 1px solid #d1d5db !important;
+    border: 1px solid #e2e8f0 !important;
+    font-size: 16px !important; /* iOS 포커스 시 자동 확대 방지 */
+}
+
+/* 리스트 항목 터치 영역 확대 */
+#campsiteList li {
+    padding: 14px 12px;
+}
+
+/* 토스트 메시지 모바일 대응 */
+#toast-container {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    /* 모바일에서는 리사이저 숨김 */
+    #footer-resizer {
+        display: none !important;
+    }
+
+    /* 모달 창 크기 조절 */
+    .fixed.inset-0 > div {
+        width: 90% !important;
+        max-height: 85vh;
+        overflow-y: auto;
+    }
 }
 ```
 
@@ -145,6 +177,13 @@ function openTgModal() {
 function closeTgModal() {
     document.getElementById("telegramModal").classList.add("hidden");
 }
+
+// [추가] 모바일에서 뒤로가기 버튼 등으로 메뉴 닫기 대응
+window.addEventListener("popstate", function () {
+    if (!document.getElementById("menuLayer").classList.contains("hidden-layer")) {
+        toggleMenu();
+    }
+});
 
 async function confirmShutdown() {
     if (confirm("프로그램을 완전히 종료하시겠습니까?")) {
@@ -341,6 +380,11 @@ const Comp = {
 
         this.generatorMaxDayOption(site);
         this.generatorSiteChecker(site);
+
+        // [추가] 모바일 대응: 캠핑장 선택 시 상세 패널로 자동 스크롤
+        if (window.innerWidth < 768) {
+            document.getElementById("reservationPanel").scrollIntoView({ behavior: "smooth" });
+        }
     },
     onChangeWatchDate: function (e) {
         const type = Comp.currentCampsiteData.getElementsByTagName("type")[0]?.textContent;
@@ -546,7 +590,9 @@ const Comp = {
             hasCategory: hasCategory, //사이트 목록의 상위 그룹이 포함된건지 체크
             autoReserve: autoReserveValue, //자동 예약 수행 여부
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
-            site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
+            //site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
+            site_group_codes: Array.from(document.querySelectorAll("#siteCheckerContainer .group-item:checked")).map((cb) => cb.dataset.groupCode),
+            site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer .site-item:checked")).map((cb) => cb.value)
         };
 
         try {
@@ -1076,8 +1122,9 @@ const Toast = {
         <link rel="stylesheet" href="/static/css/style.css" />
         <style></style>
     </head>
-    <body class="flex flex-col h-screen overflow-hidden">
-        <header class="w-full h-14 bg-white border-b shadow-sm flex items-center justify-between px-6 z-20">
+    <body class="flex flex-col h-screen overflow-hidden" md:overflow-auto">
+
+        <header class="w-full h-14 bg-white border-b shadow-sm flex items-center justify-between px-4 md:px-6 z-20">
             <div class="flex items-center space-x-2">
                 <i class="fa-solid fa-tent text-indigo-600 text-xl"></i>
                 <h1 class="text-xl font-black text-slate-800">
@@ -1102,12 +1149,12 @@ const Toast = {
             </div>
         </header>
 
-        <div class="flex flex-1 overflow-hidden">
-            <aside class="w-64 bg-white border-r flex flex-col shadow-inner">
-                <div class="p-4 space-y-4">
+        <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
+            <aside id="asideList" class="w-full md:w-64 bg-white border-b md:border-r flex flex-col shadow-inner h-1/3 md:h-full transition-all">
+                <div class="p-3 md:p-4 space-y-4">
                     <div class="space-y-2">
-                        <label class="text-xs font-black text-indigo-600 uppercase">Camping Platform</label>
-                        <select id="platformSelect" class="w-full p-2 text-sm font-bold bg-slate-50 rounded border-slate-300 outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="text-[10px] md:text-xs font-black text-indigo-600 uppercase">Camping Platform</label>
+                        <select id="platformSelect" class="w-full p-2 text-sm font-bold bg-slate-50 rounded border-slate-300">
                             {% for platform in platform_list %}
                             <option value="{{ platform.filename }}">{{ platform.typeName }}</option>
                             {% endfor %}
@@ -1129,17 +1176,18 @@ const Toast = {
                 </nav>
             </aside>
 
-            <main class="flex-1 flex flex-col overflow-hidden">
-                <div class="flex-1 p-4 grid grid-cols-12 gap-4 overflow-y-auto custom-scrollbar">
-                    <section id="reservationPanel" class="col-span-5 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
+            <main class="flex-1 flex flex-col overflow-hidden bg-slate-50">
+                <div class="flex-1 p-2 md:p-4 grid grid-cols-12 gap-2 md:gap-4 overflow-y-auto custom-scrollbar">
+                    <section id="reservationPanel" class="col-span-12 lg:col-span-5 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
                         <div class="p-3 border-b bg-slate-50 flex justify-between items-center">
                             <h2 class="font-black text-slate-700 text-sm"><i class="fa-solid fa-pen-to-square mr-1"></i> 예약 정보</h2>
-                            <div class="space-x-1">
-                                <button class="px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded hover:bg-indigo-700" id="watchBtn">감시</button>
-                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="homePageBtn">홈페이지</button>
-                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="weatherPageBtn">날씨정보</button>
-                                <button class="px-3 py-1 bg-white border border-slate-300 text-slate-600 text-xs font-bold rounded hover:bg-slate-50" id="seaPageBtn">바다정보</button>
-                            </div>
+                            <button class="px-4 py-1.5 bg-indigo-600 text-white text-xs font-black rounded-lg hover:bg-indigo-700 shadow-md transition-all" id="watchBtn">감시 시작</button>
+                        </div>
+
+                        <div class="px-4 py-2 border-b bg-white flex flex-wrap gap-1">
+                            <button class="flex-1 px-2 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded hover:bg-slate-200" id="homePageBtn">홈페이지</button>
+                            <button class="flex-1 px-2 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded hover:bg-slate-200" id="weatherPageBtn">날씨</button>
+                            <button class="flex-1 px-2 py-1.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded hover:bg-slate-200" id="seaPageBtn">바다</button>
                         </div>
 
                         <div id="interparkAuthPanel" class="mx-4 mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg hidden">
@@ -1229,12 +1277,12 @@ const Toast = {
                         </div>
                     </section>
 
-                    <section class="col-span-7 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
+                    <section class="col-span-12 lg:col-span-7 bg-white rounded border border-slate-300 flex flex-col shadow-sm">
                         <div class="p-3 border-b bg-slate-50">
-                            <h2 class="font-black text-slate-700 text-sm"><i class="fa-solid fa-chart-line mr-1"></i> 감시 정보</h2>
+                            <h2 class="font-black text-slate-700 text-sm">감시 정보</h2>
                         </div>
-                        <div class="flex-1 overflow-auto custom-scrollbar">
-                            <table class="w-full text-xs text-left border-collapse">
+                        <div class="flex-1 overflow-x-auto">
+                            <table class="w-full text-[11px] md:text-xs text-left border-collapse min-w-[500px]">
                                 <thead class="bg-slate-100 sticky top-0 border-b border-slate-300">
                                     <tr class="text-slate-600">
                                         <th class="p-2 border-r font-bold">사이트명</th>
@@ -1266,8 +1314,8 @@ const Toast = {
                     </section>
                 </div>
 
-                <div id="footer-resizer" class="h-1 bg-slate-700 hover:bg-indigo-500 cursor-ns-resize transition-colors z-30"></div>
-                <footer id="main-footer" style="height: 176px" class="bg-[#1e1e1e] text-[#d4d4d4] p-3 font-mono text-[11px] overflow-y-auto border-t-2 border-indigo-500">
+                <div id="footer-resizer" class="hidden md:block h-1 bg-slate-700 hover:bg-indigo-500 cursor-ns-resize"></div>
+                <footer id="main-footer" class="h-32 md:h-44 bg-[#1e1e1e] text-[#d4d4d4] p-3 font-mono text-[10px] overflow-y-auto">
                     <div class="flex items-center justify-between mb-2 text-slate-500 border-b border-slate-800 pb-1">
                         <span><i class="fa-solid fa-terminal mr-1"></i> LOG CONSOLE</span>
                         <span class="text-[10px] uppercase opacity-50">v1.4.2 build 20260428</span>
@@ -1371,4 +1419,5 @@ const Toast = {
         </script>
     </body>
 </html>
+
 ```
