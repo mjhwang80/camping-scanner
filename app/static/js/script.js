@@ -105,6 +105,12 @@ const Comp = {
         const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
         dateInput.min = tomorrow;
         dateInput.value = tomorrow;
+
+        // [추가] 예약 실행 일시의 기본값을 현재 시간으로 세팅 (초단위까지 채움)
+        const reservedInput = document.getElementById("reservedDateTime");
+        if (reservedInput) {
+            reservedInput.value = moment().format("YYYY-MM-DDTHH:mm:ss");
+        }
     },
 
     changeFlatform: async function () {
@@ -409,6 +415,24 @@ const Comp = {
         const requestInterval = document.getElementById("requestInterval").value;
         const campsiteName = currentCampsite.getElementsByTagName("name")[0]?.textContent;
 
+        // 예약 실행 데이터 취합
+        const execType = document.getElementById("execTypeSelect").value;
+        let reservedTime = null;
+        if (execType === "RESERVED") {
+            const reservedTimeVal = document.getElementById("reservedDateTime").value;
+            if (!reservedTimeVal) {
+                alert("예약 실행 시간을 입력해주세요.");
+                return;
+            }
+            // 백엔드로 보낼 포맷팅 처리 (YYYY-MM-DD HH:mm:ss)
+            reservedTime = moment(reservedTimeVal).format("YYYY-MM-DD HH:mm:ss");
+
+            if (moment(reservedTime).isBefore(moment())) {
+                alert("예약 시간은 현재 시간보다 이후여야 합니다.");
+                return;
+            }
+        }
+
         const watchUuid = `${type}_${campId}_${watchDate}_${stayDay}`;
 
         const findNextRunChecked = document.getElementById("findNextRun").checked;
@@ -453,6 +477,9 @@ const Comp = {
             groupCode: groupCode, //그룹코드 하위 그룹이 있을 경우
             hasCategory: hasCategory, //사이트 목록의 상위 그룹이 포함된건지 체크
             autoReserve: autoReserveValue, //자동 예약 수행 여부
+            //예약 수행
+            execType: execType,
+            reservedTime: reservedTime,
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
             //site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
             site_group_codes: Array.from(document.querySelectorAll("#siteCheckerContainer .group-item:checked")).map((cb) => cb.dataset.groupCode),
@@ -471,8 +498,13 @@ const Comp = {
 
             const result = await response.json();
             if (response.ok) {
-                //alert(`${requestData.type} 감시가 시작되었습니다!`);
-                Logger.addLog(`${requestData.type} 감시가 시작되었습니다!`);
+                if (execType === "RESERVED") {
+                    Logger.addLog(`${requestData.type} 감시가 예약되었습니다! (${reservedTime} 시작)`);
+                    // 감시 정보 테이블에도 예약 상태임을 식별 가능하도록 entry를 확장 처리 전달
+                    requestData.isReservedState = true;
+                } else {
+                    Logger.addLog(`${requestData.type} 감시가 시작되었습니다!`);
+                }
                 parent.addMonitoringEntry(requestData); // 모니터링 항목 추가 함수 호출
             }
         } catch (error) {
@@ -487,25 +519,21 @@ const Comp = {
     //모니터링 항목 추가
     addMonitoringEntry: function (entry) {
         const monitoringList = document.getElementById("monitoring-list");
-
         const emptyRow = document.querySelector("#monitoring-list .EMPTY-ROW");
-        if (emptyRow) {
-            emptyRow.remove();
-        }
+        if (emptyRow) emptyRow.remove();
 
         let displayStayDay = entry.stay_day;
-
-        // Interpark 타입이고 stay_day에 콤마(,)가 포함된 경우 개수를 세어 "N박"으로 변환
         if (entry.type === "Interpark" && String(entry.stay_day).includes(",")) {
-            const dayCount = String(entry.stay_day).split(",").length;
-            displayStayDay = `${dayCount}박`;
+            displayStayDay = `${String(entry.stay_day).split(",").length}박`;
         } else if (!String(displayStayDay).includes("박")) {
-            // 기존 숫자만 들어오는 경우를 위해 '박'이 없으면 붙여줌 (선택 사항)
             displayStayDay = `${displayStayDay}박`;
         }
 
+        // [추가] 예약 실행 모드일 때 테이블 상태 메시지 분기 처리
+        const statusHtml = entry.isReservedState ? `<span class="text-amber-500 font-bold italic text-[10px]">대기중 (${entry.reservedTime.split(" ")[1]})</span>` : `<span class="text-green-600 font-bold italic text-[10px]">Monitoring..</span>`;
+
         const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-50 group"; // group 클래스 추가 (호버 시 버튼 강조용)
+        tr.className = "hover:bg-slate-50 group";
         tr.innerHTML = `
         <td class="p-2 border-r font-bold">${entry.campsiteName}</td>
         <td class="p-2 border-r text-center">${entry.date}</td>
@@ -513,7 +541,7 @@ const Comp = {
         <td class="p-2 border-r text-center font-bold text-indigo-600 MNT-COUNT">0</td>
         <td class="p-2 text-center">
             <div class="flex items-center justify-center space-x-3">
-                <span class="text-green-600 font-bold italic text-[10px]">Monitoring..</span>
+                ${statusHtml}
                 <button class="stop-row-btn px-3 py-1 bg-red-500 text-white text-[10px] font-black rounded shadow-sm hover:bg-red-600 transition-colors" 
                         data-uuid="${entry.watchUuid}">
                     중지
@@ -523,18 +551,15 @@ const Comp = {
     `;
         tr.dataset.watchuuid = entry.watchUuid;
 
-        // 행 클릭 시 하이라이트 유지 (기존 로직)
+        // (기존 클릭 및 중지 이벤트 바인딩 동일 코드 유지...)
         tr.onclick = (e) => {
-            // 버튼 클릭 시에는 행 클릭 이벤트가 발생하지 않도록 방지
             if (e.target.classList.contains("stop-row-btn")) return;
             this.highlightMonitoringRow(tr);
             this.selectedMonitoringUuid = entry.watchUuid;
         };
-
-        // 중지 버튼에 이벤트 리스너 추가
         const stopBtn = tr.querySelector(".stop-row-btn");
         stopBtn.onclick = (e) => {
-            e.stopPropagation(); // 행 클릭 이벤트 전파 방지
+            e.stopPropagation();
             this.stopWatchingRow(entry.watchUuid);
         };
 

@@ -121,11 +121,25 @@
                             </div>
                             <div class="space-y-3 pt-2 border-t">
                                 <div class="flex items-center">
+                                    <label class="w-24 font-bold text-slate-600 text-xs">실행 방식</label>
+                                    <select class="flex-1 p-1 border rounded text-xs bg-white" id="execTypeSelect" onchange="document.getElementById('reservedTimeFields').classList.toggle('hidden', this.value === 'NOW')">
+                                        <option value="NOW" selected>즉시 실행</option>
+                                        <option value="RESERVED">예약 실행</option>
+                                    </select>
+                                </div>
+                                
+                                <div id="reservedTimeFields" class="hidden flex items-center">
+                                    <label class="w-24 font-bold text-slate-600 text-xs">예약 시간</label>
+                                    <input type="datetime-local" id="reservedDateTime" step="1" class="flex-1 p-1 border rounded text-xs" />
+                                </div>
+
+                                <div class="flex items-center">
                                     <label class="w-24 font-bold text-slate-600 text-xs">최대요청주기</label>
                                     <select class="flex-1 p-1 border rounded text-xs" id="requestInterval">
                                         <option value="60">1분</option>
                                         <option value="30" selected>30초</option>
                                         <option value="10">10초</option>
+                                        <option value="5">5초</option>
                                     </select>
                                 </div>
                                 <div id="loginFields" class="hidden space-y-3 pt-2">

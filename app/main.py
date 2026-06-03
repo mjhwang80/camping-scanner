@@ -326,6 +326,10 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
     interval = int(params.get("requestInterval", 60))
     job_id = params.get("watchUuid")
 
+    #예약 정보 추출
+    exec_type = params.get("execType", "NOW")
+    reserved_time_str = params.get("reservedTime")
+
     # 전략 패턴을 이용한 인스턴스 생성
 
     if platform_type == "Thankqcamping":
@@ -359,18 +363,34 @@ async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTa
     if existing_job:
         return {"status": "success", "message": f"이미 실행중인 작업입니다."}
 
+    # [수정] 실행 방식(즉시 vs 예약)에 따른 next_run_time 계산 결정
+    if exec_type == "RESERVED" and reserved_time_str:
+        try:
+            # 공백 분리 방식이나 T 분리 방식 모두 유연하게 대처할 수 있도록 strptime 사용
+            # 초 단위(시:분:초) 형태의 포맷 규격을 강제 지정합니다.
+            clean_time_str = reserved_time_str.replace("T", " ") # T가 섞여 들어올 경우 공백으로 통일
+            start_time = datetime.strptime(clean_time_str, "%Y-%m-%d %H:%M:%S")
+            print(f"[*] 감시 예약 정상 등록됨. 실행 예정 시각: {start_time}")
+        except Exception as e:
+            # 파싱 실패 로그를 구체적으로 찍어 디버깅을 돕습니다.
+            logger.error(f"[!] 예약 시간 파싱 오류 발생 (전달된 값: '{reserved_time_str}'): {e}")
+            # 파싱 실패 시 즉시 실행되지 않도록, 안전하게 10년 뒤로 지정하거나 에러 리턴 처리를 하는 것이 안전합니다.
+            return {"status": "error", "message": f"예약 시간 형식이 올바르지 않습니다 ({reserved_time_str})"}
+    else:
+        start_time = datetime.now() # 즉시 실행일 때는 현재 시간
+
     # 런타임에 스케줄링 작업 등록 (Spring의 dynamic scheduling과 유사)
     scheduler.add_job(
-        monitor.check_availability,  # 실행할 함수
-        'interval', 
-        seconds=interval, 
-        jitter=dynamic_jitter,       # 실행 시점마다 무작위 지연 추가
-        args=[params],               # 함수에 넘길 파라미터(Map/dict)
+        monitor.check_availability,
+        'interval',
+        seconds=interval,
+        jitter=dynamic_jitter,
+        args=[params],
         id=job_id,
-        next_run_time=datetime.now() # 즉시 실행
+        next_run_time=start_time     # 계산된 정확한 미래 시각 적용
     )
 
-    # [추가] 서버 메모리에 감시 정보 저장
+    #서버 메모리에 감시 정보 저장
     active_monitors[job_id] = params
     
     return {"status": "success", "message": f"{platform_type} 감시 시작"}

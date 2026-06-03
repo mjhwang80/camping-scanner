@@ -60,10 +60,11 @@
 
 - **언어 및 프레임워크:** python 3.14.0
 - **목적:** 캠핑장 빈자리 알람 프로그램
+- **특징:** 반응형 웹어플리케이션
 
 ## 2. 질문 사항
 
-- [] \*\*
+- index.html에 예약실행 필드를 두고 지정된 특정 시간에 감시가 시작 되도록 하고 싶어.
 
 ## 3. 분석 대상 코드
 
@@ -896,15 +897,21 @@ const Comp = {
                 const groupCode = this.dataset.parentGroup;
 
                 if (groupCode) {
+                    // 동일한 그룹에 속한 전체 사이트 체크박스들
                     const sameGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]`);
+                    // 동일한 그룹에 속한 체크박스 중 현재 '체크된' 것들
                     const checkedGroupSites = document.querySelectorAll(`.site-item[data-parent-group="${groupCode}"]:checked`);
+                    // 상위 그룹 헤더 체크박스
                     const groupHeader = document.querySelector(`.group-item[data-group-code="${groupCode}"]`);
 
                     if (groupHeader) {
-                        groupHeader.checked = sameGroupSites.length === checkedGroupSites.length;
+                        // [수정 핵심]: 상위 그룹 헤더의 체크 상태는 현재 그룹 내 체크된 사이트가 1개 이상일 때 true가 됩니다.
+                        // 자바의 `checkedGroupSites.size() > 0`과 동일한 논리입니다.
+                        groupHeader.checked = checkedGroupSites.length > 0;
                     }
                 }
 
+                // 전체 선택(#allCheck) 상태도 유기적으로 함께 업데이트합니다.
                 updateAllCheckStatus();
             });
         });
@@ -1419,5 +1426,598 @@ const Toast = {
         </script>
     </body>
 </html>
+
+```
+
+### [/camping-scanner/app/main.py]
+
+```python
+import os
+import sys
+import yaml
+import signal
+import webbrowser
+import xml.etree.ElementTree as ET
+from threading import Timer, Thread  # Thread 추가 임포트
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+import uvicorn
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi import Request, HTTPException
+from datetime import datetime
+
+from core.config_loader import get_resource_path, get_external_path
+
+from core.logger import log_queue, logger
+from core.config_loader import CONFIG
+import httpx
+import asyncio
+
+from platforms.thankq import ThankQMonitor
+from platforms.interpark import InterparkMonitor
+from platforms.mirihae import MirihaeMonitor
+from platforms.maketicket import MaketicketMonitor
+from platforms.xticket import XticketMonitor
+from platforms.campingtalk import CampingtalkQMonitor
+from platforms.camplink import CamplinkMonitor
+from platforms.dugsan import DugsanMonitor
+from platforms.pubcamping import PubcampingMonitor
+
+from core.tray_icon import TrayIcon
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Body, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
+
+from core.scheduler import scheduler, start_scheduler
+from core.websocket_manager import ws_manager
+
+from core.config_loader import load_full_config, save_config
+from core.browser_handler import get_browser_path
+
+from playwright.async_api import async_playwright
+
+import logging
+
+try:
+    path = get_browser_path()
+    print(f"[*] 브라우저 경로 설정 완료: {path}")
+except Exception as e:
+    print(f"[!] 브라우저 경로 설정 실패: {e}")
+
+# 전역 객체
+app = FastAPI()
+tray_manager = None #트레이 관리자
+active_monitors = {} #현재 실행 중인 감시 정보 저장소 (메모리)
+
+
+@app.on_event("startup")
+async def start_demo_logging():
+
+    start_scheduler()
+
+    async def simulate_logging():
+        while True:
+            logger.info("서버가 정상 기동중...")
+            await asyncio.sleep(60 * 3)
+    asyncio.create_task(simulate_logging())
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    if scheduler.running:
+        scheduler.shutdown()
+        logger.info("[*] 스케줄러가 성공적으로 종료되었습니다.")
+
+def run_server():
+    """FastAPI 서버를 실행하는 함수 (백그라운드 스레드용)"""
+    target_port = int(CONFIG['server']['port'])
+    target_host = CONFIG['server']['host']
+    uvicorn.run(app, host="127.0.0.1", port=target_port, log_config=None, workers=1)
+    #uvicorn.run("main:app", host="127.0.0.1", port=target_port, log_config=None, reload=True)
+
+
+def stop_server():
+    """종료 콜백"""
+    os.kill(os.getpid(), signal.SIGTERM)
+
+# 1. CORS 설정 (가장 유력한 에러 원인 해결)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 2. 로그를 가로챌 큐와 핸들러 (Java의 Appender 역할)
+log_queue = asyncio.Queue()
+
+class WSLogHandler(logging.Handler):
+    def emit(self, record):
+        msg = self.format(record)
+        # 루프가 실행 중일 때만 큐에 넣음
+        try:
+            loop = asyncio.get_running_loop()
+            loop.create_task(log_queue.put(msg))
+        except RuntimeError:
+            pass
+
+# 로거 세팅
+logger = logging.getLogger("camping")
+logger.setLevel(logging.INFO)
+handler = WSLogHandler()
+handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
+logger.addHandler(handler)
+
+# [경로 설정]
+def get_base_path():
+    """
+    프로젝트 루트 경로를 반환합니다.
+    - 배포 시: .exe 파일이 있는 폴더
+    - 개발 시: app/ 폴더의 부모 폴더 (camping-scanner/)
+    """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.dirname(sys.executable)
+
+    # 현재 파일(main.py)의 부모(app)의 부모(root) 경로를 계산
+    current_file_path = os.path.abspath(__file__)
+    parent_dir = os.path.dirname(current_file_path) # app/
+    root_dir = os.path.dirname(parent_dir)         # camping-scanner/
+    return root_dir
+
+
+def load_campsites():
+    """
+    프로젝트 루트의 data/ 폴더에서 XML 파일들을 읽어
+    { '플랫폼명': ['캠핑장1', '캠핑장2'] } 구조로 반환합니다.
+    """
+    # [참고] Java의 ResourceLoader처럼 물리적 경로 계산
+    base_path = get_base_path()
+    data_dir = os.path.join(base_path, "data")
+
+    # 전달해주신 파일명 리스트 매핑
+    campsite_files = {
+        "인터파크": "interpark-campsite.xml",
+        "메이킹티켓": "maketicket-campsite.xml",
+        "X티켓": "xticket-campsite.xml",
+        "캠프링크": "camplink-campsite.xml",
+        "숲나들e": "foresttrip-campsite.xml",
+        "땡큐캠핑": "thankqcamping-campsite.xml",
+        "캠핑톡": "campingtalk-campsite.xml",
+        "네이버": "naver-campsite.xml",
+        "캠핏": "camfit-campsite.xml",
+        "미리해": "mirihae-campsite.xml",
+        "기타": "etc-campsite.xml"
+    }
+
+    result = {}
+
+    # 1. data 폴더 존재 유무 확인 (Java의 익셉션 핸들링 대신 가벼운 체크)
+    if not os.path.exists(data_dir):
+        print(f"[!] 데이터 폴더를 찾을 수 없습니다: {data_dir}")
+        return result
+
+    for platform, filename in campsite_files.items():
+        file_path = os.path.join(data_dir, filename)
+        result[platform] = []
+
+        if os.path.exists(file_path):
+            try:
+                # XML 파싱 시작 (DOM 파서와 유사)
+                tree = ET.parse(file_path)
+                root = tree.getroot()
+
+                # <campsite> 태그 내부의 <name> 추출
+                for site in root.findall('campsite'):
+                    name_node = site.find('name')
+                    if name_node is not None and name_node.text:
+                        result[platform].append(name_node.text.strip())
+            except Exception as e:
+                print(f"[!] {filename} 파싱 에러: {e}")
+        else:
+            # 파일이 없으면 빈 리스트 유지
+            print(f"[-] 파일을 찾을 수 없음 (무시됨): {filename}")
+
+    return result
+
+# [설정 로드] - 호출 시점에 읽도록 수정
+def load_config():
+    """외부 config/config.yaml 로드"""
+    base_path = get_base_path()
+    # base_path가 이미 프로젝트 루트이므로 바로 config 폴더 결합
+    config_path = os.path.join(base_path, "config", "config.yaml")
+
+    print(f"[*] 설정 파일을 찾는 중: {config_path}") # 경로 확인용 출력
+
+    default_config = {"server": {"port": 8000, "host": "127.0.0.1"}}
+
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                content = yaml.safe_load(f)
+                return content if content else default_config
+        except Exception as e:
+            print(f"[!] 설정 로드 실패: {e}")
+    else:
+        print(f"[!] 설정 파일을 찾지 못했습니다: {config_path}")
+
+    return default_config
+
+def get_xml_content(filename: str):
+    """data/ 폴더에서 XML 파일의 원문을 문자열로 읽어옵니다."""
+    # os.path.join은 Java의 Paths.get()과 유사한 역할을 합니다.
+    file_path = os.path.join("data", filename)
+
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return ""
+
+
+# static 폴더 경로 설정 (빌드 대응)
+static_path = get_resource_path(os.path.join("app", "static"))
+app.mount("/static", StaticFiles(directory=static_path), name="static")
+
+template_path = get_resource_path(os.path.join("app", "templates"))
+templates = Jinja2Templates(directory=template_path)
+
+# [브라우저 오픈] - 호출될 때 config를 다시 확인
+def open_browser(host, port):
+    webbrowser.open(f"http://{host}:{port}")
+
+def get_platform_info():
+    """
+    data 폴더 내의 모든 *-campsite.xml 파일을 읽어
+    typeOrder 기준 오름차순으로 정렬된 리스트를 반환합니다.
+    """
+    base_path = get_base_path() # 기존에 정의하신 경로 계산 함수 사용
+    data_dir = os.path.join(base_path, "data")
+    platforms = []
+
+    if not os.path.exists(data_dir):
+        return platforms
+
+    for filename in os.listdir(data_dir):
+        if filename.endswith("-campsite.xml"):
+            file_path = os.path.join(data_dir, filename)
+            try:
+                tree = ET.parse(file_path)
+                root = tree.getroot()
+
+                # <typeName> 및 <typeOrder> 추출
+                type_name = root.findtext('typeName', '이름 없음').strip()
+                # typeOrder가 없으면 가장 뒤로 보냄 (기본값 999)
+                type_order = int(root.findtext('typeOrder', '999').strip())
+
+                platforms.append({
+                    "filename": filename,
+                    "typeName": type_name,
+                    "typeOrder": type_order
+                })
+            except Exception as e:
+                logger.error(f"[!] {filename} 파싱 에러: {e}")
+
+    # typeOrder 기준으로 오름차순 정렬 (1이 가장 상단)
+    platforms.sort(key=lambda x: x['typeOrder'])
+    return platforms
+
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+
+    sorted_platforms = get_platform_info()
+
+    campsite_list = load_campsites()
+
+    # 이제 templates 폴더 내부의 'index.html'을 찾습니다.
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={"request": request, "campsites": campsite_list, "platform_list": sorted_platforms, "port": CONFIG['server']['port'] }
+    )
+
+@app.get("/gateway/gugu", response_class=HTMLResponse)
+async def index(request: Request):
+
+    sorted_platforms = get_platform_info()
+
+    campsite_list = load_campsites()
+
+    # 이제 templates 폴더 내부의 'index.html'을 찾습니다.
+    return templates.TemplateResponse(
+        request=request,
+        name="gugu_gateway.html",
+        context={"request": request, "port": CONFIG['server']['port'] }
+    )
+
+# API: 플랫폼 변경 시 호출될 엔드포인트 (AJAX용)
+@app.get("/api/campsites/{filename}", response_class=PlainTextResponse)
+async def get_campsite_list(filename: str):
+
+    # data/ 폴더의 경로를 빌드 환경에 맞게 계산
+    file_path = get_external_path(os.path.join("data", filename))
+
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"파일을 찾을 수 없습니다: {file_path}")
+
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        return content
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/monitor/start")
+async def start_monitor(params: dict = Body(...), background_tasks: BackgroundTasks = None):
+
+    print(f"[*] 요청 수신: {params}")
+
+    logger.info(f"Monitor started for: {params.get('camp_id')}")
+
+    """
+    request_data: JSON Body가 Python dict(Map)으로 자동 매핑됨
+    예: {"type": "THANKQ", "camp_id": "3446", "date": "2026-04-28", "site_codes": ["14147"]}
+    """
+    platform_type = params.get("type")
+    interval = int(params.get("requestInterval", 60))
+    job_id = params.get("watchUuid")
+
+    # 전략 패턴을 이용한 인스턴스 생성
+
+    if platform_type == "Thankqcamping":
+        monitor = ThankQMonitor()
+    elif platform_type == "Interpark":
+        monitor = InterparkMonitor()
+    elif platform_type == "Mirihae":
+        monitor = MirihaeMonitor()
+    elif platform_type == "Maketicket":
+        monitor = MaketicketMonitor()
+    elif platform_type == "Xticket":
+        monitor = XticketMonitor()
+    elif platform_type == "Campingtalk":
+        monitor = CampingtalkQMonitor()
+    elif platform_type == "Camplink":
+        monitor = CamplinkMonitor()
+    elif platform_type == "Dugsan":
+            monitor = DugsanMonitor()
+    elif platform_type == "Pubcamping":
+            monitor = PubcampingMonitor()
+
+    else:
+        return {"status": "error", "message": "지원하지 않는 플랫폼입니다."}
+
+    # 인터벌의 20% 정도를 무작위 변동폭(jitter)으로 설정
+    # 예: 60초 설정 시, 60 ± 12초 사이에서 랜덤하게 실행됨
+    dynamic_jitter = int(interval * 0.2)
+
+    # 백그라운드에서 감시 시작 (Spring의 @Async와 유사)
+    existing_job = scheduler.get_job(job_id)
+    if existing_job:
+        return {"status": "success", "message": f"이미 실행중인 작업입니다."}
+
+    # 런타임에 스케줄링 작업 등록 (Spring의 dynamic scheduling과 유사)
+    scheduler.add_job(
+        monitor.check_availability,  # 실행할 함수
+        'interval',
+        seconds=interval,
+        jitter=dynamic_jitter,       # 실행 시점마다 무작위 지연 추가
+        args=[params],               # 함수에 넘길 파라미터(Map/dict)
+        id=job_id,
+        next_run_time=datetime.now() # 즉시 실행
+    )
+
+    # [추가] 서버 메모리에 감시 정보 저장
+    active_monitors[job_id] = params
+
+    return {"status": "success", "message": f"{platform_type} 감시 시작"}
+
+@app.post("/api/monitor/stop/{watch_uuid}")
+async def stop_monitor(watch_uuid: str):
+    try:
+
+        # 등록된 스케줄러 작업 삭제 (Java의 scheduler.cancel(jobId) 역할)
+        scheduler.remove_job(watch_uuid)
+        logger.info(f"Monitor stopped for: {watch_uuid}")
+
+        # 저장소에서도 삭제
+        if watch_uuid in active_monitors:
+            del active_monitors[watch_uuid]
+
+        return {"status": "success", "message": f"Job {watch_uuid} stopped"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+async def monitor_loop(monitor, params):
+    import asyncio
+    while True:
+        found = await monitor.check_availability(params)
+        if found:
+            # 알림 발송 로직 호출
+            print("빈자리 발견!")
+            break
+        await asyncio.sleep(60 * 5) # 5분 대기
+
+@app.get("/api/monitor/list")
+async def get_monitor_list():
+    # 현재 스케줄러에서 실제로 돌아가고 있는 작업만 필터링하여 반환
+    running_jobs = []
+    for job_id, params in active_monitors.items():
+        if scheduler.get_job(job_id):
+            running_jobs.append(params)
+    return running_jobs
+
+@app.post("/api/shutdown")
+async def shutdown():
+    logger.info("[*] 애플리케이션 종료 요청을 받았습니다.")
+
+    def kill_process():
+        # 윈도우와 리눅스 모두에서 작동하도록 SIGINT(Ctrl+C 효과)를 먼저 시도하고 안되면 SIGTERM을 보냅니다.
+        try:
+            # 윈도우의 경우 CTRL_C_EVENT를 사용할 수도 있지만 SIGTERM이 일반적입니다.
+            os.kill(os.getpid(), signal.SIGTERM)
+        except Exception as e:
+            # 강제 종료
+            os._exit(0)
+
+    Timer(1.0, kill_process).start()
+    return {"status": "success", "message": "프로그램을 종료합니다."}
+
+@app.websocket("/ws/logs")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    try:
+        while True:
+            # 큐에 로그가 들어올 때까지 대기 (Java의 queue.take())
+            log_msg = await log_queue.get()
+            await websocket.send_text(log_msg)
+    except WebSocketDisconnect:
+        print("로그 웹소켓 연결 종료")
+
+@app.websocket("/ws/alerts")
+async def websocket_endpoint(websocket: WebSocket):
+    await ws_manager.connect(websocket)
+
+    try:
+        # 2. 중요: 무한 루프를 통해 연결 상태를 유지합니다.
+        # 이 루프가 있어야 함수가 종료되지 않고 '감시' 상태를 유지합니다.
+        while True:
+            # 클라이언트로부터 메시지를 기다림 (연결 유지를 위한 통신)
+            # 수신할 데이터가 없더라도 이 대기 상태가 필요합니다.
+            data = await websocket.receive_text()
+
+    except WebSocketDisconnect:
+        # 3. 브라우저 창을 닫으면 리스트에서 제거
+        ws_manager.disconnect(websocket)
+    except Exception as e:
+        print(f"웹소켓 에러: {e}")
+        ws_manager.disconnect(websocket)
+
+
+@app.get("/api/interpark/play-seq")
+async def proxy_interpark_api(goodsCode: str, start_date: str, end_date: str):
+    url = f"https://api-ticketfront.interpark.com/v1/goods/{goodsCode}/playSeq"
+    params = {
+        "goodsCode": goodsCode,
+        "startDate": start_date,
+        "endDate": end_date,
+        "isBookableDate": "true",
+        "page": 1,
+        "pageSize": 1550
+    }
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+        "Referer": f"https://tickets.interpark.com/goods/{goodsCode}"
+    }
+
+    async with httpx.AsyncClient() as client:
+        # 서버가 대신 인터파크에 물어봅니다.
+        response = await client.get(url, params=params, headers=headers)
+        return response.json()
+
+@app.post("/api/settings/telegram")
+async def save_telegram_settings(settings: dict = Body(...)):
+    """config.yaml 파일의 텔레그램 설정을 업데이트함"""
+    try:
+        from core.config_loader import save_config
+        # 기존 CONFIG 객체 업데이트 및 파일 저장
+        save_config({"telegram": settings})
+        return {"status": "success", "message": "설정이 저장되었습니다."}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# 환경 설정 정보 조회 API
+@app.get("/api/settings")
+async def get_settings():
+    """현재 config.yaml의 텔레그램 및 Info 설정을 반환합니다."""
+    return {
+        "telegram": CONFIG.get("telegram", {"use_yn": "N", "token": "", "chat_ids": []}),
+        "info": CONFIG.get("info", {})
+    }
+
+@app.post("/api/settings/telegram")
+async def save_telegram(settings: dict = Body(...)):
+    # settings 예: {"use_yn": "Y", "token": "...", "chat_ids": ["id1", "id2"]}
+    save_config({"telegram": settings})
+    logger.info("[*] 텔레그램 설정이 업데이트되었습니다.")
+    return {"status": "success"}
+
+@app.post("/api/settings/info")
+async def save_info(info: dict = Body(...)):
+    save_config({"info": info})
+    logger.info("[*] 시스템 환경설정이 업데이트되었습니다.")
+    return {"status": "success"}
+
+@app.post("/api/auth/interpark-session")
+async def create_interpark_session():
+    async with async_playwright() as p:
+        # 1. 브라우저 실행 (사용자가 봐야 하므로 headless=False)
+        browser = await p.chromium.launch(
+            headless=False,
+            args=["--disable-blink-features=AutomationControlled"]
+        )
+        context = await browser.new_context()
+        page = await context.new_page()
+
+        # 브라우저가 닫혔는지 확인할 플래그
+        closed_event = asyncio.Event()
+
+        # 사용자가 브라우저 탭이나 창을 닫을 때 실행될 콜백
+        async def on_close(p):
+            print("[*] 사용자가 브라우저를 닫았습니다. 세션을 저장합니다.")
+            # 창이 닫히기 직전 혹은 직후에 상태 저장
+            await context.storage_state(path="interpark_auth.json")
+            closed_event.set()
+
+        page.on("close", on_close)
+
+        # 2. 인터파크 상품 페이지로 이동
+        await page.goto("https://nol.interpark.com/ticket")
+
+        # 3. 브라우저가 닫힐 때까지 대기 (사용자가 로그인을 완료하고 직접 브라우저를 닫음)
+        # 또는 특정 성공 페이지 URL이 나타날 때까지 대기하도록 설정 가능
+        print("[*] 사용자의 로그인 작업 대기 중...")
+
+        # 3. 사용자가 창을 닫을 때까지 비동기로 무한 대기
+        await closed_event.wait()
+
+        await browser.close()
+
+        return {"status": "success", "message": "interpark_auth.json 저장 완료"}
+
+def check_expiration():
+    # 현재 시간 확인
+    expiration_date = datetime(2026, 7, 30)
+
+    if datetime.now() > expiration_date:
+        # 2. strptime -> strftime으로 수정하여 날짜 객체를 문자열로 포맷팅합니다.
+        formatted_date = expiration_date.strftime('%Y-%m-%d')
+        print(f"[!] 프로그램 사용 기간이 만료되었습니다. (종료일: {formatted_date})")
+        sys.exit()  # 프로그램 강제 종료
+
+if __name__ == "__main__":
+
+    # 앱 시작 시 호출
+    check_expiration()
+
+    # 브라우저 환경 설정
+    get_browser_path()
+
+    target_port = int(CONFIG['server']['port'])
+    target_host = CONFIG['server']['host']
+
+    # 2. FastAPI 서버를 백그라운드 스레드에서 시작
+    server_thread = Thread(target=run_server, daemon=True)
+    server_thread.start()
+
+    Timer(2.0, open_browser, args=["127.0.0.1", target_port]).start()
+
+    # 3. 트레이 아이콘을 메인 스레드에서 실행 (Mac 오류 해결의 핵심)
+    tray_manager = TrayIcon("127.0.0.1", target_port, stop_server)
+    tray_manager.run()
+
+    print(f"[*] Starting server on {target_host}:{target_port}")
+
+    tray_manager.run()
+
+
 
 ```
