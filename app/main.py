@@ -131,60 +131,6 @@ def get_base_path():
     return root_dir
 
 
-def load_campsites():
-    """
-    프로젝트 루트의 data/ 폴더에서 XML 파일들을 읽어 
-    { '플랫폼명': ['캠핑장1', '캠핑장2'] } 구조로 반환합니다.
-    """
-    # [참고] Java의 ResourceLoader처럼 물리적 경로 계산
-    base_path = get_base_path()
-    data_dir = os.path.join(base_path, "data")
-    
-    # 전달해주신 파일명 리스트 매핑
-    campsite_files = {
-        "인터파크": "interpark-campsite.xml",
-        "메이킹티켓": "maketicket-campsite.xml",
-        "X티켓": "xticket-campsite.xml",
-        "캠프링크": "camplink-campsite.xml",
-        "숲나들e": "foresttrip-campsite.xml",
-        "땡큐캠핑": "thankqcamping-campsite.xml",
-        "캠핑톡": "campingtalk-campsite.xml",
-        "네이버": "naver-campsite.xml",
-        "캠핏": "camfit-campsite.xml",
-        "미리해": "mirihae-campsite.xml",
-        "기타": "etc-campsite.xml"
-    }
-    
-    result = {}
-    
-    # 1. data 폴더 존재 유무 확인 (Java의 익셉션 핸들링 대신 가벼운 체크)
-    if not os.path.exists(data_dir):
-        print(f"[!] 데이터 폴더를 찾을 수 없습니다: {data_dir}")
-        return result
-
-    for platform, filename in campsite_files.items():
-        file_path = os.path.join(data_dir, filename)
-        result[platform] = []
-        
-        if os.path.exists(file_path):
-            try:
-                # XML 파싱 시작 (DOM 파서와 유사)
-                tree = ET.parse(file_path)
-                root = tree.getroot()
-                
-                # <campsite> 태그 내부의 <name> 추출
-                for site in root.findall('campsite'):
-                    name_node = site.find('name')
-                    if name_node is not None and name_node.text:
-                        result[platform].append(name_node.text.strip())
-            except Exception as e:
-                print(f"[!] {filename} 파싱 에러: {e}")
-        else:
-            # 파일이 없으면 빈 리스트 유지
-            print(f"[-] 파일을 찾을 수 없음 (무시됨): {filename}")
-            
-    return result
-
 # [설정 로드] - 호출 시점에 읽도록 수정
 def load_config():
     """외부 config/config.yaml 로드"""
@@ -271,21 +217,17 @@ async def index(request: Request):
 
     sorted_platforms = get_platform_info()
 
-    campsite_list = load_campsites()
-
     # 이제 templates 폴더 내부의 'index.html'을 찾습니다.
     return templates.TemplateResponse(
         request=request, 
         name="index.html", 
-        context={"request": request, "campsites": campsite_list, "platform_list": sorted_platforms, "port": CONFIG['server']['port'] }
+        context={"request": request, "platform_list": sorted_platforms, "port": CONFIG['server']['port'] }
     )
 
 @app.get("/gateway/gugu", response_class=HTMLResponse)
 async def index(request: Request):   
 
     sorted_platforms = get_platform_info()
-
-    campsite_list = load_campsites()
 
     # 이제 templates 폴더 내부의 'index.html'을 찾습니다.
     return templates.TemplateResponse(
