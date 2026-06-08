@@ -2,7 +2,7 @@
 <configuration>
     <typeName>네이버[미작업]</typeName>
     <type>Naver</type>
-    <typeOrder>10</typeOrder>
+    <typeOrder>30</typeOrder>
     <campsites>
 
         <campsite>

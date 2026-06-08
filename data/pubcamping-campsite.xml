@@ -2,10 +2,202 @@
 <configuration>
     <typeName>고성군캠핑장통합예약</typeName>
     <type>Pubcamping</type>
-    <typeOrder>7</typeOrder>
+    <typeOrder>9</typeOrder>
     <homepage><![CDATA[https://gwgs.pubcamping.kr/Home/index/]]></homepage>
     <campsites>
-
+        <campsite>
+            <name>백도오토캠핑장</name>
+            <code>@baekdo</code>
+            <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://gwgs.pubcamping.kr/@baekdo/index?]]></homepage>
+            <groups>
+                <group code="14">A구역</group>
+                <group code="15">B구역</group>
+                <group code="16">C구역</group>
+            </groups>
+            <sites>
+                <site group="14" code="248"><![CDATA[A구역-01]]></site>
+                <site group="14" code="249"><![CDATA[A구역-02]]></site>
+                <site group="14" code="250"><![CDATA[A구역-03]]></site>
+                <site group="14" code="251"><![CDATA[A구역-04]]></site>
+                <site group="14" code="252"><![CDATA[A구역-05]]></site>
+                <site group="14" code="253"><![CDATA[A구역-06]]></site>
+                <site group="14" code="254"><![CDATA[A구역-07]]></site>
+                <site group="14" code="255"><![CDATA[A구역-08]]></site>
+                <site group="14" code="256"><![CDATA[A구역-09]]></site>
+                <site group="14" code="257"><![CDATA[A구역-10]]></site>
+                <site group="14" code="258"><![CDATA[A구역-11]]></site>
+                <site group="14" code="259"><![CDATA[A구역-12]]></site>
+                <site group="14" code="260"><![CDATA[A구역-13]]></site>
+                <site group="14" code="261"><![CDATA[A구역-14]]></site>
+                <site group="14" code="262"><![CDATA[A구역-15]]></site>
+                <site group="14" code="263"><![CDATA[A구역-16]]></site>
+                <site group="14" code="264"><![CDATA[A구역-17]]></site>
+                <site group="14" code="265"><![CDATA[A구역-18]]></site>
+                <site group="14" code="266"><![CDATA[A구역-19]]></site>
+                <site group="14" code="267"><![CDATA[A구역-20]]></site>
+                <site group="14" code="268"><![CDATA[A구역-21]]></site>
+                <site group="14" code="269"><![CDATA[A구역-22]]></site>
+                <site group="14" code="270"><![CDATA[A구역-23]]></site>
+                <site group="14" code="271"><![CDATA[A구역-24]]></site>
+                <site group="14" code="272"><![CDATA[A구역-25]]></site>
+                <site group="14" code="273"><![CDATA[A구역-26]]></site>
+                <site group="14" code="275"><![CDATA[A구역-28]]></site>
+                <site group="14" code="276"><![CDATA[A구역-29]]></site>
+                <site group="14" code="274"><![CDATA[A구역-27]]></site>
+                <site group="14" code="277"><![CDATA[A구역-30]]></site>
+                <site group="15" code="278"><![CDATA[B구역-01]]></site>
+                <site group="15" code="279"><![CDATA[B구역-02]]></site>
+                <site group="15" code="280"><![CDATA[B구역-03]]></site>
+                <site group="15" code="281"><![CDATA[B구역-04]]></site>
+                <site group="15" code="282"><![CDATA[B구역-05]]></site>
+                <site group="15" code="283"><![CDATA[B구역-06]]></site>
+                <site group="15" code="284"><![CDATA[B구역-07]]></site>
+                <site group="15" code="285"><![CDATA[B구역-08]]></site>
+                <site group="15" code="286"><![CDATA[B구역-09]]></site>
+                <site group="15" code="287"><![CDATA[B구역-10]]></site>
+                <site group="15" code="288"><![CDATA[B구역-11]]></site>
+                <site group="15" code="289"><![CDATA[B구역-12]]></site>
+                <site group="15" code="290"><![CDATA[B구역-13]]></site>
+                <site group="15" code="291"><![CDATA[B구역-14]]></site>
+                <site group="15" code="292"><![CDATA[B구역-15]]></site>
+                <site group="15" code="293"><![CDATA[B구역-16]]></site>
+                <site group="15" code="294"><![CDATA[B구역-17]]></site>
+                <site group="15" code="295"><![CDATA[B구역-18]]></site>
+                <site group="15" code="296"><![CDATA[B구역-19]]></site>
+                <site group="15" code="297"><![CDATA[B구역-20]]></site>
+                <site group="15" code="298"><![CDATA[B구역-21]]></site>
+                <site group="15" code="299"><![CDATA[B구역-22]]></site>
+                <site group="15" code="300"><![CDATA[B구역-23]]></site>
+                <site group="15" code="302"><![CDATA[B구역-25]]></site>
+                <site group="15" code="304"><![CDATA[B구역-27]]></site>
+                <site group="15" code="305"><![CDATA[B구역-28]]></site>
+                <site group="15" code="301"><![CDATA[B구역-24]]></site>
+                <site group="15" code="303"><![CDATA[B구역-26]]></site>
+                <site group="16" code="307"><![CDATA[C구역-01]]></site>
+                <site group="16" code="308"><![CDATA[C구역-02]]></site>
+                <site group="16" code="309"><![CDATA[C구역-03]]></site>
+                <site group="16" code="310"><![CDATA[C구역-04]]></site>
+                <site group="16" code="311"><![CDATA[C구역-05]]></site>
+                <site group="16" code="312"><![CDATA[C구역-06]]></site>
+                <site group="16" code="313"><![CDATA[C구역-07]]></site>
+                <site group="16" code="314"><![CDATA[C구역-08]]></site>
+                <site group="16" code="315"><![CDATA[C구역-09]]></site>
+                <site group="16" code="316"><![CDATA[C구역-10]]></site>
+                <site group="16" code="317"><![CDATA[C구역-11]]></site>
+                <site group="16" code="319"><![CDATA[C구역-13]]></site>
+                <site group="16" code="320"><![CDATA[C구역-14]]></site>
+                <site group="16" code="321"><![CDATA[C구역-15]]></site>
+                <site group="16" code="322"><![CDATA[C구역-16]]></site>
+                <site group="16" code="318"><![CDATA[C구역-12]]></site>
+            </sites>
+        </campsite>
+        <campsite>
+            <name>봉수대오토캠핑장</name>
+            <code>@bongsucamp</code>
+            <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://gwgs.pubcamping.kr/@bongsucamp/index?]]></homepage>
+            <groups>
+                <group code="11">오토캠핑</group>
+                <group code="27">카라반6인특실</group>
+                <group code="9">카라반4인특실</group>
+                <group code="10">카라반4인</group>
+            </groups>
+            <sites>
+                <site group="11" code="131"><![CDATA[오토캠핑-01]]></site>
+                <site group="11" code="394"><![CDATA[오토캠핑-02]]></site>
+                <site group="11" code="395"><![CDATA[오토캠핑-03]]></site>
+                <site group="11" code="397"><![CDATA[오토캠핑-05]]></site>
+                <site group="11" code="398"><![CDATA[오토캠핑-06]]></site>
+                <site group="11" code="399"><![CDATA[오토캠핑-07]]></site>
+                <site group="11" code="400"><![CDATA[오토캠핑-08]]></site>
+                <site group="11" code="401"><![CDATA[오토캠핑-09]]></site>
+                <site group="11" code="402"><![CDATA[오토캠핑-10]]></site>
+                <site group="11" code="403"><![CDATA[오토캠핑-11]]></site>
+                <site group="11" code="404"><![CDATA[오토캠핑-12]]></site>
+                <site group="11" code="407"><![CDATA[오토캠핑-15]]></site>
+                <site group="11" code="410"><![CDATA[오토캠핑-18]]></site>
+                <site group="11" code="414"><![CDATA[오토캠핑-22]]></site>
+                <site group="11" code="415"><![CDATA[오토캠핑-23]]></site>
+                <site group="11" code="493"><![CDATA[오토캠핑-24]]></site>
+                <site group="11" code="494"><![CDATA[오토캠핑-25]]></site>
+                <site group="11" code="495"><![CDATA[오토캠핑-26]]></site>
+                <site group="11" code="496"><![CDATA[오토캠핑-27]]></site>
+                <site group="11" code="497"><![CDATA[오토캠핑-28]]></site>
+                <site group="11" code="498"><![CDATA[오토캠핑-29]]></site>
+                <site group="11" code="499"><![CDATA[오토캠핑-30]]></site>
+                <site group="11" code="500"><![CDATA[오토캠핑-31]]></site>
+                <site group="11" code="501"><![CDATA[오토캠핑-32]]></site>
+                <site group="11" code="502"><![CDATA[오토캠핑-33]]></site>
+                <site group="11" code="503"><![CDATA[오토캠핑-34]]></site>
+                <site group="11" code="504"><![CDATA[오토캠핑-35]]></site>
+                <site group="11" code="505"><![CDATA[오토캠핑-36]]></site>
+                <site group="11" code="506"><![CDATA[오토캠핑-37]]></site>
+                <site group="11" code="507"><![CDATA[오토캠핑-38]]></site>
+                <site group="11" code="508"><![CDATA[오토캠핑-39]]></site>
+                <site group="11" code="509"><![CDATA[오토캠핑-40]]></site>
+                <site group="11" code="510"><![CDATA[오토캠핑-41]]></site>
+                <site group="11" code="511"><![CDATA[오토캠핑-42]]></site>
+                <site group="11" code="512"><![CDATA[오토캠핑-43]]></site>
+                <site group="11" code="513"><![CDATA[오토캠핑-44]]></site>
+                <site group="11" code="514"><![CDATA[오토캠핑-45]]></site>
+                <site group="11" code="515"><![CDATA[오토캠핑-46]]></site>
+                <site group="11" code="516"><![CDATA[오토캠핑-47]]></site>
+                <site group="11" code="517"><![CDATA[오토캠핑-48]]></site>
+                <site group="11" code="518"><![CDATA[오토캠핑-49]]></site>
+                <site group="11" code="519"><![CDATA[오토캠핑-50]]></site>
+                <site group="11" code="520"><![CDATA[오토캠핑-51]]></site>
+                <site group="11" code="521"><![CDATA[오토캠핑-52]]></site>
+                <site group="11" code="522"><![CDATA[오토캠핑-53]]></site>
+                <site group="11" code="523"><![CDATA[오토캠핑-54]]></site>
+                <site group="11" code="524"><![CDATA[오토캠핑-55]]></site>
+                <site group="11" code="525"><![CDATA[오토캠핑-56]]></site>
+                <site group="11" code="526"><![CDATA[오토캠핑-57]]></site>
+                <site group="11" code="527"><![CDATA[오토캠핑-58]]></site>
+                <site group="11" code="528"><![CDATA[오토캠핑-59]]></site>
+                <site group="11" code="529"><![CDATA[오토캠핑-60]]></site>
+                <site group="11" code="530"><![CDATA[오토캠핑-61]]></site>
+                <site group="11" code="531"><![CDATA[오토캠핑-62]]></site>
+                <site group="11" code="532"><![CDATA[오토캠핑-63]]></site>
+                <site group="11" code="533"><![CDATA[오토캠핑-64]]></site>
+                <site group="11" code="534"><![CDATA[오토캠핑-65]]></site>
+                <site group="11" code="535"><![CDATA[오토캠핑-66]]></site>
+                <site group="11" code="536"><![CDATA[오토캠핑-67]]></site>
+                <site group="11" code="537"><![CDATA[오토캠핑-68]]></site>
+                <site group="11" code="538"><![CDATA[오토캠핑-69]]></site>
+                <site group="11" code="539"><![CDATA[오토캠핑-70]]></site>
+                <site group="11" code="542"><![CDATA[오토캠핑-73]]></site>
+                <site group="11" code="543"><![CDATA[오토캠핑-74]]></site>
+                <site group="11" code="544"><![CDATA[오토캠핑-75]]></site>
+                <site group="11" code="545"><![CDATA[오토캠핑-76]]></site>
+                <site group="11" code="546"><![CDATA[오토캠핑-77]]></site>
+                <site group="11" code="547"><![CDATA[오토캠핑-78]]></site>
+                <site group="11" code="548"><![CDATA[오토캠핑-79]]></site>
+                <site group="11" code="549"><![CDATA[오토캠핑-80]]></site>
+                <site group="11" code="550"><![CDATA[오토캠핑-81]]></site>
+                <site group="11" code="551"><![CDATA[오토캠핑-82]]></site>
+                <site group="11" code="552"><![CDATA[오토캠핑-83]]></site>
+                <site group="11" code="553"><![CDATA[오토캠핑-84]]></site>
+                <site group="11" code="396"><![CDATA[오토캠핑-04]]></site>
+                <site group="11" code="405"><![CDATA[오토캠핑-13]]></site>
+                <site group="11" code="406"><![CDATA[오토캠핑-14]]></site>
+                <site group="11" code="408"><![CDATA[오토캠핑-16]]></site>
+                <site group="11" code="409"><![CDATA[오토캠핑-17]]></site>
+                <site group="11" code="411"><![CDATA[오토캠핑-19]]></site>
+                <site group="11" code="412"><![CDATA[오토캠핑-20]]></site>
+                <site group="11" code="413"><![CDATA[오토캠핑-21]]></site>
+                <site group="27" code="485"><![CDATA[카라반(특)6-3]]></site>
+                <site group="27" code="486"><![CDATA[카라반(특)6-4]]></site>
+                <site group="27" code="492"><![CDATA[카라반(특)6-6]]></site>
+                <site group="27" code="477"><![CDATA[카라반(특)6-1]]></site>
+                <site group="27" code="478"><![CDATA[카라반(특)6-2]]></site>
+                <site group="27" code="487"><![CDATA[카라반(특)6-5]]></site>
+                <site group="9" code="129"><![CDATA[카라반(특)4-2]]></site>
+                <site group="9" code="388"><![CDATA[카라반(특)4-3]]></site>
+                <site group="10" code="130"><![CDATA[카라반4인-4]]></site>
+                <site group="10" code="392"><![CDATA[카라반4인-5]]></site>
+            </sites>
+        </campsite>
         <campsite>
             <name>송지호 오토캠핑장</name>
             <code>@song</code>
@@ -21,112 +213,217 @@
                 <group code="6">제4구역</group>
             </groups>
             <sites>
-                <site group='1' code='1'><![CDATA[통나무-01]]></site>
-                <site group='1' code='2'><![CDATA[통나무-02]]></site>
-                <site group='1' code='4'><![CDATA[통나무-03]]></site>
-                <site group='1' code='5'><![CDATA[통나무-04]]></site>
-                <site group='1' code='6'><![CDATA[통나무-05]]></site>
-                <site group='1' code='7'><![CDATA[통나무-06]]></site>
-                <site group='1' code='8'><![CDATA[통나무-07]]></site>
-                <site group='1' code='9'><![CDATA[통나무-08]]></site>
-                <site group='1' code='10'><![CDATA[통나무-09]]></site>
-                <site group='1' code='369'><![CDATA[통나무-10]]></site> 
-
-                <site group='2' code='11'><![CDATA[제1구역-01]]></site> 
-                <site group='2' code='16'><![CDATA[제1구역-06]]></site>
-                <site group='2' code='17'><![CDATA[제1구역-07]]></site>
-                <site group='2' code='18'><![CDATA[제1구역-08]]></site>
-                <site group='2' code='19'><![CDATA[제1구역-09]]></site>
-                <site group='2' code='20'><![CDATA[제1구역-10]]></site>
-                <site group='2' code='21'><![CDATA[제1구역-11]]></site>
-                <site group='2' code='488'><![CDATA[제1구역-12]]></site>
-                <site group='2' code='489'><![CDATA[제1구역-13]]></site> 
-                <site group='2' code='24'><![CDATA[제1구역-14]]></site> 
-                <site group='2' code='490'><![CDATA[제1구역-15]]></site>
-                <site group='2' code='30'><![CDATA[제1구역-20]]></site>
-                <site group='2' code='31'><![CDATA[제1구역-21]]></site> 
-                <site group='2' code='32'><![CDATA[제1구역-22]]></site> 
-                <site group='2' code='33'><![CDATA[제1구역-23]]></site> 
-                <site group='2' code='34'><![CDATA[제1구역-24]]></site> 
-                <site group='2' code='35'><![CDATA[제1구역-25]]></site>
-                <site group='2' code='36'><![CDATA[제1구역-26]]></site> 
-                <site group='2' code='37'><![CDATA[제1구역-27]]></site>
-                <site group='2' code='38'><![CDATA[제1구역-28]]></site> 
-
-                <site group='28' code='479'><![CDATA[제1구역-02,03]]></site>  
-                <site group='28' code='480'><![CDATA[제1구역-04,05]]></site>
-                <site group='28' code='481'><![CDATA[제1구역-16,17]]></site>
-                <site group='28' code='482'><![CDATA[제1구역-18,19]]></site> 
-
-                <site group='4' code='188'><![CDATA[제2구역-31]]></site>  
-                <site group='4' code='189'><![CDATA[제2구역-32]]></site>
-                <site group='4' code='190'><![CDATA[제2구역-33]]></site>
-                <site group='4' code='191'><![CDATA[제2구역-34]]></site>
-                <site group='4' code='192'><![CDATA[제2구역-35]]></site>  
-                <site group='4' code='193'><![CDATA[제2구역-36]]></site>
-                <site group='4' code='194'><![CDATA[제2구역-37]]></site>  
-                <site group='4' code='195'><![CDATA[제2구역-38]]></site>
-                <site group='4' code='196'><![CDATA[제2구역-39]]></site>
-                <site group='4' code='197'><![CDATA[제2구역-40]]></site>
-                <site group='4' code='198'><![CDATA[제2구역-41]]></site>  
-                <site group='4' code='199'><![CDATA[제2구역-42]]></site>
-                <site group='4' code='200'><![CDATA[제2구역-43]]></site>
-                <site group='4' code='201'><![CDATA[제2구역-44]]></site>
-                <site group='4' code='202'><![CDATA[제2구역-45]]></site>  
-                <site group='4' code='203'><![CDATA[제2구역-46]]></site>
-                <site group='4' code='204'><![CDATA[제2구역-47]]></site>  
-                <site group='4' code='205'><![CDATA[제2구역-48]]></site>
-                <site group='4' code='206'><![CDATA[제2구역-49]]></site>
-                <site group='4' code='207'><![CDATA[제2구역-50]]></site>
-
-                <site group='3' code='39'><![CDATA[제1구역-29]]></site>
-                <site group='3' code='40'><![CDATA[제1구역-30]]></site>
-
-                <site group='5' code='61'><![CDATA[제3구역-51]]></site>
-                <site group='5' code='62'><![CDATA[제3구역-52]]></site>
-                <site group='5' code='63'><![CDATA[제3구역-53]]></site>
-                <site group='5' code='64'><![CDATA[제3구역-54]]></site>
-                <site group='5' code='65'><![CDATA[제3구역-55]]></site>
-                <site group='5' code='66'><![CDATA[제3구역-56]]></site>
-                <site group='5' code='67'><![CDATA[제3구역-57]]></site>
-                <site group='5' code='68'><![CDATA[제3구역-58]]></site>
-                <site group='5' code='69'><![CDATA[제3구역-59]]></site>
-                <site group='5' code='70'><![CDATA[제3구역-60]]></site>
-                <site group='5' code='71'><![CDATA[제3구역-61]]></site>
-                <site group='5' code='72'><![CDATA[제3구역-62]]></site>
-                <site group='5' code='73'><![CDATA[제3구역-63]]></site>
-                <site group='5' code='74'><![CDATA[제3구역-64]]></site>
-                <site group='5' code='75'><![CDATA[제3구역-65]]></site>
-                <site group='5' code='76'><![CDATA[제3구역-66]]></site>
-                <site group='5' code='77'><![CDATA[제3구역-67]]></site>
-                <site group='5' code='78'><![CDATA[제3구역-68]]></site>
-                <site group='5' code='79'><![CDATA[제3구역-69]]></site>
-                <site group='5' code='80'><![CDATA[제3구역-70]]></site>
-
-                <site group='6' code='81'><![CDATA[제4구역-71]]></site>
-                <site group='6' code='82'><![CDATA[제4구역-72]]></site>
-                <site group='6' code='83'><![CDATA[제4구역-73]]></site>
-                <site group='6' code='84'><![CDATA[제4구역-74]]></site>
-                <site group='6' code='85'><![CDATA[제4구역-75]]></site>
-                <site group='6' code='86'><![CDATA[제4구역-76]]></site>
-                <site group='6' code='87'><![CDATA[제4구역-77]]></site>
-                <site group='6' code='88'><![CDATA[제4구역-78]]></site>
-                <site group='6' code='89'><![CDATA[제4구역-79]]></site>
-                <site group='6' code='90'><![CDATA[제4구역-80]]></site>
-                <site group='6' code='91'><![CDATA[제4구역-81]]></site>
-                <site group='6' code='92'><![CDATA[제4구역-82]]></site>
-                <site group='6' code='93'><![CDATA[제4구역-83]]></site>
-                <site group='6' code='94'><![CDATA[제4구역-84]]></site>
-                <site group='6' code='95'><![CDATA[제4구역-85]]></site>
-                <site group='6' code='96'><![CDATA[제4구역-86]]></site>
-                <site group='6' code='97'><![CDATA[제4구역-87]]></site>
-                <site group='6' code='98'><![CDATA[제4구역-88]]></site>
-                <site group='6' code='99'><![CDATA[제4구역-89]]></site>
-                <site group='6' code='100'><![CDATA[제4구역-90]]></site>
-                              
+                <site group="1" code="2"><![CDATA[통나무-02]]></site>
+                <site group="1" code="4"><![CDATA[통나무-03]]></site>
+                <site group="1" code="5"><![CDATA[통나무-04]]></site>
+                <site group="1" code="6"><![CDATA[통나무-05]]></site>
+                <site group="1" code="8"><![CDATA[통나무-07]]></site>
+                <site group="1" code="369"><![CDATA[통나무-10]]></site>
+                <site group="1" code="1"><![CDATA[통나무-01]]></site>
+                <site group="1" code="7"><![CDATA[통나무-06]]></site>
+                <site group="1" code="9"><![CDATA[통나무-08]]></site>
+                <site group="1" code="10"><![CDATA[통나무-09]]></site>
+                <site group="2" code="16"><![CDATA[제1구역-06]]></site>
+                <site group="2" code="17"><![CDATA[제1구역-07]]></site>
+                <site group="2" code="18"><![CDATA[제1구역-08]]></site>
+                <site group="2" code="19"><![CDATA[제1구역-09]]></site>
+                <site group="2" code="20"><![CDATA[제1구역-10]]></site>
+                <site group="2" code="21"><![CDATA[제1구역-11]]></site>
+                <site group="2" code="488"><![CDATA[제1구역-12]]></site>
+                <site group="2" code="489"><![CDATA[제1구역-13]]></site>
+                <site group="2" code="24"><![CDATA[제1구역-14]]></site>
+                <site group="2" code="490"><![CDATA[제1구역-15]]></site>
+                <site group="2" code="30"><![CDATA[제1구역-20]]></site>
+                <site group="2" code="31"><![CDATA[제1구역-21]]></site>
+                <site group="2" code="32"><![CDATA[제1구역-22]]></site>
+                <site group="2" code="33"><![CDATA[제1구역-23]]></site>
+                <site group="2" code="34"><![CDATA[제1구역-24]]></site>
+                <site group="2" code="35"><![CDATA[제1구역-25]]></site>
+                <site group="2" code="37"><![CDATA[제1구역-27]]></site>
+                <site group="2" code="38"><![CDATA[제1구역-28]]></site>
+                <site group="2" code="11"><![CDATA[제1구역-01]]></site>
+                <site group="2" code="36"><![CDATA[제1구역-26]]></site>
+                <site group="28" code="479"><![CDATA[제1구역-02,03]]></site>
+                <site group="28" code="480"><![CDATA[제1구역-04,05]]></site>
+                <site group="28" code="481"><![CDATA[제1구역-16,17]]></site>
+                <site group="28" code="482"><![CDATA[제1구역-18,19]]></site>
+                <site group="4" code="188"><![CDATA[제2구역-31]]></site>
+                <site group="4" code="189"><![CDATA[제2구역-32]]></site>
+                <site group="4" code="190"><![CDATA[제2구역-33]]></site>
+                <site group="4" code="191"><![CDATA[제2구역-34]]></site>
+                <site group="4" code="193"><![CDATA[제2구역-36]]></site>
+                <site group="4" code="194"><![CDATA[제2구역-37]]></site>
+                <site group="4" code="195"><![CDATA[제2구역-38]]></site>
+                <site group="4" code="196"><![CDATA[제2구역-39]]></site>
+                <site group="4" code="197"><![CDATA[제2구역-40]]></site>
+                <site group="4" code="198"><![CDATA[제2구역-41]]></site>
+                <site group="4" code="199"><![CDATA[제2구역-42]]></site>
+                <site group="4" code="200"><![CDATA[제2구역-43]]></site>
+                <site group="4" code="201"><![CDATA[제2구역-44]]></site>
+                <site group="4" code="202"><![CDATA[제2구역-45]]></site>
+                <site group="4" code="203"><![CDATA[제2구역-46]]></site>
+                <site group="4" code="204"><![CDATA[제2구역-47]]></site>
+                <site group="4" code="205"><![CDATA[제2구역-48]]></site>
+                <site group="4" code="206"><![CDATA[제2구역-49]]></site>
+                <site group="4" code="207"><![CDATA[제2구역-50]]></site>
+                <site group="4" code="192"><![CDATA[제2구역-35]]></site>
+                <site group="3" code="39"><![CDATA[제1구역-29]]></site>
+                <site group="3" code="40"><![CDATA[제1구역-30]]></site>
+                <site group="5" code="61"><![CDATA[제3구역-51]]></site>
+                <site group="5" code="62"><![CDATA[제3구역-52]]></site>
+                <site group="5" code="63"><![CDATA[제3구역-53]]></site>
+                <site group="5" code="64"><![CDATA[제3구역-54]]></site>
+                <site group="5" code="65"><![CDATA[제3구역-55]]></site>
+                <site group="5" code="66"><![CDATA[제3구역-56]]></site>
+                <site group="5" code="67"><![CDATA[제3구역-57]]></site>
+                <site group="5" code="68"><![CDATA[제3구역-58]]></site>
+                <site group="5" code="69"><![CDATA[제3구역-59]]></site>
+                <site group="5" code="70"><![CDATA[제3구역-60]]></site>
+                <site group="5" code="71"><![CDATA[제3구역-61]]></site>
+                <site group="5" code="72"><![CDATA[제3구역-62]]></site>
+                <site group="5" code="73"><![CDATA[제3구역-63]]></site>
+                <site group="5" code="74"><![CDATA[제3구역-64]]></site>
+                <site group="5" code="75"><![CDATA[제3구역-65]]></site>
+                <site group="5" code="76"><![CDATA[제3구역-66]]></site>
+                <site group="5" code="77"><![CDATA[제3구역-67]]></site>
+                <site group="5" code="78"><![CDATA[제3구역-68]]></site>
+                <site group="5" code="79"><![CDATA[제3구역-69]]></site>
+                <site group="5" code="80"><![CDATA[제3구역-70]]></site>
+                <site group="6" code="81"><![CDATA[제4구역-71]]></site>
+                <site group="6" code="82"><![CDATA[제4구역-72]]></site>
+                <site group="6" code="83"><![CDATA[제4구역-73]]></site>
+                <site group="6" code="84"><![CDATA[제4구역-74]]></site>
+                <site group="6" code="85"><![CDATA[제4구역-75]]></site>
+                <site group="6" code="86"><![CDATA[제4구역-76]]></site>
+                <site group="6" code="87"><![CDATA[제4구역-77]]></site>
+                <site group="6" code="88"><![CDATA[제4구역-78]]></site>
+                <site group="6" code="89"><![CDATA[제4구역-79]]></site>
+                <site group="6" code="90"><![CDATA[제4구역-80]]></site>
+                <site group="6" code="91"><![CDATA[제4구역-81]]></site>
+                <site group="6" code="92"><![CDATA[제4구역-82]]></site>
+                <site group="6" code="93"><![CDATA[제4구역-83]]></site>
+                <site group="6" code="94"><![CDATA[제4구역-84]]></site>
+                <site group="6" code="95"><![CDATA[제4구역-85]]></site>
+                <site group="6" code="96"><![CDATA[제4구역-86]]></site>
+                <site group="6" code="97"><![CDATA[제4구역-87]]></site>
+                <site group="6" code="98"><![CDATA[제4구역-88]]></site>
+                <site group="6" code="99"><![CDATA[제4구역-89]]></site>
+                <site group="6" code="100"><![CDATA[제4구역-90]]></site>
             </sites>
         </campsite>
-        
-
+        <campsite>
+            <name>오호 캠핑장</name>
+            <code>@oho</code>
+            <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://gwgs.pubcamping.kr/@oho/index?]]></homepage>
+            <groups>
+                <group code="17">A구역</group>
+                <group code="18">B구역</group>
+                <group code="24">노지</group>
+            </groups>
+            <sites>
+                <site group="17" code="323"><![CDATA[A구역-01]]></site>
+                <site group="17" code="324"><![CDATA[A구역-02]]></site>
+                <site group="17" code="327"><![CDATA[A구역-05]]></site>
+                <site group="17" code="328"><![CDATA[A구역-06]]></site>
+                <site group="17" code="329"><![CDATA[A구역-07]]></site>
+                <site group="17" code="330"><![CDATA[A구역-08]]></site>
+                <site group="17" code="331"><![CDATA[A구역-09]]></site>
+                <site group="17" code="332"><![CDATA[A구역-10]]></site>
+                <site group="17" code="333"><![CDATA[A구역-11]]></site>
+                <site group="17" code="334"><![CDATA[A구역-12]]></site>
+                <site group="17" code="335"><![CDATA[A구역-13]]></site>
+                <site group="17" code="325"><![CDATA[A구역-03]]></site>
+                <site group="17" code="326"><![CDATA[A구역-04]]></site>
+                <site group="18" code="336"><![CDATA[B구역-01]]></site>
+                <site group="18" code="337"><![CDATA[B구역-02]]></site>
+                <site group="18" code="338"><![CDATA[B구역-03]]></site>
+                <site group="18" code="339"><![CDATA[B구역-04]]></site>
+                <site group="18" code="340"><![CDATA[B구역-05]]></site>
+                <site group="18" code="341"><![CDATA[B구역-06]]></site>
+                <site group="18" code="342"><![CDATA[B구역-07]]></site>
+                <site group="18" code="343"><![CDATA[B구역-08]]></site>
+                <site group="18" code="344"><![CDATA[B구역-09]]></site>
+                <site group="18" code="345"><![CDATA[B구역-10]]></site>
+                <site group="18" code="346"><![CDATA[B구역-11]]></site>
+                <site group="18" code="347"><![CDATA[B구역-12]]></site>
+                <site group="18" code="348"><![CDATA[B구역-13]]></site>
+                <site group="18" code="349"><![CDATA[B구역-14]]></site>
+                <site group="18" code="350"><![CDATA[B구역-15]]></site>
+                <site group="18" code="351"><![CDATA[B구역-16]]></site>
+                <site group="18" code="352"><![CDATA[B구역-17]]></site>
+                <site group="18" code="353"><![CDATA[B구역-18]]></site>
+                <site group="18" code="354"><![CDATA[B구역-19]]></site>
+                <site group="18" code="355"><![CDATA[B구역-20]]></site>
+                <site group="18" code="356"><![CDATA[B구역-21]]></site>
+                <site group="18" code="357"><![CDATA[B구역-22]]></site>
+                <site group="18" code="358"><![CDATA[B구역-23]]></site>
+                <site group="18" code="359"><![CDATA[B구역-24]]></site>
+                <site group="18" code="361"><![CDATA[B구역-26]]></site>
+                <site group="18" code="362"><![CDATA[B구역-27]]></site>
+                <site group="18" code="363"><![CDATA[B구역-28]]></site>
+                <site group="18" code="364"><![CDATA[B구역-29]]></site>
+                <site group="18" code="365"><![CDATA[B구역-30]]></site>
+                <site group="18" code="366"><![CDATA[B구역-31]]></site>
+                <site group="18" code="483"><![CDATA[B구역-32]]></site>
+                <site group="18" code="484"><![CDATA[B구역-33]]></site>
+                <site group="18" code="554"><![CDATA[B구역-34]]></site>
+                <site group="18" code="555"><![CDATA[B구역-35]]></site>
+                <site group="18" code="556"><![CDATA[B구역-36]]></site>
+                <site group="18" code="360"><![CDATA[B구역-25]]></site>
+                <site group="24" code="374"><![CDATA[노지-01]]></site>
+                <site group="24" code="375"><![CDATA[노지-02]]></site>
+                <site group="24" code="376"><![CDATA[노지-03]]></site>
+                <site group="24" code="377"><![CDATA[노지-04]]></site>
+                <site group="24" code="378"><![CDATA[노지-05]]></site>
+                <site group="24" code="379"><![CDATA[노지-06]]></site>
+                <site group="24" code="380"><![CDATA[노지-07]]></site>
+                <site group="24" code="381"><![CDATA[노지-08]]></site>
+                <site group="24" code="382"><![CDATA[노지-09]]></site>
+                <site group="24" code="383"><![CDATA[노지-10]]></site>
+                <site group="24" code="384"><![CDATA[노지-11]]></site>
+                <site group="24" code="385"><![CDATA[노지-12]]></site>
+            </sites>
+        </campsite>
+        <campsite>
+            <name>자작도 캠핑장</name>
+            <code>@jajakdo</code>
+            <maxStayDay>3</maxStayDay>
+            <homepage><![CDATA[https://gwgs.pubcamping.kr/@jajakdo/index?]]></homepage>
+            <groups>
+                <group code="7">A구역</group>
+                <group code="8">B구역</group>
+            </groups>
+            <sites>
+                <site group="7" code="101"><![CDATA[A구역-01]]></site>
+                <site group="7" code="102"><![CDATA[A구역-02]]></site>
+                <site group="7" code="103"><![CDATA[A구역-03]]></site>
+                <site group="7" code="104"><![CDATA[A구역-04]]></site>
+                <site group="7" code="105"><![CDATA[A구역-05]]></site>
+                <site group="7" code="106"><![CDATA[A구역-06]]></site>
+                <site group="7" code="107"><![CDATA[A구역-07]]></site>
+                <site group="7" code="108"><![CDATA[A구역-08]]></site>
+                <site group="7" code="109"><![CDATA[A구역-09]]></site>
+                <site group="7" code="110"><![CDATA[A구역-10]]></site>
+                <site group="7" code="111"><![CDATA[A구역-11]]></site>
+                <site group="7" code="112"><![CDATA[A구역-12]]></site>
+                <site group="7" code="113"><![CDATA[A구역-13]]></site>
+                <site group="7" code="114"><![CDATA[A구역-14]]></site>
+                <site group="7" code="115"><![CDATA[A구역-15]]></site>
+                <site group="7" code="116"><![CDATA[A구역-16]]></site>
+                <site group="7" code="117"><![CDATA[A구역-17]]></site>
+                <site group="7" code="118"><![CDATA[A구역-18]]></site>
+                <site group="7" code="119"><![CDATA[A구역-19]]></site>
+                <site group="8" code="169"><![CDATA[B구역-20]]></site>
+                <site group="8" code="170"><![CDATA[B구역-21]]></site>
+                <site group="8" code="171"><![CDATA[B구역-22]]></site>
+                <site group="8" code="172"><![CDATA[B구역-23]]></site>
+                <site group="8" code="173"><![CDATA[B구역-24]]></site>
+                <site group="8" code="174"><![CDATA[B구역-25]]></site>
+                <site group="8" code="175"><![CDATA[B구역-26]]></site>
+                <site group="8" code="176"><![CDATA[B구역-27]]></site>
+                <site group="8" code="177"><![CDATA[B구역-28]]></site>
+            </sites>
+        </campsite>
     </campsites>
 </configuration>

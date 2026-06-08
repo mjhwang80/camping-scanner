@@ -26,7 +26,7 @@ class GtdcMonitor(CampingMonitor):
 
     async def _check_single_group(self, client, camp_id, target_group, start_date, end_date, stay_days, headers):
 
-        logger.info(f"[*] [연곡솔향기] 구역 감시 시작 ID: {target_group} 요청일: ({start_date}, {stay_days}박)")
+        logger.info(f"[*] [연곡해변캠핑장] 구역 감시 시작 ID: {target_group} 요청일: ({start_date}, {stay_days}박)")
 
         parsed_start_date = datetime.strptime(start_date, "%Y%m%d") 
         formatted_yy_mm_dd = parsed_start_date.strftime("%y-%m-%d")
@@ -56,72 +56,61 @@ class GtdcMonitor(CampingMonitor):
             date_str = current_date.strftime("%Y%m%d")
             
             # 딕셔너리에 동적으로 Key/Value 쌍 추가
-            data[f"isDates[{date_str}][type]"] = 'Usual'
-            data[f"isDates[{date_str}][seas]"] = 'normal'
+            #data[f"isDates[{date_str}][type]"] = 'Usual'
+            #data[f"isDates[{date_str}][seas]"] = 'normal'
 
 
-        pprint.pprint(data)
+        tmonth=formatted_yyyy_mm
+        tarea=f"{target_group}-{formatted_yy_mm_dd}-{stay_days}"
+  
 
+        now = datetime.now()
+        formatted_time = now.strftime("%Y%m%d%H%M%S")
+        req_headers = headers.copy()
+        req_headers["Referer"] = f"https://camping.gtdc.or.kr/pub/reserv.do?tmonth={tmonth}&sp=z&tarea={tarea}"
+        req_headers["Author"] = formatted_time
 
-        headers["Referer"] = f"https://camping.gtdc.or.kr/pub/reserv.do?tmonth={formatted_yyyy_mm}&sp=z&tarea={target_group}-{formatted_yy_mm_dd}-{stay_days}"
-
-        pprint.pprint(data)  # 디버깅용 데이터 출력
+        #pprint.pprint(data)  # 디버깅용 데이터 출력
 
         try:
             # 타임아웃을 넉넉히 주어 네트워크 지연에 대비
-            response = await client.post(url, data=data, headers=headers, timeout=10.0)
-
-            # 🔍 [디버깅 영역] 요청 정보(헤더, 쿠키) 및 응답 정보 통합 출력
-            print("\n" + "="*60)
-            print(f"📡 [HTTP 통신 디버그] 구역 코드: {target_group}")
-            print("-"*60)
-            print("[1] SEND - REQUEST HEADERS (보낸 요청 헤더):")
-            # response.request.headers를 통해 실제로 서버에 전달된 최종 헤더를 확인합니다.
-            pprint.pprint(dict(response.request.headers))
-            
-            print("\n[2] SEND - REQUEST COOKIES (함께 전송된 쿠키):")
-            # client.cookies에 담겨 이번 요청에 자동으로 포함된 쿠키들을 확인합니다.
-            pprint.pprint(dict(client.cookies))
-            
-            print("-"*60)
-            print(f"[3] RECV - RESPONSE STATUS: {response.status_code}")
-            
-            print("\n[4] RECV - RESPONSE HEADERS (받은 응답 헤더):")
-            pprint.pprint(dict(response.headers))
-            
-            print("\n[5] RECV - RESPONSE TEXT (응답 본문 데이터):")
-            # .text는 속성이므로 괄호()를 붙이지 않고 출력합니다.
-            pprint.pprint(response.text)
-            print("="*60 + "\n")
+            response = await client.post(url, data=data, headers=req_headers, timeout=10.0)           
 
             if response.status_code != 200:
                 return None
 
             result = response.json()
+            #print(result)  # 디버깅용 전체 응답 데이터 출력
 
+            block_list = result.get("block", [])
+            rooms_data = result.get("rooms") or {}
 
-            pprint.pprint(result)  # 디버깅용 전체 응답 데이터 출력
+            # block_list를 순회하며 일치하는 rooms_data의 키를 삭제
+            for b_no in block_list:
+                str_key = str(b_no)  # 숫자형 76 -> 문자열 "76" 변환
+                if str_key in rooms_data:
+                    del rooms_data[str_key]  # 딕셔너리에서 해당 방 정보 완전 제거
+                    #print(f"[삭제 완료] 블록 지정된 방 번호 '{str_key}' 가 rooms_data에서 제거되었습니다.")
 
-            pin_list = result.get("block", [])
             found_sites = []
-            for pin in pin_list:
-
-                room_area_no = pin.get("ROOM_AREA_NO")
-                stay_cnt = pin.get("STAY_CNT")
-                wait_state = pin.get("WAIT_STATE")
-                room_no = pin.get("ROOM_NO")
-                room_name = pin.get("ROOM_NAME")
+            for room_no, room_info in rooms_data.items():
+                #pprint.pprint(room_info)
+                sort = room_info.get("sort")
+                tit = room_info.get("tit")
+                type = room_info.get("type")               
 
                 # 예약 가능한 상태인지 체크 (예: 예약수가 0이고 사용가능 여부가 Y인 경우)
-                if stay_cnt == int(stay_days) and wait_state == 'Y':
-                    
-                    found_sites.append({
-                        "site_name": room_name,
-                        "room_name": room_name,
-                        "item_no": room_no,
-                        "room_no": room_no,
-                        "room_area_no": room_area_no,
-                    })      
+                found_sites.append({
+                    "site_name": tit,
+                    "room_name": tit,
+                    "item_no": room_no,
+                    "room_no": room_no,
+                    "type": type,
+                    "sort": sort,
+                    "room_area_no": target_group,
+                    "tmonth": tmonth,
+                    "tarea": tarea,
+                })      
 
             return found_sites
         except Exception as e:
@@ -158,15 +147,14 @@ class GtdcMonitor(CampingMonitor):
         if not self.cookies_initialized:
             await self.get_browser_cookies(camp_id)
 
-
-        # 랜덤 헤더 생성
         current_headers = UAGenerator.get_headers({
-            "host": "camping.gtdc.or.kr",
-            "origin": "https://camping.gtdc.or.kr",            
-            "x-requested-with": "XMLHttpRequest",
-            "accept": "application/json, text/javascript, */*; q=0.01",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            #"author": "20260608111924"
+            "Host": "camping.gtdc.or.kr",
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",            
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Origin": "https://camping.gtdc.or.kr",         
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest"
         })
 
         found_sites = []
@@ -197,14 +185,16 @@ class GtdcMonitor(CampingMonitor):
             for site in found_sites:
                 item_no = site.get("item_no")
                 room_area_no = site.get("room_area_no")
+                tmonth = site.get("tmonth")
+                tarea = site.get("tarea")
                 
                 if str(item_no) in target_site_codes:
-                    pprint.pprint(site)  # 디버깅용 전체 데이터 출력
-                    link = f"https://mjhwang80.github.io/camping-scanner/app/templates/pubcamping_gateway.html?camp_id={camp_id}&room_area_no={room_area_no}&check_in={start_dt}&check_out={end_dt}&roomNoArr={item_no}&stay_cnt={stay_days}"
+                    
+                    link = f"https://camping.gtdc.or.kr/pub/reserv.do?tmonth={tmonth}&sp=z&tarea={tarea}"
 
                     # 텔레그램 메시지 구성
                     msg = (
-                        f"<b>[고성군 공공캠핑장] 빈자리 발견!</b>\n"
+                        f"<b>[연곡해변캠핑장] 빈자리 발견!</b>\n"
                         f"캠핑장: {campsite_name}\n"
                         f"날짜: {req_date} ({stay_days}박)\n"
                         f"구역: {sites_string}\n"

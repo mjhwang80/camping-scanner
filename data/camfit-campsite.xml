@@ -2,7 +2,7 @@
 <configuration>
     <typeName>캠핏[미작업]</typeName>
     <type>Camfit</type>
-    <typeOrder>10</typeOrder>
+    <typeOrder>20</typeOrder>
     <campsites>
 
         <campsite>

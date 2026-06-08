@@ -6467,3 +6467,237 @@
 2026-06-08 16:26:48,629 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
 2026-06-08 16:26:48,823 [INFO] camping: 서버가 정상 기동중...
 2026-06-08 16:27:30,407 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 16:37:12,088 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 16:37:20,130 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 16:37:20,315 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 16:38:22,869 [INFO] camping: Monitor started for: 0116
+2026-06-08 16:38:22,878 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:38:22,879 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/indvz/main.do?hmpgId=0116에서 쿠키를 새로 받습니다.
+2026-06-08 16:38:23,643 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login.do?hmpgId=0116에서 csrf를 새로 받습니다.
+2026-06-08 16:38:23,812 [INFO] camping.foresttrip: csrf : c8b5d19b-6573-428d-9f6a-db96f78597e0, saltVals: 18e3676c551bc39f9f386eca3d8a5a3c
+2026-06-08 16:38:23,814 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login에서 로그인을 처리합니다.
+2026-06-08 16:38:24,652 [INFO] camping.foresttrip: [[강원][공] 화천숲속야영장] 로그인 응답 상태 코드: 200
+2026-06-08 16:38:24,653 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:38:55,402 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:38:55,403 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:39:13,581 [INFO] camping: Monitor stopped for: Foresttrip_0116_2026-06-24_1
+2026-06-08 16:39:22,670 [INFO] camping: Monitor started for: 0116
+2026-06-08 16:39:22,673 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:39:22,673 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/indvz/main.do?hmpgId=0116에서 쿠키를 새로 받습니다.
+2026-06-08 16:39:23,414 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login.do?hmpgId=0116에서 csrf를 새로 받습니다.
+2026-06-08 16:39:23,582 [INFO] camping.foresttrip: csrf : 5dd6f8ee-7361-4652-9437-aa69cbc43b97, saltVals: 63abd73040cd6ee88295b2fd3e474cff
+2026-06-08 16:39:23,583 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login에서 로그인을 처리합니다.
+2026-06-08 16:39:24,468 [INFO] camping.foresttrip: [[강원][공] 화천숲속야영장] 로그인 응답 상태 코드: 200
+2026-06-08 16:39:24,469 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:39:56,096 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:39:56,097 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:40:20,325 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 16:40:26,184 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:40:26,185 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:40:58,971 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:40:58,972 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:41:19,453 [INFO] camping: Monitor stopped for: Foresttrip_0116_2026-06-24_1
+2026-06-08 16:41:20,427 [INFO] camping: Monitor started for: 0116
+2026-06-08 16:41:20,430 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:41:20,430 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/indvz/main.do?hmpgId=0116에서 쿠키를 새로 받습니다.
+2026-06-08 16:41:21,458 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login.do?hmpgId=0116에서 csrf를 새로 받습니다.
+2026-06-08 16:41:21,649 [INFO] camping.foresttrip: csrf : b09cb2b7-949f-4a15-b47b-a3947830447d, saltVals: 6b2b85ff6e0b2100b9a9d91ec2ee68e0
+2026-06-08 16:41:21,649 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login에서 로그인을 처리합니다.
+2026-06-08 16:41:22,513 [INFO] camping.foresttrip: [[강원][공] 화천숲속야영장] 로그인 응답 상태 코드: 200
+2026-06-08 16:41:22,513 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 0개 발견
+2026-06-08 16:41:28,266 [INFO] camping: Monitor stopped for: Foresttrip_0116_2026-06-24_1
+2026-06-08 16:42:16,040 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 16:42:24,341 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 16:42:24,554 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 16:42:52,879 [INFO] camping: Monitor started for: 0116
+2026-06-08 16:42:52,888 [INFO] camping.foresttrip: [*] [Foresttrip] 감시 시작: [강원][공] 화천숲속야영장 (2026-06-24, 1박)
+2026-06-08 16:42:52,889 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/indvz/main.do?hmpgId=0116에서 쿠키를 새로 받습니다.
+2026-06-08 16:42:53,602 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login.do?hmpgId=0116에서 csrf를 새로 받습니다.
+2026-06-08 16:42:53,782 [INFO] camping.foresttrip: csrf : 5980844f-a55e-46b9-8a3b-4fce33f18531, saltVals: 2cd68b16923bbfaccca69cfa059d9b74
+2026-06-08 16:42:53,783 [INFO] camping.foresttrip: [*] https://www.foresttrip.go.kr/com/login에서 로그인을 처리합니다.
+2026-06-08 16:42:54,568 [INFO] camping.foresttrip: [[강원][공] 화천숲속야영장] 로그인 응답 상태 코드: 200
+2026-06-08 16:42:54,569 [INFO] camping.foresttrip: [*] [foresttrip] 구역 감시 시작 ID: 02005 요청일: (20260624, 1박)
+2026-06-08 16:42:54,669 [INFO] camping.foresttrip: [*] 넷퍼넬 대기열 즉시 통과 완료. Key 획득 성공
+2026-06-08 16:42:55,351 [INFO] camping.foresttrip: [강원][공] 화천숲속야영장 캠핑장 빈자리 10개 발견
+2026-06-08 16:43:01,534 [ERROR] camping.notifier: 통신 오류 (5616601555): 
+2026-06-08 16:43:01,552 [INFO] camping.foresttrip: [*] [foresttrip] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.
+2026-06-08 16:43:01,554 [INFO] camping.termination: [자동 종료 프로세스 시작] [강원][공] 화천숲속야영장 (ID: Foresttrip_0116_2026-06-24_1)
+2026-06-08 16:43:01,554 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Foresttrip_0116_2026-06-24_1
+2026-06-08 16:43:01,555 [INFO] camping.foresttrip: [SUCCESS] [강원][공] 화천숲속야영장 빈자리 발견: [오토캠핑장]반려_오토캠핑장01(데크), [오토캠핑장]반려_오토캠핑장02(데크), [오토캠핑장]반려_오토캠핑장03(데크), [오토캠핑장]오토캠핑장08(쇄석), [오토캠핑장]오토캠핑장09(쇄석), [오토캠핑장]오토캠핑장10(쇄석), [오토캠핑장]오토캠핑장13(쇄석), [오토캠핑장]오토캠핑장14(쇄석), [오토캠핑장]오토캠핑장15(데크), [오토캠핑장]오토캠핑장16(데크)
+2026-06-08 16:43:54,442 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 17:14:03,278 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 17:14:03,472 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:17:03,476 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:20:03,479 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:22:00,861 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 17:29:15,383 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 17:29:15,584 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:30:28,015 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 17:30:32,295 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 17:30:32,486 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:30:36,900 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 17:52:07,905 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 17:52:08,102 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:53:21,903 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 17:57:39,877 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 17:57:40,072 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 17:58:51,912 [INFO] camping: Monitor started for: @baekdo
+2026-06-08 17:58:51,918 [INFO] camping.pubcamping: [*] [pubcamping] 감시 시작: 백도오토캠핑장 (2026-06-16, 1박)
+2026-06-08 17:58:51,919 [INFO] camping.pubcamping: [*] [pubcamping] 구역 감시 시작 ID: 15 요청일: (20260616, 1박)
+2026-06-08 17:58:52,010 [INFO] camping.pubcamping: 백도오토캠핑장 캠핑장 빈자리 26개 발견
+2026-06-08 17:58:55,291 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-08 17:58:55,301 [INFO] camping.termination: [자동 종료 프로세스 시작] 백도오토캠핑장 (ID: Pubcamping_@baekdo_2026-06-16_1)
+2026-06-08 17:58:55,302 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Pubcamping_@baekdo_2026-06-16_1
+2026-06-08 17:58:55,303 [INFO] camping.pubcamping: [SUCCESS] 백도오토캠핑장 빈자리 발견: B구역-01, B구역-02, B구역-03, B구역-04, B구역-05, B구역-06, B구역-07, B구역-08, B구역-09, B구역-10, B구역-11, B구역-12, B구역-13, B구역-14, B구역-15, B구역-16, B구역-17, B구역-18, B구역-19, B구역-20, B구역-21, B구역-22, B구역-25, B구역-26, B구역-27, B구역-28
+2026-06-08 18:00:40,086 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:03:40,098 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:12:38,075 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:12:38,268 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:12:55,235 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:12:55,515 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-17, 1박)
+2026-06-08 18:12:55,515 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:12:55,603 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260617, 1박)
+2026-06-08 18:12:55,812 [ERROR] camping.gtdc: [!] 구역 2 파싱 중 오류: 'int' object has no attribute 'get'
+2026-06-08 18:12:55,813 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:13:27,785 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-17, 1박)
+2026-06-08 18:13:27,785 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260617, 1박)
+2026-06-08 18:13:27,993 [ERROR] camping.gtdc: [!] 구역 2 파싱 중 오류: 'int' object has no attribute 'get'
+2026-06-08 18:13:27,994 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:13:36,061 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-17_1
+2026-06-08 18:15:38,270 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:16:21,293 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:16:24,973 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:16:25,209 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:16:47,802 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:16:48,052 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-17, 1박)
+2026-06-08 18:16:48,052 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:16:48,175 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260617, 1박)
+2026-06-08 18:16:48,387 [ERROR] camping.gtdc: [!] 구역 1 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:16:48,387 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:16:55,434 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-17_1
+2026-06-08 18:19:25,224 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:20:13,233 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:20:30,952 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:20:31,177 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:20:47,688 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:20:47,953 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-23, 1박)
+2026-06-08 18:20:47,954 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:20:48,042 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260623, 1박)
+2026-06-08 18:20:48,045 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260623, 1박)
+2026-06-08 18:20:48,172 [ERROR] camping.gtdc: [!] 구역 2 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:20:48,227 [ERROR] camping.gtdc: [!] 구역 1 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:20:48,227 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:21:20,529 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-23, 1박)
+2026-06-08 18:21:20,530 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260623, 1박)
+2026-06-08 18:21:20,535 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260623, 1박)
+2026-06-08 18:21:20,678 [ERROR] camping.gtdc: [!] 구역 2 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:21:20,737 [ERROR] camping.gtdc: [!] 구역 1 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:21:20,738 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:21:54,421 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-23, 1박)
+2026-06-08 18:21:54,422 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260623, 1박)
+2026-06-08 18:21:54,423 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260623, 1박)
+2026-06-08 18:21:54,547 [ERROR] camping.gtdc: [!] 구역 2 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:21:54,601 [ERROR] camping.gtdc: [!] 구역 1 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:21:54,601 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:21:55,391 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-23_1
+2026-06-08 18:22:01,953 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:22:04,470 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:22:04,757 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:22:20,413 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:22:20,694 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-16, 1박)
+2026-06-08 18:22:20,694 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:22:20,826 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260616, 1박)
+2026-06-08 18:22:20,828 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260616, 1박)
+2026-06-08 18:22:20,961 [ERROR] camping.gtdc: [!] 구역 2 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:22:21,021 [ERROR] camping.gtdc: [!] 구역 1 파싱 중 오류: 'str' object has no attribute 'get'
+2026-06-08 18:22:21,022 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:22:29,816 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-16_1
+2026-06-08 18:25:04,773 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:28:04,788 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:31:04,800 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:32:31,696 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:33:22,410 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:33:25,499 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:33:25,696 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:33:43,666 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:33:43,928 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-18, 1박)
+2026-06-08 18:33:43,928 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:33:44,049 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260618, 1박)
+2026-06-08 18:33:44,052 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260618, 1박)
+2026-06-08 18:33:44,292 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 41개 발견
+2026-06-08 18:34:16,356 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-18, 1박)
+2026-06-08 18:34:16,357 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 1 요청일: (20260618, 1박)
+2026-06-08 18:34:16,359 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260618, 1박)
+2026-06-08 18:34:16,584 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 41개 발견
+2026-06-08 18:34:19,066 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-18_1
+2026-06-08 18:36:25,696 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:39:25,699 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:42:25,714 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:45:25,721 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:48:25,737 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:51:25,751 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:51:39,401 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:51:43,911 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:51:45,152 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:52:05,009 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:52:05,353 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-23, 2박)
+2026-06-08 18:52:05,353 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:52:05,459 [INFO] camping.gtdc: [*] [연곡솔향기] 구역 감시 시작 ID: 2 요청일: (20260623, 2박)
+2026-06-08 18:52:05,638 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 39개 발견
+2026-06-08 18:52:11,436 [ERROR] camping.notifier: 통신 오류 (5616601555): 
+2026-06-08 18:52:11,446 [INFO] camping.gtdc: [*] [연곡솔향기] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.
+2026-06-08 18:52:11,446 [INFO] camping.termination: [자동 종료 프로세스 시작] 연곡해변캠핑장 (ID: Gtdc_Gtdc_2026-06-23_2)
+2026-06-08 18:52:11,447 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Gtdc_Gtdc_2026-06-23_2
+2026-06-08 18:52:11,449 [INFO] camping.gtdc: [SUCCESS] 연곡해변캠핑장 빈자리 발견: B201, B202, B203, B204, B205, B206, B208, B209, B210, B211, B212, B213, B214, B216, B217, B218, B223, B224, B225, B226, B227, B228, B229, B230, B231, B233, B234, B235, B236, B237, B238, B239, B240, B241, B242, B243, B244, B245, B246
+2026-06-08 18:54:45,154 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:55:06,672 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 18:55:09,041 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 18:55:09,254 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 18:55:28,935 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:55:29,198 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-25, 2박)
+2026-06-08 18:55:29,199 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:55:29,301 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 1 요청일: (20260625, 2박)
+2026-06-08 18:55:29,441 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 18:55:36,236 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-25_2
+2026-06-08 18:55:39,657 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 18:55:39,968 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-25, 1박)
+2026-06-08 18:55:39,968 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 18:55:40,068 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 1 요청일: (20260625, 1박)
+2026-06-08 18:55:40,207 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 17개 발견
+2026-06-08 18:55:41,212 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-08 18:55:41,219 [INFO] camping.gtdc: [*] [연곡솔향기] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.
+2026-06-08 18:55:41,219 [INFO] camping.termination: [자동 종료 프로세스 시작] 연곡해변캠핑장 (ID: Gtdc_Gtdc_2026-06-25_1)
+2026-06-08 18:55:41,219 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Gtdc_Gtdc_2026-06-25_1
+2026-06-08 18:55:41,220 [INFO] camping.gtdc: [SUCCESS] 연곡해변캠핑장 빈자리 발견: A102, A104, A105, A106, A107, A120, A122, A124, A125, A126, A128, A129, A132, A133, A134, A137, A149
+2026-06-08 18:58:09,262 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 19:01:09,265 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 19:04:09,267 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 19:05:48,624 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 19:05:51,536 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 19:05:51,726 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 19:06:22,228 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 19:06:22,482 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-25, 3박)
+2026-06-08 19:06:22,483 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 19:06:22,571 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 1 요청일: (20260625, 3박)
+2026-06-08 19:06:22,575 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 2 요청일: (20260625, 3박)
+2026-06-08 19:06:22,787 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 19:06:57,499 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-25, 3박)
+2026-06-08 19:06:57,499 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 1 요청일: (20260625, 3박)
+2026-06-08 19:06:57,501 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 2 요청일: (20260625, 3박)
+2026-06-08 19:06:57,716 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 0개 발견
+2026-06-08 19:07:23,985 [INFO] camping: Monitor stopped for: Gtdc_Gtdc_2026-06-25_3
+2026-06-08 19:07:33,031 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.
+2026-06-08 19:07:35,381 [INFO] camping.notifier: 텔레그램 알림 기능이 활성화되었습니다.
+2026-06-08 19:07:35,567 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 19:08:04,235 [INFO] camping: Monitor started for: Gtdc
+2026-06-08 19:08:04,509 [INFO] camping.gtdc: [*] [연곡솔향기] 감시 시작: 연곡해변캠핑장 (2026-06-24, 1박)
+2026-06-08 19:08:04,509 [INFO] camping.gtdc: [*] https://camping.gtdc.or.kr/에서 쿠키를 새로 받습니다.
+2026-06-08 19:08:04,611 [INFO] camping.gtdc: [*] [연곡해변캠핑장] 구역 감시 시작 ID: 2 요청일: (20260624, 1박)
+2026-06-08 19:08:04,774 [INFO] camping.gtdc: 연곡해변캠핑장 캠핑장 빈자리 40개 발견
+2026-06-08 19:08:05,867 [ERROR] camping.notifier: 발송 실패 (5616601555): {"ok":false,"error_code":401,"description":"Unauthorized"}
+2026-06-08 19:08:05,879 [INFO] camping.gtdc: [*] [연곡솔향기] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.
+2026-06-08 19:08:05,879 [INFO] camping.termination: [자동 종료 프로세스 시작] 연곡해변캠핑장 (ID: Gtdc_Gtdc_2026-06-24_1)
+2026-06-08 19:08:05,880 [INFO] camping.termination: 스케줄러에서 작업 제거 완료: Gtdc_Gtdc_2026-06-24_1
+2026-06-08 19:08:05,880 [INFO] camping.gtdc: [SUCCESS] 연곡해변캠핑장 빈자리 발견: B201, B202, B203, B204, B205, B206, B207, B208, B209, B210, B211, B212, B213, B214, B216, B217, B218, B223, B224, B225, B226, B227, B228, B229, B230, B231, B233, B234, B235, B236, B237, B238, B239, B240, B241, B242, B243, B244, B245, B246
+2026-06-08 19:10:35,578 [INFO] camping: 서버가 정상 기동중...
+2026-06-08 19:12:51,056 [INFO] camping: [*] 애플리케이션 종료 요청을 받았습니다.

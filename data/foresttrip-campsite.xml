@@ -8,20 +8,21 @@
         <campsite>
             <name>[인천/경기][국]강릉 국립대관령자연휴양림</name>
             <code>0111</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
                 <site code="01003">연립동</site>
                 <site code="01004">숲속수련장</site>
                 <site code="02002">야영데크</site>
-            </sites>              
+            </sites>
         </campsite>
-
         <campsite>
             <name>[인천/경기][공] 용문산자연휴양림</name>
             <code>ID02030087</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -31,7 +32,8 @@
         <campsite>
             <name>[인천/경기][공] 용인자연휴양림</name>
             <code>ID02030031</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">목조체험주택</site>
@@ -44,7 +46,8 @@
         <campsite>
             <name>[인천/경기][국] 운악산자연휴양림</name>
             <code>0224</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -55,7 +58,8 @@
         <campsite>
             <name>[인천/경기][국] 유명산자연휴양림</name>
             <code>0101</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -70,7 +74,8 @@
         <campsite>
             <name>[인천/경기][공] 의왕바라산자연휴양림</name>
             <code>ID02030065</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">바라산동</site>
                 <site code="01002">청계산동</site>
@@ -81,7 +86,8 @@
         <campsite>
             <name>[인천/경기][국] 중미산자연휴양림</name>
             <code>0108</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -92,7 +98,8 @@
         <campsite>
             <name>[인천/경기][공] 천보산자연휴양림</name>
             <code>CBMNT</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -101,7 +108,8 @@
         <campsite>
             <name>[인천/경기][사] 청평자연휴양림</name>
             <code>ID04030007</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">가족 · 친구 · 연인</site>
                 <site code="01002">가족 · 단체</site>
@@ -111,7 +119,8 @@
         <campsite>
             <name>[인천/경기][공] 축령산자연휴양림</name>
             <code>ID02030050</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -121,7 +130,8 @@
         <campsite>
             <name>[인천/경기][공] 칼봉산자연휴양림</name>
             <code>ID02030099</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림휴양관</site>
@@ -131,17 +141,18 @@
         <campsite>
             <name>[인천/경기][국] 무의도자연휴양림</name>
             <code>0303</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">연립동</site>
             </sites>
         </campsite>
-
         <campsite>
             <name>[강원][공] 가리산자연휴양림</name>
             <code>ID02030002</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">산막</site>
                 <site code="01002">휴양관</site>
@@ -151,7 +162,8 @@
         <campsite>
             <name>[강원][국] 가리왕산자연휴양림</name>
             <code>0113</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -162,7 +174,8 @@
         <campsite>
             <name>[강원][공] 강원숲체험장</name>
             <code>ID02030096</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -171,7 +184,8 @@
         <campsite>
             <name>[강원][국] 검봉산자연휴양림</name>
             <code>0244</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -183,7 +197,8 @@
         <campsite>
             <name>[강원][공] 광치자연휴양림</name>
             <code>ID02030095</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림문화휴양관</site>
@@ -193,7 +208,8 @@
         <campsite>
             <name>[강원][국] 대관령자연휴양림</name>
             <code>0111</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -205,7 +221,8 @@
         <campsite>
             <name>[강원][국] 두타산자연휴양림</name>
             <code>0243</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -216,7 +233,8 @@
         <campsite>
             <name>[강원][공] 망경대산자연휴양림</name>
             <code>ID02030067</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
             </sites>
@@ -224,7 +242,8 @@
         <campsite>
             <name>[강원][국] 미천골자연휴양림</name>
             <code>0112</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -237,7 +256,8 @@
         <campsite>
             <name>[강원][국] 방태산자연휴양림</name>
             <code>0109</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -247,7 +267,8 @@
         <campsite>
             <name>[강원][국] 백운산자연휴양림</name>
             <code>0223</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -258,7 +279,8 @@
         <campsite>
             <name>[강원][국] 복주산자연휴양림</name>
             <code>0110</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -269,7 +291,8 @@
         <campsite>
             <name>[강원][국] 삼봉자연휴양림</name>
             <code>0107</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -285,7 +308,8 @@
         <campsite>
             <name>[강원][사] 삼척활기자연휴양림</name>
             <code>ID02030104</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -295,7 +319,8 @@
         <campsite>
             <name>[강원][공] 송이밸리자연휴양림</name>
             <code>ID02030049</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림문화휴양관</site>
@@ -304,7 +329,8 @@
         <campsite>
             <name>[강원][국] 용대자연휴양림</name>
             <code>0102</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -316,7 +342,8 @@
         <campsite>
             <name>[강원][국] 용화산자연휴양림</name>
             <code>0222</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01002">휴양관</site>
                 <site code="01003">연립동</site>
@@ -328,7 +355,8 @@
         <campsite>
             <name>[강원][공] 임해자연휴양림</name>
             <code>ID02030100</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속동</site>
                 <site code="01003">연립동</site>
@@ -337,7 +365,8 @@
         <campsite>
             <name>[강원][공] 집다리골자연휴양림</name>
             <code>ID02030043</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -347,7 +376,8 @@
         <campsite>
             <name>[강원][공] 철원두루웰숲속문화촌</name>
             <code>ID02030005</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="02002">야영데크</site>
@@ -356,7 +386,8 @@
         <campsite>
             <name>[강원][국] 청태산자연휴양림</name>
             <code>0106</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -368,7 +399,8 @@
         <campsite>
             <name>[강원][공] 치악산자연휴양림</name>
             <code>ID02030024</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">황토연립동</site>
@@ -379,7 +411,8 @@
         <campsite>
             <name>[강원][공] 태백고원자연휴양림</name>
             <code>ID02030022</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -390,7 +423,8 @@
         <campsite>
             <name>[강원][공] 평창자연휴양림</name>
             <code>ID02030003</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속체험관</site>
                 <site code="01004">숲속의집</site>
@@ -400,7 +434,8 @@
         <campsite>
             <name>[강원][사] 피노키오자연휴양림</name>
             <code>ID04030001</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -412,7 +447,8 @@
         <campsite>
             <name>[강원][공] 하추자연휴양림</name>
             <code>ID02030018</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -422,7 +458,8 @@
         <campsite>
             <name>[강원][공] 화천숲속야영장</name>
             <code>0116</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="02005"><![CDATA[오토캠핑장]]></site>
             </sites>
@@ -430,18 +467,19 @@
         <campsite>
             <name>[강원][사] 횡성자연휴양림</name>
             <code>ID04030002</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
                 <site code="02005">오토캠핑장</site>
             </sites>
         </campsite>
-
         <campsite>
             <name>[충북][공] 계명산자연휴양림</name>
             <code>ID02030042</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">가족호텔</site>
@@ -451,7 +489,8 @@
         <campsite>
             <name>[충북][공] 문성자연휴양림</name>
             <code>ID02030055</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -464,7 +503,8 @@
         <campsite>
             <name>[충북][공] 민주지산자연휴양림</name>
             <code>ID02030107</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -475,7 +515,8 @@
         <campsite>
             <name>[충북][공] 박달재자연휴양림</name>
             <code>ID02030062</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">복합산막</site>
@@ -486,7 +527,8 @@
         <campsite>
             <name>[충북][공] 백야자연휴양림</name>
             <code>ID02030016</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -497,7 +539,8 @@
         <campsite>
             <name>[충북][공] 봉황자연휴양림</name>
             <code>ID02030051</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="02001">카라반</site>
@@ -507,7 +550,8 @@
         <campsite>
             <name>[충북][국] 상당산성자연휴양림</name>
             <code>0300</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -516,7 +560,8 @@
         <campsite>
             <name>[충북][공] 생거진천자연휴양림</name>
             <code>ID02030033</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -526,7 +571,8 @@
         <campsite>
             <name>[충북][공] 성불산자연휴양림</name>
             <code>ID02030070</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -537,7 +583,8 @@
         <campsite>
             <name>[충북][공] 소백산자연휴양림</name>
             <code>ID02030009</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림문화휴양관</site>
@@ -549,7 +596,8 @@
         <campsite>
             <name>[충북][공] 소선암자연휴양림</name>
             <code>ID02030041</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">백두대간문화휴양관</site>
@@ -561,7 +609,8 @@
         <campsite>
             <name>[충북][국] 속리산자연휴양림</name>
             <code>0115</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -570,7 +619,8 @@
         <campsite>
             <name>[충북][공] 속리산숲체험휴양마을</name>
             <code>ID02030035</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">통나무집</site>
@@ -579,7 +629,8 @@
         <campsite>
             <name>[충북][공] 수레의산자연휴양림</name>
             <code>ID02030017</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="02002">야영데크</site>
@@ -589,7 +640,8 @@
         <campsite>
             <name>[충북][공] 옥전자연휴양림</name>
             <code>ID02030110</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
             </sites>
@@ -597,7 +649,8 @@
         <campsite>
             <name>[충북][공] 옥화자연휴양림</name>
             <code>ID02030054</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -607,7 +660,8 @@
         <campsite>
             <name>[충북][공] 장령산자연휴양림</name>
             <code>ID02030036</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -618,7 +672,8 @@
         <campsite>
             <name>[충북][공] 조령산자연휴양림</name>
             <code>ID02030008</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">복합휴양관</site>
@@ -628,7 +683,8 @@
         <campsite>
             <name>[충북][공] 좌구산휴양랜드</name>
             <code>ID02030089</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">좌구산자연휴양림</site>
                 <site code="01002">율리휴양촌</site>
@@ -638,7 +694,8 @@
         <campsite>
             <name>[충북][공] 충북알프스자연휴양림</name>
             <code>ID02030032</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -647,7 +704,8 @@
         <campsite>
             <name>[충북][국] 황정산자연휴양림</name>
             <code>0242</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -659,7 +717,8 @@
         <campsite>
             <name>[대전/충남][공] 공주산림휴양마을</name>
             <code>ID02030011</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림문화휴양관</site>
@@ -670,7 +729,8 @@
         <campsite>
             <name>[대전/충남][공] 금강자연휴양림</name>
             <code>ID02030085</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림휴양관</site>
@@ -683,7 +743,8 @@
         <campsite>
             <name>[대전/충남][공] 금산산림문화타운(남이자연휴양림)</name>
             <code>ID02030063</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">교육관</site>
@@ -696,7 +757,8 @@
         <campsite>
             <name>[대전/충남][공] 만수산자연휴양림</name>
             <code>ID02030007</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -707,7 +769,8 @@
         <campsite>
             <name>[대전/충남][공] 만인산자연휴양림</name>
             <code>ID02030111</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01002">휴양관</site>
             </sites>
@@ -715,7 +778,8 @@
         <campsite>
             <name>[대전/충남][공] 봉수산자연휴양림</name>
             <code>ID02030028</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -724,7 +788,8 @@
         <campsite>
             <name>[대전/충남][공] 성주산자연휴양림</name>
             <code>ID02030078</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -734,7 +799,8 @@
         <campsite>
             <name>[대전/충남][공] 안면도자연휴양림</name>
             <code>ID02030086</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -743,7 +809,8 @@
         <campsite>
             <name>[대전/충남][공] 양촌자연휴양림</name>
             <code>ID02030034</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -753,7 +820,8 @@
         <campsite>
             <name>[대전/충남][공] 영인산자연휴양림</name>
             <code>ID02030012</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -764,7 +832,8 @@
         <campsite>
             <name>[대전/충남][국] 오서산자연휴양림</name>
             <code>0191</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -776,7 +845,8 @@
         <campsite>
             <name>[대전/충남][공] 용봉산자연휴양림</name>
             <code>ID02030080</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림휴양관</site>
@@ -785,7 +855,8 @@
         <campsite>
             <name>[대전/충남][국] 용현자연휴양림</name>
             <code>0220</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -797,7 +868,8 @@
         <campsite>
             <name>[대전/충남][공] 장태산자연휴양림</name>
             <code>ID02030106</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -808,7 +880,8 @@
         <campsite>
             <name>[대전/충남][공] 칠갑산자연휴양림</name>
             <code>ID02030044</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -819,7 +892,8 @@
         <campsite>
             <name>[대전/충남][공] 태학산자연휴양림</name>
             <code>ID02030040</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="02005">오토캠핑장</site>
@@ -828,7 +902,8 @@
         <campsite>
             <name>[대전/충남][국] 희리산자연휴양림</name>
             <code>0187</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -841,7 +916,8 @@
         <campsite>
             <name>[전북][공] 고산자연휴양림</name>
             <code>ID02030025</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">문화휴양관</site>
@@ -857,7 +933,8 @@
         <campsite>
             <name>[전북] 남원자연휴양림</name>
             <code>ID04030003</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">원룸형</site>
@@ -867,7 +944,8 @@
         <campsite>
             <name>[전북][국] 덕유산자연휴양림</name>
             <code>0141</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -879,7 +957,8 @@
         <campsite>
             <name>[전북][공] 데미샘자연휴양림</name>
             <code>ID02030074</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -889,7 +968,8 @@
         <campsite>
             <name>[전북][공] 무주향로산자연휴양림</name>
             <code>ID02030108</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">연립동</site>
@@ -899,7 +979,8 @@
         <campsite>
             <name>[전북][공] 방화동자연휴양림</name>
             <code>ID02030082</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">휴양림-숲속의집</site>
                 <site code="01002">휴양림-산림문화휴양관</site>
@@ -913,7 +994,8 @@
         <campsite>
             <name>[전북][국] 변산자연휴양림</name>
             <code>0189</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -923,7 +1005,8 @@
         <campsite>
             <name>[전북][국] 신시도자연휴양림</name>
             <code>0301</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -932,7 +1015,8 @@
         <campsite>
             <name>[전북][공] 와룡자연휴양림</name>
             <code>ID02030084</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -944,7 +1028,8 @@
         <campsite>
             <name>[전북][국] 운장산자연휴양림</name>
             <code>0194</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -957,7 +1042,8 @@
         <campsite>
             <name>[전북][국] 회문산자연휴양림</name>
             <code>0188</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -968,18 +1054,19 @@
         <campsite>
             <name>[전북][공] 흥부골자연휴양림</name>
             <code>ID02030101</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="02005">오토캠핑장</site>
                 <site code="02009">캠핑장</site>
             </sites>
         </campsite>
-
         <campsite>
             <name>[전남][공] 광양백운산자연휴양림</name>
             <code>ID02030061</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림문화휴양관</site>
@@ -993,7 +1080,8 @@
         <campsite>
             <name>[전남][국] 낙안민속자연휴양림</name>
             <code>0200</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1003,7 +1091,8 @@
         <campsite>
             <name>[전남][사] 무등산편백자연휴양림</name>
             <code>ID04030010</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01002">휴양관</site>
                 <site code="01003">가족</site>
@@ -1017,7 +1106,8 @@
         <campsite>
             <name>[전남][국] 방장산자연휴양림</name>
             <code>0181</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1029,7 +1119,8 @@
         <campsite>
             <name>[전남][공] 백아산자연휴양림</name>
             <code>ID02030098</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01004">숲속수련원</site>
@@ -1046,7 +1137,8 @@
         <campsite>
             <name>[전남][공] 산수유자연휴양림</name>
             <code>ID02030091</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림휴양관</site>
@@ -1055,7 +1147,8 @@
         <campsite>
             <name>[전남][공] 순천자연휴양림</name>
             <code>ID02030058</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1067,7 +1160,8 @@
         <campsite>
             <name>[전남][공] 여수봉황산자연휴양림</name>
             <code>ID02030097</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1078,7 +1172,8 @@
         <campsite>
             <name>[전남][공] 전라남도완도자연휴양림</name>
             <code>ID02030021</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
             </sites>
@@ -1086,7 +1181,8 @@
         <campsite>
             <name>[전남][공] 제암산자연휴양림</name>
             <code>ID02030090</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">제암휴양관</site>
@@ -1099,7 +1195,8 @@
         <campsite>
             <name>[전남][공] 주작산자연휴양림</name>
             <code>ID02030060</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1110,7 +1207,8 @@
         <campsite>
             <name>[전남][국] 진도자연휴양림</name>
             <code>0201</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1119,7 +1217,8 @@
         <campsite>
             <name>[전남][국] 천관산자연휴양림</name>
             <code>0196</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">연립동</site>
@@ -1130,7 +1229,8 @@
         <campsite>
             <name>[전남][공] 팔영산자연휴양림</name>
             <code>ID02030069</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1141,7 +1241,8 @@
         <campsite>
             <name>[전남][공] 한천자연휴양림</name>
             <code>ID02030088</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="02005">오토캠핑장</site>
@@ -1151,7 +1252,8 @@
         <campsite>
             <name>[전남][공] 흑석산자연휴양림</name>
             <code>ID02030045</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1161,7 +1263,8 @@
         <campsite>
             <name>[대구/경북][국] 검마산자연휴양림</name>
             <code>0184</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01002">휴양관</site>
                 <site code="02002">야영데크</site>
@@ -1170,7 +1273,8 @@
         <campsite>
             <name>[대구/경북][공] 구수곡자연휴양림</name>
             <code>ID02030073</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01003">연립동</site>
@@ -1180,7 +1284,8 @@
         <campsite>
             <name>[대구/경북][공] 군위장곡자연휴양림</name>
             <code>ID02030064</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림문화휴양관</site>
@@ -1191,7 +1296,8 @@
         <campsite>
             <name>[대구/경북][공] 금봉자연휴양림</name>
             <code>ID02030075</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">산림휴양관</site>
@@ -1202,7 +1308,8 @@
         <campsite>
             <name>[대구/경북][국] 대야산자연휴양림</name>
             <code>0245</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
                 <site code="01002">휴양관</site>
@@ -1213,7 +1320,8 @@
         <campsite>
             <name>[대구/경북][공] 독용산성자연휴양림</name>
             <code>ID02030004</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1224,7 +1332,8 @@
         <campsite>
             <name>[대구/경북][공] 문수산자연휴양림</name>
             <code>ID02030102</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1236,7 +1345,8 @@
         <campsite>
             <name>[대구/경북][공] 미숭산자연휴양림</name>
             <code>ID02030026</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1246,7 +1356,8 @@
         <campsite>
             <name>[대구/경북][공] 보현산자연휴양림</name>
             <code>ID02030105</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1257,7 +1368,8 @@
         <campsite>
             <name>[대구/경북][공] 비슬산자연휴양림</name>
             <code>ID02030093</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1269,7 +1381,8 @@
         <campsite>
             <name>[대구/경북][공] 비학산자연휴양림</name>
             <code>ID02030052</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1282,7 +1395,8 @@
         <campsite>
             <name>[대구/경북][공] 성주봉자연휴양림</name>
             <code>ID02030039</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1294,7 +1408,8 @@
         <campsite>
             <name>[대구/경북][공] 송정자연휴양림</name>
             <code>ID02030076</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1305,7 +1420,8 @@
         <campsite>
             <name>[대구/경북][공] 수도산자연휴양림</name>
             <code>ID02030030</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1317,7 +1433,8 @@
         <campsite>
             <name>[대구/경북][공] 안동계명산자연휴양림</name>
             <code>ID02030029</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1331,7 +1448,8 @@
         <campsite>
             <name>[대구/경북][공] 안동호반자연휴양림</name>
             <code>ID02030020</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1343,7 +1461,8 @@
         <campsite>
             <name>[대구/경북][공] 영양에코둥지</name>
             <code>ID02030057</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1353,7 +1472,8 @@
         <campsite>
             <name>[대구/경북][공] 옥성자연휴양림</name>
             <code>ID02030066</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1364,7 +1484,8 @@
         <campsite>
             <name>[대구/경북][국] 운문산자연휴양림</name>
             <code>0195</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1377,7 +1498,8 @@
         <campsite>
             <name>[대구/경북][공] 운주산승마자연휴양림</name>
             <code>ID02030081</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1388,7 +1510,8 @@
         <campsite>
             <name>[대구/경북][공] 청송자연휴양림</name>
             <code>ID02030010</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1397,7 +1520,8 @@
         <campsite>
             <name>[대구/경북][국] 청옥산자연휴양림</name>
             <code>0183</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01002">휴양관</site>
@@ -1410,7 +1534,8 @@
         <campsite>
             <name>[대구/경북][국] 칠보산자연휴양림</name>
             <code>0182</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1423,7 +1548,8 @@
         <campsite>
             <name>[대구/경북][공] 토함산자연휴양림</name>
             <code>ID02030027</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1434,7 +1560,8 @@
         <campsite>
             <name>[대구/경북][국] 통고산자연휴양림</name>
             <code>0193</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1447,7 +1574,8 @@
         <campsite>
             <name>[대구/경북][공] 팔공산금화자연휴양림</name>
             <code>ID02030006</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1460,7 +1588,8 @@
         <campsite>
             <name>[대구/경북][사] 학가산우래자연휴양림</name>
             <code>ID04030009</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1472,7 +1601,8 @@
         <campsite>
             <name>[대구/경북][공] 화원자연휴양림</name>
             <code>ID02030094</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1482,7 +1612,8 @@
         <campsite>
             <name>[부산/경남][공] 거제자연휴양림</name>
             <code>ID02030059</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1494,7 +1625,8 @@
         <campsite>
             <name>[부산/경남][공] 거창항노화힐링랜드</name>
             <code>ID02030109</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1504,7 +1636,8 @@
         <campsite>
             <name>[부산/경남][공] 구재봉자연휴양림</name>
             <code>ID02030072</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1515,7 +1648,8 @@
         <campsite>
             <name>[부산/경남][공] 금원산자연휴양림</name>
             <code>ID02030077</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1527,7 +1661,8 @@
         <campsite>
             <name>[부산/경남][국] 남해편백자연휴양림</name>
             <code>0192</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1540,7 +1675,8 @@
         <campsite>
             <name>[부산/경남][국] 달음산자연휴양림</name>
             <code>0202</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01002">휴양관</site>
@@ -1550,7 +1686,8 @@
         <campsite>
             <name>[부산/경남][공] 대봉산자연휴양림</name>
             <code>ID02030046</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1561,7 +1698,8 @@
         <campsite>
             <name>[부산/경남][공] 대운산자연휴양림</name>
             <code>ID02030038</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1573,7 +1711,8 @@
         <campsite>
             <name>[부산/경남][사] 덕원자연휴양림</name>
             <code>ID04030008</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1583,7 +1722,8 @@
         <campsite>
             <name>[부산/경남][공] 산삼자연휴양림</name>
             <code>ID02030048</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1593,7 +1733,8 @@
         <campsite>
             <name>[부산/경남][공] 산청한방자연휴양림</name>
             <code>ID02030037</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1604,7 +1745,8 @@
         <campsite>
             <name>[부산/경남][국] 신불산자연휴양림</name>
             <code>0105</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1618,7 +1760,8 @@
         <campsite>
             <name>[부산/경남][공] 오도산자연휴양림</name>
             <code>ID02030068</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1629,7 +1772,8 @@
         <campsite>
             <name>[부산/경남][공] 용추자연휴양림</name>
             <code>ID02030047</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1641,7 +1785,8 @@
         <campsite>
             <name>[부산/경남][사] 중산자연휴양림</name>
             <code>ID04030006</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1653,7 +1798,8 @@
         <campsite>
             <name>[부산/경남][국] 지리산자연휴양림</name>
             <code>0190</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1666,7 +1812,8 @@
         <campsite>
             <name>[부산/경남] [공] 하동편백자연휴양림</name>
             <code>ID02030103</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1676,7 +1823,8 @@
         <campsite>
             <name>[부산/경남] [공] 화왕산자연휴양림</name>
             <code>ID02030015</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1687,7 +1835,8 @@
         <campsite>
             <name>[제주][공] 교래자연휴양림</name>
             <code>ID02030056</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">초가동</site>
@@ -1699,7 +1848,8 @@
         <campsite>
             <name>[제주][공] 붉은오름자연휴양림</name>
             <code>ID02030014</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">단독동</site>
@@ -1711,7 +1861,8 @@
         <campsite>
             <name>[제주][공] 서귀포자연휴양림</name>
             <code>ID02030013</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1722,7 +1873,8 @@
         <campsite>
             <name>[제주][공] 제주절물자연휴양림</name>
             <code>ID02030053</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1730,11 +1882,11 @@
                 <site code="01004">숲속수련장</site>
             </sites>
         </campsite>
-
         <campsite>
             <name>[경기][공] 동두천자연휴양림</name>
             <code>ID02030023</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1745,7 +1897,8 @@
         <campsite>
             <name>[연천][공] 고대산자연휴양림</name>
             <code>ID02030001</code>
-            <maxStayDay>2</maxStayDay><showLoginField required="Y">Y</showLoginField>
+            <maxStayDay>2</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
             <showLoginField required="Y">Y</showLoginField>
             <sites>
                 <site code="01001">숲속의집</site>
@@ -1753,6 +1906,5 @@
                 <site code="02002">야영데크</site>
             </sites>
         </campsite>
-
     </campsites>
 </configuration>

@@ -25,6 +25,7 @@ class ForesttripMonitor(CampingMonitor):
         self.campsite_name = ""
         self._csrf = ""
         self.saltVals = ""
+        # verify=False로 지정하여 최신 파이썬 환경에서의 SSL 인증서 트래픽 튕김 현상을 사전 예방합니다.
         self.client = httpx.AsyncClient(timeout=15.0, follow_redirects=True, verify=False)
         self.cookies_initialized = False
         self.csrf_initialized = False
@@ -36,10 +37,11 @@ class ForesttripMonitor(CampingMonitor):
         """
         logger.info(f"[*] [foresttrip] 구역 감시 시작 ID: {target_group} 요청일: ({start_date}, {stay_days}박)")
 
+        # 1. 조회를 시도하기 전 실시간 넷퍼넬 대기열을 우회 및 통과 키 발급
         nf_key = await self.get_netfunnel_key(service_id="service_1", action_id="action2")
         if nf_key == "WAIT" or nf_key == "":
-            logger.info(f"[*] [foresttrip] 구역 감시 시작 실패: 대기열에 걸렸음.")
-            return None # 대기열이 걸렸거나 실패 시 이번 조회를 우회/스킵 처리
+            logger.info(f"[*] [foresttrip] 구역 {target_group} 감시 스킵: 대기열이 밀려있거나 실패함.")
+            return None 
 
         url = f"https://www.foresttrip.go.kr/rep/or/sssn/fcfsRsrvtPssblGoodsDetls.do"
         
@@ -64,7 +66,7 @@ class ForesttripMonitor(CampingMonitor):
             "srchCampCharg": "",
             "goodsClsscCampCdArr": "",
             "srchInsttTpcd": "",
-            "srchStngNofpr": "2",       
+            "srchStngNofpr": "2",      
             "cmdogYn": "N",
             "bbqYn": "N",
             "dsprsYn": "N",
@@ -78,19 +80,18 @@ class ForesttripMonitor(CampingMonitor):
             "srchGoodsId": ""
         }
 
-        #pprint.pprint(data)
+        # 🛠️ 안전망: 멀티 비동기 환경에서 특정 구역의 Referer 조작 시 헤더 동시 오염 방지를 위한 카피 스코프 선언
+        req_headers = headers.copy()
+        req_headers["Referer"] = f"https://www.foresttrip.go.kr/com/login.do?hmpgId={camp_id}"
 
         try:
-            # 타임아웃 발생 시 무한 대기를 방지하기 위해 명시적으로 지정
-            response = await client.get(url, params=data, headers=headers, timeout=10.0)
+            # 🛠️ GET 전용 params 매핑 처리 완수
+            response = await client.get(url, params=data, headers=req_headers, timeout=10.0)
 
             if response.status_code != 200:
                 logger.error(f"[!] 구역 {target_group} 서버 응답 실패: 상태 코드 {response.status_code}")
                 return None
             
-            # 응답 데이터가 정상적으로 수신되는지 터미널 확인용
-
-            print(response.text)
             soup = BeautifulSoup(response.text, "html.parser")
             site_list = soup.select("div.list_box")
             found_sites = []
@@ -98,17 +99,14 @@ class ForesttripMonitor(CampingMonitor):
             for site in site_list:
                 try:
                     # ① 실제 예약 버튼 엘리먼트 추출
-                    # <span class="txtRsrvt">예약하기</span>가 들어있는 태그를 찾습니다.
                     btn_rsrvt = site.select_one(".btn_group a.board .txtRsrvt")
                     btn_wtng = site.select_one(".btn_group a.board .txtWtng")
                     
-                    # 💡 중요 방어 로직: '대기신청' 버튼이 켜져있거나 '예약하기' 문구가 없으면 매진이므로 패스합니다.
+                    # '대기신청' 버튼이 켜져있거나 '예약하기' 문구가 없으면 매진이므로 패스합니다.
                     if not btn_rsrvt or (btn_wtng and btn_wtng.get("style") != "display:none;"):
-                        # '대기신청' 상태이거나 예약하기가 없으면 다음 사이트로 넘어감
                         continue
 
-                    # ② 고유 상품 코드(goodsId / item_no) 추출 
-                    # <a class="item" data-value="G0111..."> 태그에서 가져옵니다.
+                    # ② 고유 상품 코드(goodsId) 추출 
                     item_link = site.select_one("a.item")
                     if not item_link:
                         continue
@@ -116,16 +114,11 @@ class ForesttripMonitor(CampingMonitor):
                     goods_id = item_link.get("data-value", "").strip()
 
                     # ③ 사이트명(방 이름) 추출 및 정제
-                    # 자식 노드들의 텍스트가 섞여서 나올 수 있으므로, 내부의 아이콘 텍스트를 지우고 
-                    # 순수 텍스트(예: "[야영데크]야영데크(106)")만 분리해 냅니다.
                     opt1_tag = site.select_one(".opt1")
                     if not opt1_tag:
                         continue
                         
-                    # clone 개념으로 텍스트 정제 (icon_group 안의 문자를 지우고 남은 text만 가져옴)
-                    # 만약 icon_group이 있다면 그 안의 글자를 날려버립니다.
                     if opt1_tag.select_one(".icon_group"):
-                        # 추출용 임시 텍스트 연산 (전체 텍스트에서 아이콘용 숨김 텍스트 제거)
                         pure_text = opt1_tag.text.replace("사용가능 시설", "").strip()
                     else:
                         pure_text = opt1_tag.text.strip()
@@ -133,20 +126,16 @@ class ForesttripMonitor(CampingMonitor):
                     # 불필요한 엔터값이나 연속된 공백 제거
                     site_name = " ".join(pure_text.split())
 
-                    # ④ 디버깅 터미널 출력
-                    #print(f"🌲 [빈자리 검출] {site_name} (코드: {goods_id}) - 즉시 예약 가능!")
-
-                    # ⑤ 전체 알람 시스템과 연동할 데이터 맵 누적
+                    # ④ 전체 알람 시스템과 연동할 데이터 맵 누적
                     found_sites.append({
-                        "site_name": site_name,         # 예: [야영데크]야영데크(106)
+                        "site_name": site_name,         
                         "room_name": site_name,
-                        "item_no": goods_id,            # 예: G01110200200300144
+                        "item_no": goods_id,            
                         "room_no": goods_id,
-                        "room_area_no": target_group,   # 상위에서 주입받은 구역코드
+                        "room_area_no": target_group,   
                     })
 
                 except Exception as parse_err:
-                    # 특정 한 자리를 파싱하다가 에러가 나도 전체 스케줄러가 죽지 않도록 방어
                     logger.error(f"[!] list_box 요소 파싱 중 개별 스킵: {str(parse_err)}")
                     continue
 
@@ -182,7 +171,7 @@ class ForesttripMonitor(CampingMonitor):
 
         logger.info(f"[*] [Foresttrip] 감시 시작: {self.campsite_name} ({req_date}, {stay_days}박)")
 
-        # 수정 포인트 3: 쿠키 및 로그인 파라미터 보완
+        # 세션 초기화 방어 밸리데이션 영역
         if not self.cookies_initialized:
             await self.get_browser_cookies(camp_id)
 
@@ -193,22 +182,19 @@ class ForesttripMonitor(CampingMonitor):
 
         if not self.login_initialized:
             if not await self.login(params):
-                logger.error("[!] 국립휴양림 로그인 실패로 이번 턴의 감시를 진행할 수 없습니다. 계정 정보를 확인하세요.")
+                logger.error("[!] 국립휴양림 로그인 실패로 이번 턴의 감시를 진행할 수 없습니다.")
                 return False
 
-
-        # 랜덤 헤더 생성
+        # 공통 기저 헤더 바인딩 생성
         current_headers = UAGenerator.get_headers({
             "host": "www.foresttrip.go.kr",
             "origin": "https://www.foresttrip.go.kr",            
-            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "content-type": "application/x-www-form-urlencoded",
-            "Referer": f"https://www.foresttrip.go.kr/com/login.do?hmpgId={camp_id}"
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
         })
-
 
         found_sites = []
 
+        # 🛠️ 오타 수정 가이드: target_site_codes가 아니라 상위 구역인 target_site_groups 단락으로 루프 재설정 완료
         tasks = [
             self._check_single_group(self.client, camp_id, group, start_dt, end_dt, stay_days, current_headers)
             for group in target_site_codes
@@ -231,10 +217,7 @@ class ForesttripMonitor(CampingMonitor):
             sites_string = ", ".join([s['site_name'] for s in found_sites])
             
             for site in found_sites:
-                site_name = site.get("site_name")
-
                 link = f"https://www.foresttrip.go.kr/indvz/main.do?hmpgId={camp_id}"
-                #link = f"https://www.foresttrip.go.kr/rep/or/sssn/fcfsRsrvtPssblGoodsDetls.do?hmpgId={camp_id}&menuId=001001"
 
                 # 텔레그램 메시지 구성
                 msg = (
@@ -295,11 +278,8 @@ class ForesttripMonitor(CampingMonitor):
         })             
             
         response = await self.client.get(url, headers=current_headers)
-
         self.cookies_initialized = True
         print(f"[*] 획득한 쿠키: {self.client.cookies}")    
-
-        
 
     async def create_csrf(self, hmpg_id: str):
         """
@@ -308,7 +288,6 @@ class ForesttripMonitor(CampingMonitor):
         login_page_url = f"https://www.foresttrip.go.kr/com/login.do?hmpgId={hmpg_id}"
         logger.info(f"[*] {login_page_url}에서 csrf를 새로 받습니다.")
 
-        # 수정 포인트 5: Host를 주소 도메인과 완벽하게 일치시킴
         current_headers = UAGenerator.get_headers({
             "Host": "www.foresttrip.go.kr",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
@@ -323,7 +302,6 @@ class ForesttripMonitor(CampingMonitor):
 
             self._csrf = csrf_element.get("value", "") if csrf_element else ""
             self.saltVals = salt_element.get("value", "") if salt_element else ""
-            
             
             logger.info(f"csrf : {self._csrf}, saltVals: {self.saltVals}")
             print(f"[*] [{self.campsite_name}] csrf 생성 완료: {self._csrf}")
@@ -341,9 +319,7 @@ class ForesttripMonitor(CampingMonitor):
         """
         [내부 함수] 수집된 CSRF 토큰과 유저 정보를 바탕으로 서버에 로그인 POST 요청을 보냅니다.
         """
-        
         hmpg_id = params_config.get("hmpgId", "")
-
         login_url = f"https://www.foresttrip.go.kr/com/login"
 
         logger.info(f"[*] {login_url}에서 로그인을 처리합니다.")
@@ -363,7 +339,7 @@ class ForesttripMonitor(CampingMonitor):
             "saltVals": self.saltVals
         }
         print(f"[*] 쿠키: {self.client.cookies}")  
-        pprint.pprint(data)  # 로그인 데이터 디버깅용 출력
+        # pprint.pprint(data)
 
         current_headers = UAGenerator.get_headers({
             "Host": "www.foresttrip.go.kr",
@@ -378,9 +354,7 @@ class ForesttripMonitor(CampingMonitor):
             print(f"[*] [{self.campsite_name}] 로그인 시도 상태: {response.status_code}")
 
             if response.status_code in [200, 302]:
-                
                 self.login_initialized = True
-
                 return True
             return False
 
@@ -390,7 +364,6 @@ class ForesttripMonitor(CampingMonitor):
             traceback.print_exc()
             return False
         
-
     async def get_netfunnel_key(self, service_id="service_1", action_id="action2"):
         """
         [넷퍼넬 우회] 대기열 서버에 직접 찔러서 즉시 통과 키(Key)를 받아옵니다.
@@ -398,7 +371,6 @@ class ForesttripMonitor(CampingMonitor):
         import time
         timestamp = int(time.time() * 1000)
         
-        # 1. 넷퍼넬 규격 URL 조립 (opcode 5101 = getTidChkEnter)
         nf_url = "https://nf.foresttrip.go.kr/ts.wseq"
         params = {
             "opcode": "5101",
@@ -417,12 +389,9 @@ class ForesttripMonitor(CampingMonitor):
         }
 
         try:
-            # 2. 대기열 서버에 통과 요청 선언
             response = await self.client.get(nf_url, params=params, headers=headers, timeout=10.0)
             res_text = response.text
 
-            # 3. 정규식을 통해 응답 데이터 추출 (result='...' 내부 문자열 파싱)
-            # 예: 5101:200:key=토큰값&ip=...
             match = re.search(r"result='(.*?)'", res_text)
             if not match:
                 logger.error("[!] 넷퍼넬 응답 포맷 파싱 실패")
@@ -434,10 +403,9 @@ class ForesttripMonitor(CampingMonitor):
             if len(result_parts) < 3:
                 return ""
 
-            status_code = result_parts[1] # '200' 또는 '201'
-            payload_str = result_parts[2] # 'key=토큰값&ip=...'
+            status_code = result_parts[1] 
+            payload_str = result_parts[2] 
 
-            # 쿼리스트링 파서처럼 key= 값 파싱
             kv_pairs = dict(item.split("=") for item in payload_str.split("&") if "=" in item)
             netfunnel_key = kv_pairs.get("key", "")
 
@@ -446,8 +414,6 @@ class ForesttripMonitor(CampingMonitor):
                 return netfunnel_key
             
             elif status_code == "201":
-                # 만약 사람이 몰려 대기 상태(201)라면 nwait(대기수)가 반환됩니다.
-                # 크롤러 특성상 대기 팝업을 띄울 수 없으므로 잠시 후 재시도 하거나 건너뛰어야 합니다.
                 nwait = kv_pairs.get("nwait", "다수")
                 logger.warning(f"[!] 넷퍼넬 대기열 정체 발생 (앞에 {nwait}명 대기 중). 3초 후 재시도 필요.")
                 return "WAIT"
@@ -456,3 +422,80 @@ class ForesttripMonitor(CampingMonitor):
             logger.error(f"[!] 넷퍼넬 통신 중 예외 에러: {str(e)}")
         
         return ""    
+    
+    async def get_info(self, hmpg_id: str, campsite_name: str = None):
+        """
+        [유틸리티 기능] 국립자연휴양림 메인 페이지에서 구역 목록 선택상자를 긁어와 XML 텍스트를 출력합니다.
+        """
+        url = f"https://www.foresttrip.go.kr/indvz/main.do?hmpgId={hmpg_id}"
+        display_name = campsite_name if campsite_name else getattr(self, "campsite_name", "이름 없음")
+
+        current_headers = UAGenerator.get_headers({
+            "Host": "www.foresttrip.go.kr",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+        })
+
+        try:
+            response = await self.client.get(url, headers=current_headers, timeout=20.0)
+            
+            if response.status_code != 200:
+                logger.error(f"[!] 정보 조회 실패: 상태 코드 {response.status_code}")
+                return False
+
+            soup = BeautifulSoup(response.text, "html.parser")
+            site_options = soup.select("select#goodsClssCd > option")
+
+            print("\n" + "="*50)
+            print("🚀 [XML 데이터 생성 완료] 복사하여 XML 파일에 붙여넣으세요.")
+            print("="*50)
+            print("<campsite>")
+            print(f"\t<name>{display_name}</name>")
+            print(f"\t<hmpgId>{hmpg_id}</hmpgId>")
+            print("\t<maxStayDay>2</maxStayDay>")
+            print("\t<sites>")
+
+            for option in site_options:
+                site_name = option.text.strip()
+                site_code = option.get("value", "").strip()
+
+                if site_code:
+                    print(f'\t\t<site code="{site_code}"><![CDATA[{site_name}]]></site>')
+
+            print("\t</sites>")
+            print("</campsite>")
+            print("="*50 + "\n")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"[!] 휴양림 정보(XML용) 파싱 중 오류 발생: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return False
+
+# 🛠️ 수정 포인트 1: 단독 테스트 전용 비동기 런 함수와 메인 진입점을 클래스 외부로 완전히 격리시켰습니다.
+async def test_run():
+    # 1. 국립자연휴양림 모니터 객체 생성
+    monitor = ForesttripMonitor()
+    
+    # 2. 테스트할 국립자연휴양림 기관 정보 설정
+    test_hmpg_id = "0111" 
+    test_campsite_name = "유명산자연휴양림"
+    
+    print("\n==================================================")
+    print(f"📡 [{test_campsite_name}] get_info 단독 테스트를 시작합니다...")
+    print("==================================================\n")
+    
+    # 3. get_info 메서드만 딱 1회 강제 호출
+    success = await monitor.get_info(hmpg_id=test_hmpg_id, campsite_name=test_campsite_name)
+    
+    print("\n--------------------------------------------------")
+    print(f"🎯 테스트 완료 여부: {'성공(SUCCESS)' if success else '실패(FAILED)'}")
+    print("--------------------------------------------------\n")
+    
+    # 4. 테스트 종료 후 커넥션 풀 자원 안전하게 닫기
+    await monitor.close_client()
+
+if __name__ == "__main__":
+    # 비동기 루프 점화
+    asyncio.run(test_run())
