@@ -82,7 +82,6 @@ const Comp = {
         this.initComponent();
         this.bindEvents();
         this.changeFlatform();
-        this.changeFlatform();
         this.restoreMonitoringList();
     },
 
@@ -96,6 +95,8 @@ const Comp = {
         document.getElementById("watchDate").addEventListener("change", () => this.onChangeWatchDate()); //날짜 변경 체크(인터파크)
         document.getElementById("telegramConfigBtn").addEventListener("click", () => this.openTgModal()); //텔레그램 설정
         document.getElementById("settingConfigBtn").addEventListener("click", () => this.openSettingsModal()); //환경설정 설정
+
+        document.getElementById("execTypeSelect").addEventListener("change", () => this.onChangeExecType());
     },
 
     initComponent: function () {
@@ -425,12 +426,12 @@ const Comp = {
                 return;
             }
             // 백엔드로 보낼 포맷팅 처리 (YYYY-MM-DD HH:mm:ss)
-            reservedTime = moment(reservedTimeVal).format("YYYY-MM-DD HH:mm:ss");
-
-            if (moment(reservedTime).isBefore(moment())) {
+            const reservedMoment = moment(reservedTimeVal);
+            if (reservedMoment.isBefore(moment())) {
                 alert("예약 시간은 현재 시간보다 이후여야 합니다.");
                 return;
             }
+            reservedTime = reservedMoment.format("YYYY-MM-DD HH:mm:ss");
         }
 
         const watchUuid = `${type}_${campId}_${watchDate}_${stayDay}`;
@@ -465,6 +466,33 @@ const Comp = {
             hasCategory = "Y";
         }
 
+        const loginFieldNode = currentCampsite.getElementsByTagName("showLoginField")[0];
+        const isShowLoginField = loginFieldNode?.textContent || "N";
+
+        // .trim()을 붙여서 사용자가 공백만 입력했을 때도 빈 값으로 인지하도록 방어합니다.
+        let userId = document.getElementById("userId").value.trim();
+        let userPw = document.getElementById("userPw").value.trim();
+
+        if (loginFieldNode) {
+            // 이미 if(loginFieldNode) 안쪽이므로 ?를 떼고 깔끔하게 처리합니다.
+            const isLoginFieldRequired = loginFieldNode.getAttribute("required") || "N";
+
+            if (isLoginFieldRequired === "Y") {
+                if (userId === "") {
+                    alert("ID를 입력해주세요.");
+                    document.getElementById("userId").focus();
+                    return;
+                }
+
+                // 오타 수정 완료: userId에서 userPw 검사 조건으로 변경했습니다!
+                if (userPw === "") {
+                    alert("계정 비밀번호를 입력해주세요.");
+                    document.getElementById("userPw").focus();
+                    return;
+                }
+            }
+        }
+
         const requestData = {
             type: type, // "THANKQ"
             campsiteName: campsiteName, // "THANKQ"
@@ -480,6 +508,8 @@ const Comp = {
             //예약 수행
             execType: execType,
             reservedTime: reservedTime,
+            userId: userId,
+            userPw: userPw,
             // 체크박스에서 선택된 구역 코드들을 배열(List)로 수집
             //site_codes: Array.from(document.querySelectorAll("#siteCheckerContainer input:checked")).map((cb) => cb.value)
             site_group_codes: Array.from(document.querySelectorAll("#siteCheckerContainer .group-item:checked")).map((cb) => cb.dataset.groupCode),
@@ -657,6 +687,38 @@ const Comp = {
 
     closeSettingsModal: function () {
         document.getElementById("settingsModal").classList.add("hidden");
+    },
+
+    onChangeExecType: function () {
+        const execType = document.getElementById("execTypeSelect").value;
+        const reservedTimeFields = document.getElementById("reservedTimeFields");
+        const requestInterval = document.getElementById("requestInterval");
+
+        // 1. 예약 시간 입력 필드 숨김/노출 제어 (기존 인라인 로직 이관)
+        if (execType === "RESERVED") {
+            reservedTimeFields.classList.remove("hidden");
+        } else {
+            reservedTimeFields.classList.add("hidden");
+        }
+
+        // 2. 🛠️ 최대요청주기 3초, 1초 제어 영역 (즉시 실행일 때 선택 차단)
+        // 콤보박스 내부에서 value가 "3"과 "1"인 option 태그 엘리먼트를 순회합니다.
+        Array.from(requestInterval.options).forEach((option) => {
+            if (option.value === "3" || option.value === "1") {
+                if (execType === "NOW") {
+                    option.disabled = true; // '즉시 실행'인 경우 선택 불가능(비활성화)
+                } else {
+                    option.disabled = false; // '예약 실행'인 경우 다시 해제
+                }
+            }
+        });
+
+        // 3.  Defensive 코딩: 사용자가 예약 실행 상태에서 3초나 1초를 지정하고 있다가
+        // 갑자기 '즉시 실행'으로 바꾼 경우, disabled 항목이 선택되어 있는 버그를 방지하기 위해 기본값인 30초로 강제 원복 시킵니다.
+        if (execType === "NOW" && (requestInterval.value === "3" || requestInterval.value === "1")) {
+            requestInterval.value = "30"; // 안전하게 30초 옵션으로 변경
+            Logger.addLog("과도한 연타 차단을 우회하기 위해 즉시 실행 모드에서는 30초 주기로 자동 변경됩니다.", "system");
+        }
     },
 
     // 환경설정(Info) 저장
