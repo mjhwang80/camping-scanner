@@ -39,6 +39,53 @@ function closeTgModal() {
     document.getElementById("telegramModal").classList.add("hidden");
 }
 
+// 도구 레이어 토글 함수
+function toggleToolLayer() {
+    const layer = document.getElementById("downloader-layer");
+    if (layer.style.display === "none") {
+        layer.style.display = "block";
+    } else {
+        layer.style.display = "none";
+    }
+}
+
+// 백엔드 서버에 다운로드 요청 전송
+async function requestDownload() {
+    const dlType = document.getElementById("download-type").value;
+    const dlUrl = document.getElementById("download-url").value.trim();
+
+    if (!dlUrl) {
+        alert("다운로드할 URL 주소를 입력해주세요.");
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/tools/download", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                type: dlType,
+                url: dlUrl
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+            alert(result.message);
+            // 요청 성공 시 입력창 초기화
+            document.getElementById("download-url").value = "";
+        } else {
+            alert("요청 실패: " + result.message);
+        }
+    } catch (error) {
+        console.error("다운로드 요청 중 서버 통신 에러:", error);
+        alert("서버와 연결할 수 없습니다.");
+    }
+}
+
 window.addEventListener("popstate", function () {
     if (!document.getElementById("menuLayer").classList.contains("hidden-layer")) {
         toggleMenu();

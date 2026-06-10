@@ -3,6 +3,7 @@
 - /camping-scanner/.venv # 가상환경
 - /camping-scanner/app # 소스 경로
 - /camping-scanner/app/main.py # FastAPI 엔트리 포인트 (Server 기동)
+- /camping-scanner/app/utils/download.py
 - /camping-scanner/app/core/ # 핵심 공통 로직
 - /camping-scanner/app/core/config_loader.py # YAML 설정 로드
 - /camping-scanner/app/core/logger.py # 로그 핸들러
@@ -66,11 +67,12 @@
 
 ## 2. 질문 사항
 
-- **반응형 체크** :  반응형과 폰트 사이즈 일관성을 체크하고 수정해줘.
-- **로그창 위치 변경** : LOG CONSOLE 영역을 예약 정보는 세로 전체로 잡고, 감시 정보창 하단으로 위치해줘. 
+- **반응형 체크** : 반응형과 폰트 사이즈 일관성을 체크하고 수정해줘.
+- **로그창 위치 변경** : LOG CONSOLE 영역을 예약 정보는 세로 전체로 잡고, 감시 정보창 하단으로 위치해줘.
 - **감시 목록 정보 체크** : 화면 새로고침시나 다른 디바이스로 접속시 감시 중인 항목이 정상적으로 표시되는지 체크해줘, 예약 감시, 즉시 감시 항목 모두 체크하고 감시 삭제시 타 디바이스에서 웹화면에서도 감시 항목이 삭제되도록 해줘.
 
 ## 3. 분석 대상 코드
+
 ### [/camping-scanner/app/static/css/style.css]
 
 ```css

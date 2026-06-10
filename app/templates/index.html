@@ -19,6 +19,11 @@
             </div>
 
             <div class="flex items-center space-x-2">
+                <button type="button" onclick="openDownloaderModal()" class="flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-indigo-200 text-indigo-600 text-xs font-black rounded-lg hover:bg-indigo-50 hover:border-indigo-300 transition-all shadow-sm" title="미디어 다운로더 열기">
+                    <i class="fa-solid fa-toolbox text-sm"></i>
+                    <span>도구 박스</span>
+                </button>
+
                 <button onclick="confirmShutdown()" class="flex items-center space-x-2 px-3 py-1.5 bg-white border border-red-200 text-red-600 text-xs font-black rounded-lg hover:bg-red-50 hover:border-red-300 transition-all shadow-sm" title="애플리케이션 종료">
                     <i class="fa-solid fa-power-off"></i>
                     <span>프로그램 종료</span>
@@ -192,6 +197,47 @@
         <div id="overlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 hidden"></div>
         <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
 
+        <div id="downloaderModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+            <div class="bg-white p-6 rounded-xl w-[420px] shadow-2xl border border-slate-200 animate-fade-in">
+                <div class="flex justify-between items-center mb-5">
+                    <div class="flex items-center space-x-2 text-indigo-600">
+                        <i class="fa-solid fa-toolbox text-lg"></i>
+                        <h2 class="text-sm font-black italic tracking-wider uppercase">MEDIA DOWNLOAD UTILITY</h2>
+                    </div>
+                    <button onclick="closeDownloaderModal()" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-4 text-xs">
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase block mb-1">다운로드 타입 선택</label>
+                        <select id="download-type" onchange="handleDownloadTypeChange()" class="w-full p-2.5 font-bold bg-slate-50 rounded border border-slate-300 text-slate-700 shadow-sm focus:outline-none focus:border-indigo-500">
+                            <option value="cdn" selected>일반 CDN (MP4 등 직접 링크)</option>
+                            <option value="youtube_mp3">YouTube (MP3 음원 추출)</option>
+                            <option value="youtube_video">YouTube (동영상 최고화질)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-indigo-600 uppercase block mb-1">미디어 주소 (URL) <span class="text-red-500">*</span></label>
+                        <input type="text" id="download-url" placeholder="다운로드할 영상 주소나 CDN 링크를 주입하세요" class="w-full p-2.5 border border-slate-300 rounded shadow-sm focus:outline-none focus:border-indigo-500 text-xs" />
+                    </div>
+
+                    <div id="referer-field-container">
+                        <label class="text-[10px] font-black text-slate-500 uppercase block mb-1">참조 경로 (Referer 주소 - 선택사항)</label>
+                        <input type="text" id="download-referer" placeholder="우회 인증에 필요한 출처 사이트 도메인/주소(선택)" class="w-full p-2.5 border border-slate-300 rounded shadow-sm focus:outline-none focus:border-indigo-500 text-xs bg-slate-50/50" />
+                    </div>
+
+                    <p class="text-[10px] text-slate-500 leading-tight bg-slate-50 p-2.5 rounded border border-slate-200"><i class="fa-solid fa-circle-info text-indigo-500 mr-0.5"></i> 백그라운드 다운로드 내역 및 트래킹 진행률은 메인 대시보드 하단의 <strong>LOG CONSOLE</strong> 창을 통해 스트리밍됩니다.</p>
+                </div>
+
+                <div class="flex justify-end mt-6 space-x-2">
+                    <button onclick="closeDownloaderModal()" class="px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-50 rounded-lg transition">닫기</button>
+                    <button onclick="requestDownload()" class="px-6 py-2 text-xs font-black bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition">다운로드 시작</button>
+                </div>
+            </div>
+        </div>
+
         <div id="telegramModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center backdrop-blur-sm">
             <div class="bg-white p-6 rounded-xl w-96 shadow-2xl border border-slate-200">
                 <h2 class="text-lg font-black text-slate-800 italic mb-6">TELEGRAM BOT SETTING</h2>
@@ -253,6 +299,36 @@
                 Logger.init();
                 Alert.init();
             });
+
+            // 다운로더 모달 열기
+            function openDownloaderModal() {
+                // 모달을 열 때 기본 선택인 cdn 상태에 맞춰 Referer 변수를 보이도록 리셋합니다.
+                document.getElementById("download-type").value = "cdn";
+                document.getElementById("referer-field-container").classList.remove("hidden");
+                document.getElementById("downloaderModal").classList.remove("hidden");
+            }
+
+            // 다운로더 모달 닫기
+            function closeDownloaderModal() {
+                document.getElementById("downloaderModal").classList.add("hidden");
+                document.getElementById("download-url").value = "";
+                document.getElementById("download-referer").value = "";
+            }
+
+            // [추가] 셀렉트 박스 선택 변경 시 호출되는 이벤트 핸들러
+            function handleDownloadTypeChange() {
+                const type = document.getElementById("download-type").value;
+                const refererContainer = document.getElementById("referer-field-container");
+
+                if (type === "cdn") {
+                    // cdn일 경우만 보이기
+                    refererContainer.classList.remove("hidden");
+                } else {
+                    // 유튜브 관련 옵션일 때는 숨기고 값 초기화
+                    refererContainer.classList.add("hidden");
+                    document.getElementById("download-referer").value = "";
+                }
+            }
         </script>
     </body>
 </html>

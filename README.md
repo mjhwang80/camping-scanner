@@ -14,6 +14,13 @@ cd camping-scanner
 ### Windows
 
 #.\.venv\Scripts\activate
+#.\.venv\Scripts\deactivate
+
+### 현재 pip 위치 확인
+
+```cmd
+python -m pip -V
+```
 
 ### Mac
 
@@ -42,6 +49,12 @@ deactivate
 - pip install nodriver
 - pip install nest_asyncio
 - pip install python-telegram-bot
+- pip install yt-dlp
+- pip install tqdm
+- pip install python-dotenv requests
+- pip install ffmpeg-downloader or winget install Gyan.FFmpeg
+- pip install quickjs
+- python -m pip install yt-dlp
 
 ## GIT 사용법
 

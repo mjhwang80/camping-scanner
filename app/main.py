@@ -36,6 +36,9 @@ from platforms.pubcamping import PubcampingMonitor
 from platforms.gtdc import GtdcMonitor
 from platforms.foresttrip import ForesttripMonitor
 
+from utils.download import download_cdn_video, download_youtube
+from fastapi import BackgroundTasks
+
 try:
     path = get_browser_path()
     print(f"[*] 브라우저 경로 설정 완료: {path}")
@@ -322,6 +325,32 @@ async def create_interpark_session():
         await closed_event.wait()
         await browser.close()
         return {"status": "success"}
+
+
+@app.post("/api/tools/download")
+async def api_download_media(
+    background_tasks: BackgroundTasks, 
+    payload: dict = Body(...)
+):
+    dl_type = payload.get("type")
+    url = payload.get("url", "").strip()
+    referer = payload.get("referer", "").strip() # [추가] 레퍼러 필드 추출 (없으면 빈값 문자열)
+
+    if not url:
+        return {"status": "error", "message": "URL을 입력해주세요."}
+
+    # 빈 문자열 처리 판단 (아무것도 입력 안 했을 시 None 할당)
+    actual_referer = referer if referer else None
+
+    if dl_type == "cdn":
+        background_tasks.add_task(download_cdn_video, url, actual_referer)
+    elif dl_type in ["youtube_mp3", "youtube_video"]:
+        background_tasks.add_task(download_youtube, url, dl_type, actual_referer)
+    else:
+        return {"status": "error", "message": "올바르지 않은 다운로드 타입입니다."}
+
+    logger.info(f"[요청 수신] {dl_type} 다운로드 시작 (Referer 설정여부: {bool(actual_referer)})")
+    return {"status": "success", "message": "다운로드 요청을 접수했습니다. 하단 로그 콘솔을 모니터링 하세요."}
 
 def check_expiration():
     if datetime.now() > datetime(2026, 7, 30):
