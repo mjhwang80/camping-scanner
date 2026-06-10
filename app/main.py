@@ -62,8 +62,9 @@ async def shutdown_event():
         logger.info("[*] 스케줄러 가동 중단.")
 
 def run_server():
-    target_port = int(CONFIG['server']['port'])
-    uvicorn.run(app, host="127.0.0.1", port=target_port, log_config=None, workers=1)
+    target_port = int(CONFIG['server']['port'])    
+    target_host = str(CONFIG['server']['host'])
+    uvicorn.run(app, host=target_host, port=target_port, log_config=None, workers=1)
 
 def stop_server():
     os.kill(os.getpid(), signal.SIGTERM)
