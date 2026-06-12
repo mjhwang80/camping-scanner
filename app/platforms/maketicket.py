@@ -27,6 +27,7 @@ class MaketicketMonitor(CampingMonitor):
 
     def __init__(self):
         self.execution_count = 0  # 실행 횟수를 저장할 변수 
+        self.client = httpx.AsyncClient(timeout=15.0, follow_redirects=True)
 
     async def check_availability(self, params: dict):
 
@@ -80,33 +81,32 @@ class MaketicketMonitor(CampingMonitor):
             
             data["ri_area_code"] = area
 
-            async with httpx.AsyncClient() as client:
-                try:
-                    response = await client.post(url, data=data, headers=current_headers,  cookies={"auth": "token"}, timeout=10.0)
-                    result = response.json()
-                    site_list = result.get("resultList", [{}])
-                    for find_site in site_list:
-                        use_yn = find_site.get("use_yn", "N")
-                        reserve_ready_yn = find_site.get("reserve_ready_yn", "N")
-                        if use_yn == "Y" and reserve_ready_yn == "Y":
-                            
-                            ri_name = find_site.get("ri_name")
-                            ri_seq = find_site.get("ri_seq")
+            try:
+                response = await self.client.post(url, data=data, headers=current_headers,  cookies={"auth": "token"}, timeout=10.0)
+                result = response.json()
+                site_list = result.get("resultList", [{}])
+                for find_site in site_list:
+                    use_yn = find_site.get("use_yn", "N")
+                    reserve_ready_yn = find_site.get("reserve_ready_yn", "N")
+                    if use_yn == "Y" and reserve_ready_yn == "Y":
+                        
+                        ri_name = find_site.get("ri_name")
+                        ri_seq = find_site.get("ri_seq")
 
-                            logger.info(f"[{campsiteName}] {ri_name} 사이트 예약 가능! (ID: {ri_seq})")
-                            found_sites.append({
-                                "idkey": groupCode,
-                                "gd_seq": camp_id,
-                                "ri_name": ri_name,
-                                "site_name": ri_name,
-                                "ri_seq": ri_seq,                              
-                                "sd_date": start_dt,                              
-                                "lodge_day": stay_days,                              
-                                "ri_area_code": area
-                            })                           
+                        logger.info(f"[{campsiteName}] {ri_name} 사이트 예약 가능! (ID: {ri_seq})")
+                        found_sites.append({
+                            "idkey": groupCode,
+                            "gd_seq": camp_id,
+                            "ri_name": ri_name,
+                            "site_name": ri_name,
+                            "ri_seq": ri_seq,                              
+                            "sd_date": start_dt,                              
+                            "lodge_day": stay_days,                              
+                            "ri_area_code": area
+                        })                           
 
-                except Exception as e:
-                    logger.error(f"[{params['camp_id']}] 잔여석 확인 중 에러: {e}")         
+            except Exception as e:
+                logger.error(f"[{params['camp_id']}] 잔여석 확인 중 에러: {e}")         
 
         sites_string = ""
         if found_sites:
@@ -182,3 +182,8 @@ class MaketicketMonitor(CampingMonitor):
             return True
         
         return False
+
+    async def close_client(self):
+        if self.client and not self.client.is_closed:
+            await self.client.aclose()
+            logger.info("[*] [Maketicket] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.")     

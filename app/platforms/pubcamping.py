@@ -18,6 +18,7 @@ logger = logging.getLogger("camping.pubcamping")
 class PubcampingMonitor(CampingMonitor): 
     def __init__(self):
         super().__init__()
+        self.client = httpx.AsyncClient(timeout=15.0, follow_redirects=True)
         self.execution_count = 0  # 실행 횟수 카운터
 
     async def _check_single_group(self, client, camp_id, target_group, start_date, end_date, stay_days, headers):
@@ -78,6 +79,8 @@ class PubcampingMonitor(CampingMonitor):
         req_date = params.get("date")
         stay_days = int(params.get("stay_day", "1"))
         uuid = params.get("watchUuid")
+
+        target_site_groups = [str(code) for code in params.get("site_group_codes", [])]
         target_site_codes = [str(code) for code in params.get("site_codes", [])]
 
         next_date = datetime.strptime(req_date, "%Y-%m-%d") + timedelta(days=stay_days) 
@@ -101,69 +104,81 @@ class PubcampingMonitor(CampingMonitor):
         })
 
         # 비동기 클라이언트 생성 (커넥션 풀 재사용)
-        async with httpx.AsyncClient(verify=False) as client:
-            # 1. 모든 구역에 대해 Task 생성 (Java의 Stream -> List<CompletableFuture>와 유사)
-            tasks = [
-                self._check_single_group(client, camp_id, group, start_dt, end_dt, stay_days, current_headers)
-                for group in target_site_codes
-            ]
-            
-            # 2. 모든 요청을 동시에 실행 및 결과 수집 (Parallel Execution)
-            results = await asyncio.gather(*tasks)
-            # 3. 결과 중 None(실패/빈자리 없음)을 제외하고 유효한 데이터만 추출
-            #found_sites = [r for r in results if r is not None]
+        # 1. 모든 구역에 대해 Task 생성 (Java의 Stream -> List<CompletableFuture>와 유사)
+        tasks = [
+            self._check_single_group(self.client, camp_id, group, start_dt, end_dt, stay_days, current_headers)
+            for group in target_site_groups
+        ]
+        
+        # 2. 모든 요청을 동시에 실행 및 결과 수집 (Parallel Execution)
+        results = await asyncio.gather(*tasks)
+        # 3. 결과 중 None(실패/빈자리 없음)을 제외하고 유효한 데이터만 추출
+        #found_sites = [r for r in results if r is not None]
 
-            # 2차원 리스트를 1차원으로 평탄화 (Flatten)
-            found_sites = []
-            for r in results:
-                if r is not None and isinstance(r, list):
-                    found_sites.extend(r) # 리스트 안의 요소를 하나씩 추가
-
+        # 2차원 리스트를 1차원으로 평탄화 (Flatten)
+        found_sites = []
+        for r in results:
+            if r is not None and isinstance(r, list):
+                found_sites.extend(r) # 리스트 안의 요소를 하나씩 추가
 
 
         # 4. 빈자리 발견 시 처리
         if found_sites:
-            # 첫 번째 발견된 장소를 대표 링크로 사용
-            link = f"https://gwgs.pubcamping.kr/{camp_id}/reservation"
+            
             sites_string = ", ".join([s['site_name'] for s in found_sites])
 
-            # 텔레그램 메시지 구성
-            msg = (
-                f"<b>[고성군 공공캠핑장] 빈자리 발견!</b>\n"
-                f"캠핑장: {campsite_name}\n"
-                f"날짜: {req_date} ({stay_days}박)\n"
-                f"구역: {sites_string}\n"
-                f"<a href='{link}'>👉 예약 페이지 바로가기</a>"
-            )
-            await notifier.send_message(msg)
+            for site in found_sites:
 
-            # 웹소켓 알림 전송 (브라우저 팝업용)
-            await ws_manager.broadcast({
-                "messageType": "alert",
-                "data": {
-                    "campseq": camp_id,
-                    "res_dt": req_date,
-                    "res_days": stay_days,
-                    "link": link,
-                    "list": found_sites
-                }
-            })
-
-            # 시스템 트레이 알림 (Windows 알림)
-            try:
-                from main import tray_manager
-                if tray_manager:
-                    tray_manager.notify(
-                        "빈자리 발견!", 
-                        f"[{campsite_name}] {sites_string} 자리가 났습니다."
-                    )
-            except: pass
-
-            # 모니터링 종료 체크           
-            from main import scheduler
-            await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
+                # 첫 번째 발견된 장소를 대표 링크로 사용
+                link = f"https://mjhwang80.github.io/camping-scanner/app/templates/pubcamping_gateway.html?camp_id={camp_id}&room_area_no={site['room_area_no']}&stay_cnt={stay_days}&check_in={start_dt}&check_out={end_dt}&roomNoArr={site['item_no']}"
+                #link = f"https://gwgs.pubcamping.kr/{camp_id}/reservation"
             
-            logger.info(f"[SUCCESS] {campsite_name} 빈자리 발견: {sites_string}")
+
+                # 텔레그램 메시지 구성
+                msg = (
+                    f"<b>[고성군 공공캠핑장] 빈자리 발견!</b>\n"
+                    f"캠핑장: {campsite_name}\n"
+                    f"날짜: {req_date} ({stay_days}박)\n"
+                    f"구역: {sites_string}\n"
+                    f"<a href='{link}'>👉 예약 페이지 바로가기</a>"
+                )
+                await notifier.send_message(msg)
+
+                # 웹소켓 알림 전송 (브라우저 팝업용)
+                await ws_manager.broadcast({
+                    "messageType": "alert",
+                    "data": {
+                        "campseq": camp_id,
+                        "res_dt": req_date,
+                        "res_days": stay_days,
+                        "link": link,
+                        "list": found_sites
+                    }
+                })
+
+                # 시스템 트레이 알림 (Windows 알림)
+                try:
+                    from main import tray_manager
+                    if tray_manager:
+                        tray_manager.notify(
+                            "빈자리 발견!", 
+                            f"[{campsite_name}] {sites_string} 자리가 났습니다."
+                        )
+                except: pass
+
+                # 모니터링 종료 체크           
+                from main import scheduler
+                await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
+            
+                logger.info(f"[SUCCESS] {campsite_name} 빈자리 발견: {sites_string}")
+
+                break # 1건만 찾고 멈춤
+
             return True
 
         return False
+
+    async def close_client(self):
+        if self.client and not self.client.is_closed:
+            await self.client.aclose()
+            logger.info("[*] [Pubcamping] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.")          

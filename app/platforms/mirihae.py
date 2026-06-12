@@ -202,7 +202,6 @@ class MirihaeMonitor(CampingMonitor):
                         # 알림 전송                
                         await notifier.send_message(msg)
 
-                        localLink = f"/gateway/gugu?{parameter}"
                         alert_msg = {
                             "messageType" : "alert" 
                             ,"data" : {
@@ -210,7 +209,7 @@ class MirihaeMonitor(CampingMonitor):
                                 "groupCode": groupCode,
                                 "res_dt": start_dt,                           
                                 "res_days": stay_days,
-                                "link" : localLink,
+                                "link" : link,
                                 "list" : found_sites,
                                 "tocken" : self.token
                                 }

@@ -19,6 +19,7 @@ class CamplinkMonitor(CampingMonitor):
     def __init__(self):
         super().__init__()
         self.execution_count = 0  # 실행 횟수 카운터
+        self.client = httpx.AsyncClient(timeout=15.0, verify=False,follow_redirects=True)
 
     async def _check_single_group(self, client, camp_id, target_group, req_date, stay_days, headers):
 
@@ -101,18 +102,17 @@ class CamplinkMonitor(CampingMonitor):
         })
 
         # 비동기 클라이언트 생성 (커넥션 풀 재사용)
-        async with httpx.AsyncClient(verify=False) as client:
-            # 1. 모든 구역에 대해 Task 생성 (Java의 Stream -> List<CompletableFuture>와 유사)
-            tasks = [
-                self._check_single_group(client, camp_id, group, req_date, stay_days, current_headers)
-                for group in target_site_codes
-            ]
-            
-            # 2. 모든 요청을 동시에 실행 및 결과 수집 (Parallel Execution)
-            results = await asyncio.gather(*tasks)
+        # 1. 모든 구역에 대해 Task 생성 (Java의 Stream -> List<CompletableFuture>와 유사)
+        tasks = [
+            self._check_single_group(self.client, camp_id, group, req_date, stay_days, current_headers)
+            for group in target_site_codes
+        ]
+        
+        # 2. 모든 요청을 동시에 실행 및 결과 수집 (Parallel Execution)
+        results = await asyncio.gather(*tasks)
 
-            # 3. 결과 중 None(실패/빈자리 없음)을 제외하고 유효한 데이터만 추출
-            found_sites = [r for r in results if r is not None]
+        # 3. 결과 중 None(실패/빈자리 없음)을 제외하고 유효한 데이터만 추출
+        found_sites = [r for r in results if r is not None]
 
         # 4. 빈자리 발견 시 처리
         if found_sites:
@@ -160,3 +160,8 @@ class CamplinkMonitor(CampingMonitor):
             return True
 
         return False
+    
+    async def close_client(self):
+        if self.client and not self.client.is_closed:
+            await self.client.aclose()
+            logger.info("[*] [캠프링크] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.")         

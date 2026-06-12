@@ -54,8 +54,8 @@ class XticketMonitor(CampingMonitor):
 
 
         #감시 사이트 대상
-        target_site_codes = params.get("site_codes", [])
-        target_site_codes = [str(code) for code in target_site_codes] 
+        target_site_groups = [str(code) for code in params.get("site_group_codes", [])]
+        target_site_codes = [str(code) for code in params.get("site_codes", [])]
 
         hasCategory = params.get("hasCategory") #그룹으로 찾을지 사이트로 찾을지
 
@@ -66,10 +66,6 @@ class XticketMonitor(CampingMonitor):
 
         if not self.cookies_initialized:
             await self.get_browser_cookies(camp_id)
-
-
-
-        
 
    
         current_headers = UAGenerator.get_headers({
@@ -92,22 +88,25 @@ class XticketMonitor(CampingMonitor):
             "time" : int(time.time() * 1000),           
         }
 
-        
-
         found_sites = []
 
-        for area in target_site_codes:
+        find_area_list = [];
+        if "Y" == hasCategory:
+            find_area_list = target_site_groups
+        else:
+            find_area_list = target_site_codes
+
+        for area in find_area_list:
             
             data["product_group_code"] = area
 
-            pprint.pprint(data)
+            #pprint.pprint(data)
             
             try:
                 response = await self.client.post(url, data=data, headers=current_headers)
                 print(response.status_code)
-                print(response.text)
-                result = response.json()
 
+                result = response.json()
                 site_list = result.get("data", {}).get("bookProductList", [])
 
                 for find_site in site_list:
@@ -120,7 +119,7 @@ class XticketMonitor(CampingMonitor):
                         if "Y" == hasCategory:
                             # 원하는 사이트 체크
                              if product_code in target_site_codes:                                
-                                logger.info(f"[{campsiteName}] {product_name} 사이트 예약 가능! (ID: {product_code})")
+                                #logger.info(f"[{campsiteName}] {product_name} 사이트 예약 가능! (ID: {product_code})")
                                 found_sites.append({
                                     "shopCode": groupCode,
                                     "shopEncode": camp_id,
@@ -130,7 +129,7 @@ class XticketMonitor(CampingMonitor):
                                     
                                 })        
                         else:                          
-                            logger.info(f"[{campsiteName}] {product_name} 사이트 예약 가능! (ID: {product_code})")
+                            #logger.info(f"[{campsiteName}] {product_name} 사이트 예약 가능! (ID: {product_code})")
                             found_sites.append({
                                 "shopCode": groupCode,
                                 "shopEncode": camp_id,

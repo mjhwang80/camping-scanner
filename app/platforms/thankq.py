@@ -25,6 +25,7 @@ class ThankQMonitor(CampingMonitor):
      
     def __init__(self):
         self.execution_count = 0  # 실행 횟수를 저장할 변수 
+        self.client = httpx.AsyncClient(timeout=15.0, follow_redirects=True)
 
     async def check_availability(self, params: dict):
         # Java의 Map<String, String> data 구성과 동일
@@ -84,34 +85,33 @@ class ThankQMonitor(CampingMonitor):
 
         url = "https://m.thankqcamping.com/resv/axResCampSite.hbb"
 
-        async with httpx.AsyncClient() as client:
-            response = await client.post(url, data=data, headers=current_headers, timeout=10.0)
-            soup = BeautifulSoup(response.text, "lxml")
+        response = await self.client.post(url, data=data, headers=current_headers, timeout=10.0)
+        soup = BeautifulSoup(response.text, "lxml")
 
-            # 2. 모든 사이트 리스트(li) 순회
-            # 제공해주신 구조상 li 하위에 site_div가 있는 항목들 추출
-            site_list = soup.select("li div.site_div")
+        # 2. 모든 사이트 리스트(li) 순회
+        # 제공해주신 구조상 li 하위에 site_div가 있는 항목들 추출
+        site_list = soup.select("li div.site_div")
+        
+        found_sites = []
+
+        for site in site_list:
+            # A. 예약 가능 여부 체크 (q_tip 클래스에 'og'가 포함되어 있는지)
+            q_tip = site.select_one(".q_tip")
+            if not q_tip or "og" not in q_tip.get("class", []):
+                continue # 예약 불가능하면 패스
+
+            # B. 사이트 고유 ID 추출 (onClick="goNoMemResAlert('116308', '')" 에서 숫자만 추출)
+            onclick_text = site.get("onclick", "")
+            # 정규표현식으로 첫 번째 인자인 숫자 ID 추출 (Java의 Pattern/Matcher 역할)
+            match = re.search(r"goNoMemResAlert\('(\d+)'", onclick_text)
             
-            found_sites = []
-
-            for site in site_list:
-                # A. 예약 가능 여부 체크 (q_tip 클래스에 'og'가 포함되어 있는지)
-                q_tip = site.select_one(".q_tip")
-                if not q_tip or "og" not in q_tip.get("class", []):
-                    continue # 예약 불가능하면 패스
-
-                # B. 사이트 고유 ID 추출 (onClick="goNoMemResAlert('116308', '')" 에서 숫자만 추출)
-                onclick_text = site.get("onclick", "")
-                # 정규표현식으로 첫 번째 인자인 숫자 ID 추출 (Java의 Pattern/Matcher 역할)
-                match = re.search(r"goNoMemResAlert\('(\d+)'", onclick_text)
+            if match:
+                current_site_code = match.group(1)
                 
-                if match:
-                    current_site_code = match.group(1)
-                    
-                    # C. 사용자가 요청한 감시 대상 리스트에 포함되어 있는지 확인
-                    if current_site_code in target_site_codes:
-                        site_name = site.select_one(".na").text if site.select_one(".na") else "알 수 없음"                        
-                        found_sites.append({"site_name":site_name, "site_code" : current_site_code})
+                # C. 사용자가 요청한 감시 대상 리스트에 포함되어 있는지 확인
+                if current_site_code in target_site_codes:
+                    site_name = site.select_one(".na").text if site.select_one(".na") else "알 수 없음"                        
+                    found_sites.append({"site_name":site_name, "site_code" : current_site_code})
 
             sites_string = ""
             if found_sites:
@@ -195,6 +195,10 @@ class ThankQMonitor(CampingMonitor):
         except Exception as e:
             logger.error(f"종료 처리 중 오류: {e}")
 
+    async def close_client(self):
+        if self.client and not self.client.is_closed:
+            await self.client.aclose()
+            logger.info("[*] [땡큐캠핑] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.")    
 
 if __name__ == "__main__":
     # 테스트용 파라미터 (Map 구조)
