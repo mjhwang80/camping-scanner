@@ -19,6 +19,7 @@ PyInstaller.__main__.run([
     '--name=CampingScanner',
     '--add-data=app/templates;app/templates',
     '--add-data=app/static;app/static',
+    '--add-binary=bin/ffmpeg.exe;bin'
     #'--add-data=pw-browsers;pw-browsers',
     '--clean',
 ])
@@ -45,6 +46,14 @@ dist_data_path = os.path.join('dist', 'data')
 if os.path.exists(src_data_path):
     shutil.copytree(src_data_path, dist_data_path)
     print(f"✓ data 폴더 복사 완료 ({dist_data_path})")
+else:
+    print(f"! 경고: {src_data_path} 폴더를 찾을 수 없습니다.")
+
+src_data_path = 'bin' 
+dist_data_path = os.path.join('dist', 'bin')
+if os.path.exists(src_data_path):
+    shutil.copytree(src_data_path, dist_data_path)
+    print(f"✓ bin 폴더 복사 완료 ({dist_data_path})")
 else:
     print(f"! 경고: {src_data_path} 폴더를 찾을 수 없습니다.")
 

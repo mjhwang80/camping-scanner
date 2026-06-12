@@ -1,0 +1,165 @@
+
+<!doctype html>
+<HTML lang=en>
+<HEAD>
+<TITLE> 송지호 가자 </TITLE>
+<META charset="utf-8">
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<script>
+function left(s,c){
+  return s.substr(0,c);
+}//left("abcd",2)
+function right(s,c){
+  return s.substr(-c);
+}//right("abcd",2)
+function mid(s,c,l){
+  return s.substring(c,l);
+}//mid("abcd",1,2)
+function copy(s,c,l){
+  return s.substr(c,l);
+}//copy("abcd",1,2)
+	
+function init() {
+	var nYear = new Date().getFullYear();
+	
+	for(var i = nYear; i <= (nYear+1); i++) {
+		var sOption = document.createElement('option');
+		sOption.innerText = i +"년";
+		sOption.value = i;
+		
+		var eOption = document.createElement('option');
+		eOption.innerText = i +"년";
+		eOption.value = i;
+	
+		document.getElementById("sYear").appendChild(sOption);
+		document.getElementById("eYear").appendChild(eOption);
+	}
+	//월 추가
+	for(var i = 1; i <= 12; i++) {
+		var sOption = document.createElement('option');
+		sOption.innerText = right("0"+i, 2) + "월";
+		sOption.value = right("0"+i, 2);
+		
+		var eOption = document.createElement('option');
+		eOption.innerText = right("0"+i, 2) + "월";
+		eOption.value = right("0"+i, 2);
+	
+		document.getElementById("sMonth").appendChild(sOption);
+		document.getElementById("eMonth").appendChild(eOption);
+	}
+	//일 추가
+	for(var i = 1; i <= 31; i++) {
+		var sOption = document.createElement('option');
+		sOption.innerText = right("0"+i, 2) +"일";
+		sOption.value = right("0"+i, 2);
+		
+		var eOption = document.createElement('option');
+		eOption.innerText = right("0"+i, 2) +"일";
+		eOption.value = right("0"+i, 2);
+	
+		document.getElementById("sDay").appendChild(sOption);
+		document.getElementById("eDay").appendChild(eOption);
+	}
+}
+
+function setCheckIn() {
+	var sYYYY = document.getElementById("sYear").options[document.getElementById("sYear").selectedIndex].value;
+	var sMM = document.getElementById("sMonth").options[document.getElementById("sMonth").selectedIndex].value;
+	var sDD = document.getElementById("sDay").options[document.getElementById("sDay").selectedIndex].value;
+
+	document.reserved_song.check_in.value = sYYYY +""+ sMM +""+ sDD;
+}
+
+function setCheckOut() {
+	var eYYYY = document.getElementById("eYear").options[document.getElementById("eYear").selectedIndex].value;
+	var eMM = document.getElementById("eMonth").options[document.getElementById("eMonth").selectedIndex].value;
+	var eDD = document.getElementById("eDay").options[document.getElementById("eDay").selectedIndex].value;
+
+	document.reserved_song.check_out.value = eYYYY +""+ eMM +""+ eDD;
+}
+	
+function reserved() {
+  var reservedForm = document.reserved_song;
+  
+  reservedForm.action = "https://gwgs.pubcamping.kr/@song/reservation";
+  reservedForm.submit();
+}
+</script>
+</head>
+  
+<body onload="init();">
+<button type="button" onclick="window.open('https://gwgs.pubcamping.kr/@song/index');">로그인하고오기(새창)</button>
+<form name="reserved_song" method="post">
+<table width="370">
+	<tr>
+		<td width="10"></td>
+		<td>
+			<table width="370" border="1">
+				<tr>
+					<td align="left" width="100">시작일</td>
+					<td align="left">
+						<select id="sYear" onChange="setCheckIn();"><option value="" selected>선택</option></select>&nbsp;
+						<select id="sMonth" onChange="setCheckIn();"><option value="" selected>선택</option></select>&nbsp;
+						<select id="sDay" onChange="setCheckIn();"><option value="" selected>선택</option></select>
+						<input type="hidden" name="check_in" value="" />
+					</td>
+				</tr>
+				<tr>
+					<td align="left" width="100">종료일</td>
+					<td align="left">
+						<select id="eYear" onChange="setCheckOut();"><option value="" selected>선택</option></select>&nbsp;
+						<select id="eMonth" onChange="setCheckOut();"><option value="" selected>선택</option></select>&nbsp;
+						<select id="eDay" onChange="setCheckOut();"><option value="" selected>선택</option></select>
+						<input type="hidden" name="check_out" value="" />
+					</td>
+				</tr>
+				<tr>
+					<td align="left" width="100">구역안내</td>
+					<td align="left">
+						<select name="room_area_no">
+							<option value="1" selected>통나무집</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" width="100">숙박일수</td>
+					<td align="left">
+						<select name="stay_cnt">
+							<option value="1" selected>1박</option>
+							<option value="2">2박</option>
+							<option value="3">3박</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" width="100">사이트</td>
+					<td align="left">
+						<select name="roomNoArr">
+							<option value="1" selected>통나무-01</option>
+							<option value="2">통나무-02</option>
+							<option value="4">통나무-03</option>
+							<option value="5">통나무-04</option>
+							<option value="6">통나무-05</option>
+							<option value="7">통나무-06</option>
+							<option value="8">통나무-07</option>
+							<option value="9">통나무-08</option>
+							<option value="10">통나무-09</option>
+							<option value="369">통나무-10</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</form>
+<input type="button" value="Reserved" onClick="reserved();" />
+</body>
+</html>

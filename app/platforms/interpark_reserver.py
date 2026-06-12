@@ -6,6 +6,9 @@ import httpx
 import xml.etree.ElementTree as ET
 from core.config_loader import CONFIG
 
+from core.logger import logger as central_logger
+import logging
+logger = logging.getLogger("camping.InterparkReserver")
 class InterparkReserver:
     def __init__(self, auth_path="interpark_auth.json"):
         self.auth_path = auth_path

@@ -16,6 +16,8 @@ from core.termination_handler import handle_monitoring_stop
 from core.ua_generator import UAGenerator
 
 # 로거 가져오기
+from core.logger import logger as central_logger
+import logging
 logger = logging.getLogger("camping.thankq")
 
 

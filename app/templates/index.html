@@ -115,7 +115,8 @@
                             <label class="w-24 font-bold text-slate-500 text-xs">요청 주기 :</label>
                             <select class="flex-1 p-1.5 border rounded bg-white" id="requestInterval">
                                 <option value="60">1분</option>
-                                <option value="30" selected>30초</option>
+                                <option value="30">30초</option>
+                                <option value="15" selected>15초</option>
                                 <option value="10">10초</option>
                                 <option value="5">5초</option>
                                 <option value="3">3초</option>
@@ -213,9 +214,9 @@
                     <div>
                         <label class="text-[10px] font-black text-indigo-600 uppercase block mb-1">다운로드 타입 선택</label>
                         <select id="download-type" onchange="handleDownloadTypeChange()" class="w-full p-2.5 font-bold bg-slate-50 rounded border border-slate-300 text-slate-700 shadow-sm focus:outline-none focus:border-indigo-500">
-                            <option value="cdn" selected>일반 CDN (MP4 등 직접 링크)</option>
+                            <option value="youtube_video" selected>YouTube (동영상 최고화질)</option>
                             <option value="youtube_mp3">YouTube (MP3 음원 추출)</option>
-                            <option value="youtube_video">YouTube (동영상 최고화질)</option>
+                            <option value="cdn">일반 CDN (MP4 등 직접 링크)</option>
                         </select>
                     </div>
                     <div>
@@ -223,7 +224,7 @@
                         <input type="text" id="download-url" placeholder="다운로드할 영상 주소나 CDN 링크를 주입하세요" class="w-full p-2.5 border border-slate-300 rounded shadow-sm focus:outline-none focus:border-indigo-500 text-xs" />
                     </div>
 
-                    <div id="referer-field-container">
+                    <div id="referer-field-container" class="hidden">
                         <label class="text-[10px] font-black text-slate-500 uppercase block mb-1">참조 경로 (Referer 주소 - 선택사항)</label>
                         <input type="text" id="download-referer" placeholder="우회 인증에 필요한 출처 사이트 도메인/주소(선택)" class="w-full p-2.5 border border-slate-300 rounded shadow-sm focus:outline-none focus:border-indigo-500 text-xs bg-slate-50/50" />
                     </div>
@@ -303,8 +304,9 @@
             // 다운로더 모달 열기
             function openDownloaderModal() {
                 // 모달을 열 때 기본 선택인 cdn 상태에 맞춰 Referer 변수를 보이도록 리셋합니다.
-                document.getElementById("download-type").value = "cdn";
-                document.getElementById("referer-field-container").classList.remove("hidden");
+                document.getElementById("download-type").value = "youtube_video";
+                //document.getElementById("referer-field-container").classList.remove("hidden");
+                document.getElementById("referer-field-container").classList.add("hidden");
                 document.getElementById("downloaderModal").classList.remove("hidden");
             }
 

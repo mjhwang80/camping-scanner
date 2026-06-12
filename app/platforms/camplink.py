@@ -2,7 +2,6 @@ import httpx
 import asyncio
 from bs4 import BeautifulSoup
 import re
-import logging
 from datetime import datetime, timedelta
 
 from .base import CampingMonitor
@@ -12,6 +11,8 @@ from core.termination_handler import handle_monitoring_stop
 from core.ua_generator import UAGenerator
 
 # 로거 설정
+from core.logger import logger as central_logger
+import logging
 logger = logging.getLogger("camping.camplink")
 
 class CamplinkMonitor(CampingMonitor): 

@@ -6,8 +6,6 @@ import pprint  # Java의 Pretty Printer (Jackson 등) 역할
 import re
 from datetime import datetime, timedelta
 
-import logging
-
 from .base import CampingMonitor
 from core.notifier import notifier
 
@@ -17,6 +15,8 @@ from core.ua_generator import UAGenerator
 from core.config_loader import CONFIG
 
 # 로거 가져오기
+from core.logger import logger as central_logger
+import logging
 logger = logging.getLogger("camping.campingtalk")
 
 

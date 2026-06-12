@@ -6,7 +6,7 @@ import pprint  # Java의 Pretty Printer (Jackson 등) 역할
 import re
 from datetime import datetime, timedelta
 
-import logging
+
 
 from .base import CampingMonitor
 from core.notifier import notifier
@@ -16,6 +16,7 @@ from core.termination_handler import handle_monitoring_stop
 from core.ua_generator import UAGenerator
 from core.browser_handler import BrowserHandler
 
+from core.logger import logger as central_logger
 import logging
 
 # 로거 가져오기

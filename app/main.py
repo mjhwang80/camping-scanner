@@ -1,3 +1,4 @@
+#app/main.py
 import os
 import sys
 import yaml
@@ -17,7 +18,8 @@ import asyncio
 import logging
 
 from core.config_loader import get_resource_path, get_external_path, CONFIG, load_full_config, save_config
-from core.logger import log_queue, logger
+#from core.logger import log_queue, logger
+from core.logger import log_queue, logger, setup_logging
 from core.scheduler import scheduler, start_scheduler
 from core.websocket_manager import ws_manager
 from core.browser_handler import get_browser_path
@@ -51,6 +53,7 @@ active_monitors = {} # 서버 메모리 세션 동기화 보관 저장소
 
 @app.on_event("startup")
 async def startup_event():
+    setup_logging()  # 여기서 한 번만 전체 로깅 환경을 초기화
     start_scheduler()
     async def simulate_logging():
         while True:
@@ -79,8 +82,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+"""
 log_queue = asyncio.Queue()
-
 class WSLogHandler(logging.Handler):
     def emit(self, record):
         msg = self.format(record)
@@ -95,6 +98,8 @@ logger.setLevel(logging.INFO)
 handler = WSLogHandler()
 handler.setFormatter(logging.Formatter('%(asctime)s - %(message)s'))
 logger.addHandler(handler)
+"""
+
 
 def get_base_path():
     if hasattr(sys, '_MEIPASS'):
@@ -268,10 +273,13 @@ async def websocket_endpoint_logs(websocket: WebSocket):
     await websocket.accept()
     try:
         while True:
+            # 큐에서 데이터를 가져와 전송
             log_msg = await log_queue.get()
             await websocket.send_text(log_msg)
     except WebSocketDisconnect:
-        pass
+        logger.info("로그 웹소켓 연결이 해제되었습니다.")
+    except Exception as e:
+        logger.error(f"로그 웹소켓 오류: {e}")
 
 @app.websocket("/ws/alerts")
 async def websocket_endpoint_alerts(websocket: WebSocket):

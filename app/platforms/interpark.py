@@ -1,3 +1,4 @@
+#app/platforms/interpark.py
 from fastapi import params
 import httpx
 import asyncio
@@ -5,8 +6,6 @@ from bs4 import BeautifulSoup
 import pprint  # Java의 Pretty Printer (Jackson 등) 역할
 import re
 from datetime import datetime, timedelta
-
-import logging
 
 from .base import CampingMonitor
 from core.notifier import notifier
@@ -17,7 +16,10 @@ from core.ua_generator import UAGenerator
 from .interpark_reserver import InterparkReserver
 
 # 로거 가져오기
+from core.logger import logger as central_logger
+import logging
 logger = logging.getLogger("camping.interpark")
+logger.propagate = True
 
 
 class InterparkMonitor: 

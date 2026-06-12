@@ -1,12 +1,25 @@
+#app/utils/download.py
 import os
 import sys
 import requests
 from urllib.parse import urlparse
 import yt_dlp
+
+from core.logger import logger as central_logger
 import logging
-
 logger = logging.getLogger("camping.download")
+logger.propagate = True
 
+def get_ffmpeg_path():
+    """ PyInstaller 환경과 일반 실행 환경 모두 고려한 경로 반환 """
+    if getattr(sys, 'frozen', False):
+        # 배포된 exe 실행 시: bin 폴더가 실행 파일과 같은 위치에 있다고 가정
+        base_path = os.path.dirname(sys.executable)
+        return os.path.join(base_path, "bin")
+    else:
+        # 개발 환경
+        return os.path.abspath("bin")
+    
 def find_ffmpeg_in_venv():
     bin_dir = os.path.dirname(sys.executable)
     if os.path.exists(os.path.join(bin_dir, "ffmpeg.exe")) or os.path.exists(os.path.join(bin_dir, "ffmpeg")):
@@ -48,13 +61,14 @@ def download_cdn_video(url, referer=None, output_dir="downloads"):
                     if total_size > 0:
                         percent = int((downloaded / total_size) * 100)
                         if percent >= last_reported_percent + 10:
-                            logger.info(f"[CDN 진행] {filename} -> {percent}% 완료 ({downloaded // (1024*1024)}MB / {total_size // (1024*1024)}MB)")
+                            #logger.info(f"[CDN 진행] {filename} -> {percent}% 완료 ({downloaded // (1024*1024)}MB / {total_size // (1024*1024)}MB)")
+                            print(f"[CDN 진행] {filename} -> {percent}% 완료 ({downloaded // (1024*1024)}MB / {total_size // (1024*1024)}MB)")
                             last_reported_percent = percent
                     else:
                         if downloaded % (5 * 1024 * 1024) == 0:
                             logger.info(f"[CDN 진행] {filename} -> {downloaded // (1024*1024)}MB 다운로드 중...")
 
-            logger.info(f"[CDN 완료] 📥 {filename} 저장 완료.")
+            logger.info(f"[CDN 완료] {filename} 저장 완료.")
         elif response.status_code == 403:
             logger.error(f"[CDN 에러] 403 Forbidden: 접근 권한 만료 또는 Referer 불일치 차단 가능성.")
         else:
@@ -68,15 +82,17 @@ def youtube_progress_hook(d):
         percent = d.get('_percent_str', '').strip()
         speed = d.get('_speed_str', '알 수 없음').strip()
         eta = d.get('_eta_str', '알 수 없음').strip()
-        logger.info(f"[YouTube 진행] {filename} -> 진행률: {percent} | 속도: {speed} | 남은 시간: {eta}")
+        print(f"[YouTube 진행] {filename} -> 진행률: {percent} | 속도: {speed} | 남은 시간: {eta}")
     elif d['status'] == 'finished':
         filename = os.path.basename(d.get('filename', 'video.mp4'))
-        logger.info(f"[YouTube 완료] 🔄 {filename} 스트림 다운로드 완료. 후처리 병합을 시작합니다.")
+        logger.info(f"[YouTube 완료]  {filename} 스트림 다운로드 완료. 후처리 병합을 시작합니다.")
 
 def download_youtube(url, download_type, referer=None, output_dir="downloads"):
     """ 유튜브 및 외부 미디어를 yt-dlp로 다운로드하며 선택적으로 레퍼러를 적용합니다. """
     os.makedirs(output_dir, exist_ok=True)
-    ffmpeg_dir = find_ffmpeg_in_venv()
+    
+    #ffmpeg_dir = find_ffmpeg_in_venv()
+    ffmpeg_dir = get_ffmpeg_path()
     
     ydl_opts = {
         'outtmpl': os.path.join(output_dir, '%(title)s.%(ext)s'),
@@ -109,6 +125,6 @@ def download_youtube(url, download_type, referer=None, output_dir="downloads"):
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
-        logger.info(f"[YouTube 최종 완료] 🎉 모든 다운로드 및 인코딩 프로세스가 종료되었습니다.")
+        logger.info(f"[YouTube 최종 완료]  모든 다운로드 및 인코딩 프로세스가 종료되었습니다.")
     except Exception as e:
         logger.error(f"[YouTube 에러] 실패 원인: {e}")

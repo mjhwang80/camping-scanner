@@ -1,24 +1,32 @@
+#/app/core/logger.py
 import logging
 import os
 import asyncio
 from logging.handlers import RotatingFileHandler
 
 # 웹소켓 전송용 비동기 큐 (Java의 BlockingQueue와 유사)
-log_queue = asyncio.Queue()
+log_queue = asyncio.Queue(maxsize=1000)
 
 class WebSocketLogHandler(logging.Handler):
-    """로그 발생 시 웹소켓 전송 큐에 삽입하는 커스텀 핸들러"""
     def emit(self, record):
         log_entry = self.format(record)
         try:
-            loop = asyncio.get_running_loop()
-            loop.create_task(log_queue.put(log_entry))
-        except RuntimeError:
-            pass # 이벤트 루프가 없는 경우(단독 실행 등) 무시
+            # 루프에 안전하게 태스크 등록
+            #asyncio.create_task(log_queue.put(log_entry))
+            log_queue.put_nowait(log_entry)
+            
+        except asyncio.QueueFull:
+            pass    
+        except Exception:
+            pass
 
 def setup_logging():
     # 'camping'이라는 이름의 루트 로거 생성
     logger = logging.getLogger("camping")
+
+    if logger.handlers:
+        return logger
+    
     logger.setLevel(logging.INFO)
     
     # logs 폴더가 없으면 생성

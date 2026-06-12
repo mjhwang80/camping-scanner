@@ -22,7 +22,8 @@ pycache/               #
 camping-scanner/                   
 pw-browsers/                   
 *.zip 
-
+bin/ 
+ 
 # 4. OS 및 에디터 관련
 .DS_Store               # macOS 관련
 Thumbs.db               # Windows 관련
