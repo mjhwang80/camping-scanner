@@ -23,7 +23,7 @@ import logging
 logger = logging.getLogger("camping.maketicket")
 
 
-class MaketicketMonitor: 
+class MaketicketMonitor(CampingMonitor):  
 
     def __init__(self):
         self.execution_count = 0  # 실행 횟수를 저장할 변수 
@@ -172,8 +172,8 @@ class MaketicketMonitor:
             except Exception as e:
                 logger.error(f"트레이 알림 호출 실패: {e}")
             
-            # 모니터링 종료 체크
-            from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+            # 모니터링 종료 체크           
+            from main import scheduler
             await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
 
             logger.info(f"[감시 성공] 예약 가능 사이트 발견 캠핑장 ID: {camp_id} 예약일: {req_date} 숙박일수: {stay_days} 사이트 : 사이트 발견: {sites_string}")

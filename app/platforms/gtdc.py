@@ -1,3 +1,6 @@
+#연곡해변캠핑장
+#app/platforms/gtdc.py
+
 from urllib import response
 
 import httpx
@@ -227,11 +230,8 @@ class GtdcMonitor(CampingMonitor):
                     except: pass
 
                     # 감시 자동 종료 처리
+
                     from main import scheduler
-
-                    # 추가 관리: 빈자리를 찾아서 완전히 스케줄러가 끝날 때 client도 함께 닫아줍니다.
-                    await self.close_client()
-
                     await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
                     
                     logger.info(f"[SUCCESS] {campsite_name} 빈자리 발견: {sites_string}")

@@ -1,5 +1,7 @@
+#app/core/termination_handler.py
 import logging
 from apscheduler.jobstores.base import JobLookupError
+from core.monitor_manager import MonitorManager
 
 # 로거 설정
 logger = logging.getLogger("camping.termination")
@@ -19,13 +21,24 @@ async def handle_monitoring_stop(scheduler, ws_manager, params, found_sites):
     # findNextRun이 'N'인 경우에만 빈자리 발견 시 자동 종료 처리
     find_next_run = params.get("findNextRun", "Y")
     job_id = params.get("watchUuid")
-    campsite_name = params.get("campsiteName", "알 수 없는 캠핑장")
 
+
+    campsite_name = params.get("campsiteName", "알 수 없는 캠핑장")
+    monitor = MonitorManager.get(job_id)
+    logger.debug(f"[디버그] 조회된 monitor 객체: {monitor}, 타입: {type(monitor)}")
+    
     # 빈자리가 발견되었고, 1회성 감시(N)로 설정된 경우
     if found_sites and find_next_run == "N":
         logger.info(f"[자동 종료 프로세스 시작] {campsite_name} (ID: {job_id})")
         
         try:
+            
+            # 1. 자원 정리
+            if monitor and hasattr(monitor, 'close_client'):
+                logger.info(f"[*] 모니터 {job_id} 자원 정리 시작...")
+                await monitor.close_client()
+
+
             # 2. APScheduler에서 해당 작업 제거 (더 이상 크롤링하지 않음)
             # Java의 scheduler.cancel() 또는 task.stop()과 동일한 역할
             if scheduler.get_job(job_id):
@@ -40,7 +53,7 @@ async def handle_monitoring_stop(scheduler, ws_manager, params, found_sites):
                     "uuid": job_id,
                     "msg": f"[{campsite_name}] 빈자리를 발견하여 감시가 성공적으로 종료되었습니다."
                 }
-            })
+            })           
             
         except JobLookupError:
             # 이미 삭제되었거나 존재하지 않는 ID일 경우의 예외 처리

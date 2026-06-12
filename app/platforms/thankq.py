@@ -21,7 +21,7 @@ import logging
 logger = logging.getLogger("camping.thankq")
 
 
-class ThankQMonitor: 
+class ThankQMonitor(CampingMonitor): 
      
     def __init__(self):
         self.execution_count = 0  # 실행 횟수를 저장할 변수 
@@ -169,8 +169,8 @@ class ThankQMonitor:
                 except Exception as e:
                     logger.error(f"트레이 알림 호출 실패: {e}")
                 
-                # 모니터링 종료 체크
-                from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+                # 모니터링 종료 체크           
+                from main import scheduler
                 await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
                 
                 return True       

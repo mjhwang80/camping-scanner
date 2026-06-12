@@ -37,9 +37,11 @@ from platforms.dugsan import DugsanMonitor
 from platforms.pubcamping import PubcampingMonitor
 from platforms.gtdc import GtdcMonitor
 from platforms.foresttrip import ForesttripMonitor
+from platforms.artmuseum import ArtmuseumCampingMonitor
 
 from utils.download import download_cdn_video, download_youtube
 from fastapi import BackgroundTasks
+from core.monitor_manager import MonitorManager
 
 try:
     path = get_browser_path()
@@ -49,7 +51,6 @@ except Exception as e:
 
 app = FastAPI()
 tray_manager = None
-active_monitors = {} # 서버 메모리 세션 동기화 보관 저장소
 
 @app.on_event("startup")
 async def startup_event():
@@ -63,6 +64,21 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
+    # active_monitors에 등록된 모든 모니터 객체를 순회
+    for monitor_id, monitor in active_monitors.items():
+        # 1. 'client'라는 속성이 있는지 확인 (AttributeError 방지)
+        if hasattr(monitor, 'client') and monitor.client:
+            try:
+                # 2. 클라이언트가 열려있는지 확인 후 종료
+                # httpx 클라이언트는 is_closed 속성으로 상태 확인 가능
+                if not monitor.client.is_closed:
+                    await monitor.client.aclose()
+                    logger.info(f"[-] 모니터 {monitor_id}의 클라이언트 연결을 정상 종료했습니다.")
+            except Exception as e:
+                logger.error(f"[!] 모니터 {monitor_id} 클라이언트 종료 중 오류 발생: {e}")
+        else:
+            logger.debug(f"[*] 모니터 {monitor_id}는 별도의 클라이언트를 사용하지 않습니다.")
+
     if scheduler.running:
         scheduler.shutdown()
         logger.info("[*] 스케줄러 가동 중단.")
@@ -194,6 +210,8 @@ async def start_monitor(params: dict = Body(...)):
     elif platform_type == "Pubcamping": monitor = PubcampingMonitor()
     elif platform_type == "Gtdc": monitor = GtdcMonitor()
     elif platform_type == "Foresttrip": monitor = ForesttripMonitor()
+    elif platform_type == "ArtMuseum": monitor = ArtmuseumCampingMonitor()
+
     else: return {"status": "error", "message": "미지원 크롤링 타깃"}
 
     existing_job = scheduler.get_job(job_id)
@@ -220,8 +238,8 @@ async def start_monitor(params: dict = Body(...)):
         id=job_id,
         next_run_time=start_time
     )
-
-    active_monitors[job_id] = params
+    monitor.params = params
+    MonitorManager.add(job_id, monitor)
 
     # [다중기기 동기화 알림] 다른 기기 브라우저 화면에도 실시간으로 갱신되도록 웹소켓 브로드캐스팅 방출
     asyncio.create_task(ws_manager.broadcast({
@@ -233,35 +251,60 @@ async def start_monitor(params: dict = Body(...)):
 
 @app.post("/api/monitor/stop/{watch_uuid}")
 async def stop_monitor(watch_uuid: str):
+
+    logger.info(f"[*] 감시 종료 요청 접수: {watch_uuid}") # 진입 로그 추가
     try:
+        # 1. MonitorManager를 통해 모니터 객체 확보
+        monitor = MonitorManager.get(watch_uuid)
+        
+        # 2. 리소스 정리 (close_client)
+        if monitor:
+            if hasattr(monitor, 'close_client'):
+                await monitor.close_client()
+            # 관리자에서 제거
+            MonitorManager.remove(watch_uuid)
+        else:
+            logger.warning(f"[!] 모니터 객체를 찾을 수 없음: {watch_uuid}")
+        
         if scheduler.get_job(watch_uuid):
             scheduler.remove_job(watch_uuid)
-        logger.info(f"Monitor stopped for: {watch_uuid}")
-
-        if watch_uuid in active_monitors:
-            del active_monitors[watch_uuid]
-
-        # [다중기기 동기화 알림] 타 기기 화면에서도 해당 감시행이 동시 자동 폭파되도록 동기화 브로드캐스트 전송
-        asyncio.create_task(ws_manager.broadcast({
-            "messageType": "remove_monitor",
-            "data": {"uuid": watch_uuid}
-        }))
-
+            
+        await ws_manager.broadcast({"messageType": "remove_monitor", "data": {"uuid": watch_uuid}})
         return {"status": "success", "message": "Job stopped"}
     except Exception as e:
+        logger.error(f"[!] stop_monitor 오류: {e}")
         return {"status": "error", "message": str(e)}
 
 @app.get("/api/monitor/list")
 async def get_monitor_list():
     running_jobs = []
-    for job_id, params in active_monitors.items():
+    
+    # 1. MonitorManager에서 모든 모니터 객체 가져오기
+    all_monitors = MonitorManager.get_all()
+    
+    for job_id, monitor in all_monitors.items():
+        # 2. 스케줄러에 해당 작업이 실제로 존재하는지 확인
         if scheduler.get_job(job_id):
-            running_jobs.append(params)
+            # 3. monitor 객체에서 params 속성을 가져와 리스트에 추가
+            # 모니터 클래스 구현 시 self.params가 설정되어 있어야 합니다.
+            if hasattr(monitor, 'params'):
+                running_jobs.append(monitor.params)
+            else:
+                # 만약 params 속성이 없다면, 기본값 처리 혹은 로그 기록
+                logger.warning(f"[!] 모니터 객체 {job_id}에 params 속성이 없습니다.")
+                
     return running_jobs
 
 @app.post("/api/shutdown")
-async def shutdown():
+async def shutdown():    
     logger.info("[*] 종료 시그널 접수.")
+    
+    logger.info("서버 종료 중... 모든 모니터링 클라이언트 정리")
+    all_monitors = MonitorManager.get_all()
+    for job_id, monitor in all_monitors.items():
+        if hasattr(monitor, 'close_client'):
+            await monitor.close_client()
+    
     def kill_process():
         try: os.kill(os.getpid(), signal.SIGTERM)
         except: os._exit(0)

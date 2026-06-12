@@ -1,3 +1,4 @@
+#/app/platforms/dugsan.py
 import site
 
 from fastapi import params
@@ -27,10 +28,12 @@ import logging
 logger = logging.getLogger("camping.dugsan")
 
 
-class DugsanMonitor: 
+class DugsanMonitor(CampingMonitor): 
 
     def __init__(self):
-        self.execution_count = 0  # 실행 횟수를 저장할 변수     
+        self.execution_count = 0  # 실행 횟수를 저장할 변수
+        self.client = httpx.AsyncClient(timeout=15.0, follow_redirects=True, verify=False)
+
 
     async def check_availability(self, params: dict):
 
@@ -86,47 +89,47 @@ class DugsanMonitor:
 
         find_items = []
         page_num = 1  # 페이지 번호
-        async with httpx.AsyncClient() as client:
-            while True:
-                data["pageNo"] = page_num
-                response = await client.post(url, data=data, headers=current_headers, timeout=10.0)
-                if response.status_code != 200:
-                    logger.error(f"[!] HTTP {response.status_code} 오류 발생 - 페이지 {page_num}")
-                    break
 
-                soup = BeautifulSoup(response.text, "html.parser")
-                items = soup.select("div.item ul")
-                find_site_count = len(items)
-                if find_site_count > 0:
-                    for item in items:
-                        a_tag = item.find("a", onclick=True)
-                        if not a_tag:
-                            continue
-                        ## f_RoomChoice('dscamp','INSAM','00001') -> ['dscamp', 'INSAM', '00001']
-                        onclick_val = a_tag["onclick"]
-                        function_args = re.findall(r"'(.*?)'", onclick_val)
-                        if len(function_args) >= 3:
-                            room_group = function_args[1]  # 'INSAM'
-                            room_code = function_args[2]   # '00001'
+        while True:
+            data["pageNo"] = page_num
+            response = await self.client.post(url, data=data, headers=current_headers, timeout=10.0)
+            if response.status_code != 200:
+                logger.error(f"[!] HTTP {response.status_code} 오류 발생 - 페이지 {page_num}")
+                break
 
-                            dt_tag = item.find("dt")
-                            site_name = dt_tag.get_text(strip=True) if dt_tag else "명칭 없음"
-
-                            find_items.append({
-                                "site_name": site_name,
-                                "room_group": room_group,
-                                "room_code": room_code                               
-                            })
-
-                    if find_site_count == 10: # 개수가 10개라면 다음 데이터가 더 있을 것으로 판단하고 반복
-                        page_num += 1 # 페이지 번호 증가가 필요할 경우
+            soup = BeautifulSoup(response.text, "html.parser")
+            items = soup.select("div.item ul")
+            find_site_count = len(items)
+            if find_site_count > 0:
+                for item in items:
+                    a_tag = item.find("a", onclick=True)
+                    if not a_tag:
                         continue
-                    else:
-                        # 10개 미만이면 마지막 데이터이므로 루프 종료
-                        break
+                    ## f_RoomChoice('dscamp','INSAM','00001') -> ['dscamp', 'INSAM', '00001']
+                    onclick_val = a_tag["onclick"]
+                    function_args = re.findall(r"'(.*?)'", onclick_val)
+                    if len(function_args) >= 3:
+                        room_group = function_args[1]  # 'INSAM'
+                        room_code = function_args[2]   # '00001'
+
+                        dt_tag = item.find("dt")
+                        site_name = dt_tag.get_text(strip=True) if dt_tag else "명칭 없음"
+
+                        find_items.append({
+                            "site_name": site_name,
+                            "room_group": room_group,
+                            "room_code": room_code                               
+                        })
+
+                if find_site_count == 10: # 개수가 10개라면 다음 데이터가 더 있을 것으로 판단하고 반복
+                    page_num += 1 # 페이지 번호 증가가 필요할 경우
+                    continue
                 else:
-                    # 사이트가 더 이상 없으면 루프 종료
-                    break        
+                    # 10개 미만이면 마지막 데이터이므로 루프 종료
+                    break
+            else:
+                # 사이트가 더 이상 없으면 루프 종료
+                break        
         
         found_sites = []
         for find_item in find_items:
@@ -177,7 +180,7 @@ class DugsanMonitor:
             print(f"[감시 성공] 예약 가능 사이트 발견: {sites_string}") 
 
             # 모니터링 종료 체크
-            from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+            from main import scheduler
             await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
 
             # 시스템 트레이 알림 호출
@@ -209,5 +212,9 @@ class DugsanMonitor:
             v = 1
             
         return v
-            
+
+    async def close_client(self):
+        if self.client and not self.client.is_closed:
+            await self.client.aclose()
+            logger.info("[*] [덕산캠핑장] httpx AsyncClient 커넥션 풀을 안전하게 닫았습니다.")            
            

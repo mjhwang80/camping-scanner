@@ -49,12 +49,11 @@ deactivate
 - pip install nodriver
 - pip install nest_asyncio
 - pip install python-telegram-bot
-- pip install yt-dlp
-- pip install tqdm
-- pip install python-dotenv requests
-- pip install ffmpeg-downloader or winget install Gyan.FFmpeg
-- pip install quickjs
 - python -m pip install yt-dlp
+- python -m pip install tqdm
+- python -m pip install python-dotenv requests
+- python -m pip install ffmpeg-downloader or winget install Gyan.FFmpeg
+- python -m pip install quickjs
 
 ## GIT 사용법
 

@@ -159,7 +159,7 @@ class PubcampingMonitor(CampingMonitor):
                     )
             except: pass
 
-            # 감시 자동 종료 처리
+            # 모니터링 종료 체크           
             from main import scheduler
             await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
             

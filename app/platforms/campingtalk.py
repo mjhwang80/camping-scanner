@@ -20,13 +20,12 @@ import logging
 logger = logging.getLogger("camping.campingtalk")
 
 
-class CampingtalkQMonitor: 
+class CampingtalkQMonitor(CampingMonitor):  
      
     def __init__(self):
         self.execution_count = 0  # 실행 횟수를 저장할 변수 
 
     async def check_availability(self, params: dict):
-        # Java의 Map<String, String> data 구성과 동일
         
         self.execution_count += 1  # 호출될 때마다 1 증가
 
@@ -179,7 +178,7 @@ class CampingtalkQMonitor:
                         logger.error(f"트레이 알림 호출 실패: {e}")
                     
                     # 모니터링 종료 체크
-                    from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+                    from main import scheduler
                     await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
                     
                     return True   

@@ -271,6 +271,57 @@
             </sites>
         
             
+        </campsite>
+
+        <campsite>
+            <type>ArtMuseum</type>
+            <code>ArtMuseum</code>
+            <name>양주 미술관옆캠핑장</name>
+            <homepage><![CDATA[https://reserve.yjuc.or.kr/main/camping/camp_rent_req_list.do?]]></homepage>
+            <maxStayDay>3</maxStayDay>
+            <showLoginField required="Y">Y</showLoginField>
+            <groups>
+                <group code="1">카라반</group>
+                <group code="2"><![CDATA[오토캠핑 & 일반캠핑]]></group>
+            </groups>
+            <sites>
+                <site group="1" code="1">카라반 4인용(랜덤배정1)</site>
+                <site group="1" code="2">카라반 4인용(랜덤배정2)</site>
+                <site group="1" code="3">카라반 4인용(랜덤배정3)</site>
+                <site group="1" code="4">카라반 4인용(랜덤배정4)</site>
+                <site group="1" code="5">카라반 6인용(랜덤배정5)</site>
+                <site group="1" code="6">카라반 6인용(랜덤배정6)</site>
+                <site group="1" code="7">카라반 6인용(랜덤배정7)</site>
+                <site group="1" code="8">카라반 6인용(랜덤배정8)</site>
+
+                <site group="2" code="9">오토캠핑장(1)</site>
+                <site group="2" code="10">오토캠핑장(2)</site>
+                <site group="2" code="11">오토캠핑장(3)</site>
+                <site group="2" code="12">오토캠핑장(4)</site>
+                <site group="2" code="13">오토캠핑장(5)</site>
+                <site group="2" code="14">오토캠핑장(6)</site>
+
+                <site group="2" code="15">일반캠핑장 달빛(1)</site>
+                <site group="2" code="16">일반캠핑장 달빛(2)</site>
+                <site group="2" code="17">일반캠핑장 달빛(3)</site>
+                <site group="2" code="18">일반캠핑장 달빛(4)</site>
+                <site group="2" code="19">일반캠핑장 달빛(5)</site>
+                <site group="2" code="20">일반캠핑장 달빛(6)</site>
+                <site group="2" code="21">일반캠핑장 달빛(7)</site>
+                <site group="2" code="22">일반캠핑장 달빛(8)</site>
+                <site group="2" code="23">일반캠핑장 달빛(9)</site>
+                <site group="2" code="24">일반캠핑장 달빛(10)</site>
+                <site group="2" code="25">일반캠핑장 달빛(11)</site>
+                <site group="2" code="26">일반캠핑장 달빛(12)</site>
+                <site group="2" code="27">일반캠핑장 달빛(13)</site>
+                <site group="2" code="28">일반캠핑장 달빛(14)</site>
+                <site group="2" code="29">일반캠핑장 달빛(15)</site>
+                <site group="2" code="30">일반캠핑장 달빛(16)</site>
+                <site group="2" code="31">일반캠핑장 달빛(17)</site>
+                
+            </sites>
+        
+            
         </campsite>     
 
 

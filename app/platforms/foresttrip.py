@@ -258,6 +258,7 @@ class ForesttripMonitor(CampingMonitor):
 
                 from main import scheduler
                 await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
+
                 logger.info(f"[SUCCESS] {self.campsite_name} 빈자리 발견: {sites_string}")
                 break
             

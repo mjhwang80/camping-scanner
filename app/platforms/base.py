@@ -1,10 +1,16 @@
+#app/platforms/base.py
 from abc import ABC, abstractmethod
 
 class CampingMonitor(ABC):
+    
+    def __init__(self):
+        self.params = {}
+
     @abstractmethod
     async def check_availability(self, params: dict) -> bool:
-        """
-        params: Java의 Map 구조로, 
-        {'camp_id': '123', 'date': '2024-05-20', 'site_codes': ['A1', 'A2']} 형태
-        """
+        pass
+
+    @abstractmethod
+    async def close_client(self):
+        """네트워크 리소스를 정리하는 공통 인터페이스"""
         pass

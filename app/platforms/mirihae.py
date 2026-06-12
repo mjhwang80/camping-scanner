@@ -22,7 +22,7 @@ import logging
 logger = logging.getLogger("camping.mirihae")
 
 
-class MirihaeMonitor: 
+class MirihaeMonitor(CampingMonitor): 
 
     def __init__(self):
         self.execution_count = 0  # 실행 횟수를 저장할 변수 
@@ -236,8 +236,8 @@ class MirihaeMonitor:
                     except Exception as e:
                         logger.error(f"트레이 알림 호출 실패: {e}")
                     
-                    # 모니터링 종료 체크
-                    from main import scheduler # 순환 참조 방지를 위해 함수 내 임포트
+                    # 모니터링 종료 체크           
+                    from main import scheduler
                     await handle_monitoring_stop(scheduler, ws_manager, params, found_sites)
 
                     return True
@@ -279,7 +279,6 @@ class MirihaeMonitor:
 
         return False
 
-        
 
     async def get_token(self, params: dict):
         camp_id = params.get("camp_id")
@@ -306,10 +305,13 @@ class MirihaeMonitor:
 
         return self.token
 
-    async def close(self):
-        """세션 종료 (자바의 close와 유사)"""
-        await self.client.aclose()
 
+    async def close_client(self):
+        """외부에서 호출 가능한 클라이언트 정리 메서드"""
+        if hasattr(self, 'client') and self.client:
+            if not self.client.is_closed:
+                await self.client.aclose()
+                logger.info("[*] [mirihae] 클라이언트가 정상적으로 정리되었습니다.")
 
     @staticmethod
     async def get_final_content(url):

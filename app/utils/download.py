@@ -11,24 +11,19 @@ logger = logging.getLogger("camping.download")
 logger.propagate = True
 
 def get_ffmpeg_path():
-    """ PyInstaller 환경과 일반 실행 환경 모두 고려한 경로 반환 """
+    """ PyInstaller 환경과 일반 실행 환경 모두 고려한 정확한 절대 경로 반환 """
     if getattr(sys, 'frozen', False):
-        # 배포된 exe 실행 시: bin 폴더가 실행 파일과 같은 위치에 있다고 가정
+        # 배포된 exe 실행 시: bin 폴더가 실행 파일(.exe)과 같은 위치에 있다고 가정
         base_path = os.path.dirname(sys.executable)
         return os.path.join(base_path, "bin")
     else:
-        # 개발 환경
-        return os.path.abspath("bin")
-    
-def find_ffmpeg_in_venv():
-    bin_dir = os.path.dirname(sys.executable)
-    if os.path.exists(os.path.join(bin_dir, "ffmpeg.exe")) or os.path.exists(os.path.join(bin_dir, "ffmpeg")):
-        return bin_dir
-    venv_root = os.path.abspath(os.path.join(bin_dir, ".."))
-    for root, dirs, files in os.walk(venv_root):
-        if "ffmpeg.exe" in files or "ffmpeg" in files:
-            return root
-    return None
+        # 개발 환경: 본 download.py 파일 위치(app/utils/)를 기준으로 최상위 루트의 bin 폴더 계산
+        # __file__은 현재 파일(download.py)의 절대 경로를 가리킵니다.
+        current_dir = os.path.dirname(os.path.abspath(__file__)) # app/utils
+        project_root = os.path.abspath(os.path.join(current_dir, "..", "..")) # camping-scanner/
+        
+        bin_path = os.path.join(project_root, "bin")
+        return bin_path
 
 def download_cdn_video(url, referer=None, output_dir="downloads"):
     """ CDN 파일을 다운로드하며, 선택적으로 레퍼러 헤더를 설정합니다. """
@@ -91,8 +86,16 @@ def download_youtube(url, download_type, referer=None, output_dir="downloads"):
     """ 유튜브 및 외부 미디어를 yt-dlp로 다운로드하며 선택적으로 레퍼러를 적용합니다. """
     os.makedirs(output_dir, exist_ok=True)
     
-    #ffmpeg_dir = find_ffmpeg_in_venv()
     ffmpeg_dir = get_ffmpeg_path()
+
+    # [핵심] 현재 실행 중인 프로세스의 환경 변수(PATH) 맨 앞에 bin 폴더 경로를 강제 주입합니다.
+    # 이렇게 하면 OS 단계에서 ffmpeg.exe와 ffprobe.exe를 무조건 가장 먼저 찾게 됩니다.
+    if ffmpeg_dir and os.path.exists(ffmpeg_dir):
+        current_path = os.environ.get('PATH', '')
+        if ffmpeg_dir not in current_path:
+            # 기존 PATH 맨 앞에 bin 경로를 붙여 OS가 최우선으로 탐색하게 만듭니다.
+            os.environ['PATH'] = f"{ffmpeg_dir}{os.pathsep}{current_path}"
+            logger.info(f"[OS PATH 임시 주입 적용] 경로: {ffmpeg_dir}")
     
     ydl_opts = {
         'outtmpl': os.path.join(output_dir, '%(title)s.%(ext)s'),
@@ -110,7 +113,7 @@ def download_youtube(url, download_type, referer=None, output_dir="downloads"):
         ydl_opts.update({
             'format': 'bestaudio/best',
             'postprocessors': [{
-                'key': 'FFMPEGExtractAudio',
+                'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
@@ -119,9 +122,17 @@ def download_youtube(url, download_type, referer=None, output_dir="downloads"):
         ydl_opts['format'] = 'bestvideo+bestaudio/best'
 
     if ffmpeg_dir:
-        ydl_opts['ffmpeg_location'] = ffmpeg_dir
+        ffmpeg_binary = "ffmpeg.exe" if os.name == 'nt' else "ffmpeg"
+        ffmpeg_executable_path = os.path.join(ffmpeg_dir, ffmpeg_binary)
+        
+        # 실제 파일이 존재하는지 검증 후 세팅
+        if os.path.exists(ffmpeg_executable_path):
+            ydl_opts['ffmpeg_location'] = ffmpeg_executable_path
+        else:
+            logger.warning(f"[경고] 지정된 경로에 ffmpeg 파일이 없습니다: {ffmpeg_executable_path}")
 
     logger.info(f"[YouTube 작업 등록] 유형: {download_type} / URL: {url}")
+    
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
