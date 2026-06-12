@@ -42,6 +42,7 @@ from platforms.artmuseum import ArtmuseumCampingMonitor
 from utils.download import download_cdn_video, download_youtube
 from fastapi import BackgroundTasks
 from core.monitor_manager import MonitorManager
+from concurrent.futures import ThreadPoolExecutor
 
 try:
     path = get_browser_path()
@@ -378,6 +379,11 @@ async def create_interpark_session():
         return {"status": "success"}
 
 
+
+# [추가] 미디어 다운로드 전용 고정 스레드 풀 정의 (자바의 Executors.newFixedThreadPool(2) 역할)
+# 사양에 따라 동시 다운로드 개수를 조절하세요. FFmpeg 연산 부하 때문에 2~3개를 추천합니다.
+DOWNLOAD_THREAD_POOL = ThreadPoolExecutor(max_workers=2)
+
 @app.post("/api/tools/download")
 async def api_download_media(
     background_tasks: BackgroundTasks, 
@@ -385,23 +391,31 @@ async def api_download_media(
 ):
     dl_type = payload.get("type")
     url = payload.get("url", "").strip()
-    referer = payload.get("referer", "").strip() # [추가] 레퍼러 필드 추출 (없으면 빈값 문자열)
+    referer = payload.get("referer", "").strip() 
 
     if not url:
         return {"status": "error", "message": "URL을 입력해주세요."}
 
-    # 빈 문자열 처리 판단 (아무것도 입력 안 했을 시 None 할당)
     actual_referer = referer if referer else None
+    
+    # [추가] 현재 이벤트 루프 가져오기
+    loop = asyncio.get_running_loop()
 
     if dl_type == "cdn":
-        background_tasks.add_task(download_cdn_video, url, actual_referer)
+        # background_tasks 안에서 고정 스레드 풀을 통해 실행되도록 위임(Delegate)
+        background_tasks.add_task(
+            lambda: loop.run_in_executor(DOWNLOAD_THREAD_POOL, download_cdn_video, url, actual_referer)
+        )
     elif dl_type in ["youtube_mp3", "youtube_video"]:
-        background_tasks.add_task(download_youtube, url, dl_type, actual_referer)
+        # background_tasks 안에서 고정 스레드 풀을 통해 실행되도록 위임(Delegate)
+        background_tasks.add_task(
+            lambda: loop.run_in_executor(DOWNLOAD_THREAD_POOL, download_youtube, url, dl_type, actual_referer)
+        )
     else:
         return {"status": "error", "message": "올바르지 않은 다운로드 타입입니다."}
 
-    logger.info(f"[요청 수신] {dl_type} 다운로드 시작 (Referer 설정여부: {bool(actual_referer)})")
-    return {"status": "success", "message": "다운로드 요청을 접수했습니다. 하단 로그 콘솔을 모니터링 하세요."}
+    logger.info(f"[요청 수신] {dl_type} 다운로드 큐 등록 완료 (Referer 설정여부: {bool(actual_referer)})")
+    return {"status": "success", "message": "다운로드 요청을 접수했습니다. 정해진 순서대로 진행되니 하단 로그 콘솔을 모니터링 하세요."}
 
 def check_expiration():
     if datetime.now() > datetime(2026, 7, 30):
