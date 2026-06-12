@@ -65,24 +65,26 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    # active_monitors에 등록된 모든 모니터 객체를 순회
-    for monitor_id, monitor in active_monitors.items():
-        # 1. 'client'라는 속성이 있는지 확인 (AttributeError 방지)
-        if hasattr(monitor, 'client') and monitor.client:
-            try:
-                # 2. 클라이언트가 열려있는지 확인 후 종료
-                # httpx 클라이언트는 is_closed 속성으로 상태 확인 가능
-                if not monitor.client.is_closed:
-                    await monitor.client.aclose()
-                    logger.info(f"[-] 모니터 {monitor_id}의 클라이언트 연결을 정상 종료했습니다.")
-            except Exception as e:
-                logger.error(f"[!] 모니터 {monitor_id} 클라이언트 종료 중 오류 발생: {e}")
-        else:
-            logger.debug(f"[*] 모니터 {monitor_id}는 별도의 클라이언트를 사용하지 않습니다.")
+    logger.info("[*] 애플리케이션 종료 프로세스 시작...")
 
+    # 1. 스케줄러를 먼저 멈춰서 신규 작업 진입 차단
     if scheduler.running:
-        scheduler.shutdown()
-        logger.info("[*] 스케줄러 가동 중단.")
+        scheduler.shutdown(wait=False) # wait=False로 설정하여 빠르게 종료
+        logger.info("[*] 스케줄러 가동 중단 완료.")
+
+    # 2. MonitorManager를 통해 모든 모니터 객체 가져오기
+    all_monitors = MonitorManager.get_all()
+    
+    # 3. 모든 모니터를 순회하며 자원 해제
+    for monitor_id, monitor in all_monitors.items():
+        try:
+            if hasattr(monitor, 'close_client'):
+                await monitor.close_client()
+                logger.info(f"[-] 모니터 {monitor_id} 자원 해제 완료.")
+        except Exception as e:
+            logger.error(f"[!] 모니터 {monitor_id} 종료 중 오류 발생: {e}")
+
+    logger.info("[*] 모든 자원 정리가 완료되었습니다.")
 
 def run_server():
     target_port = int(CONFIG['server']['port'])    

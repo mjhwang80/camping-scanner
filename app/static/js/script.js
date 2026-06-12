@@ -1,3 +1,4 @@
+//app/static/js/script.js
 const resizer = document.getElementById("footer-resizer");
 const footer = document.getElementById("main-footer");
 
@@ -30,9 +31,37 @@ function toggleMenu() {
     document.getElementById("overlay").classList.toggle("hidden");
 }
 
-function openTgModal() {
-    document.getElementById("telegramModal").classList.remove("hidden");
-    toggleMenu();
+async function openTgModal() {
+    try {
+        // 1. 백엔드 설정 데이터 일괄 조회 엔드포인트 호출
+        const response = await fetch("/api/settings");
+        if (!response.ok) throw new Error("네트워크 응답 에러");
+        const data = await response.json();
+
+        // 2. 백엔드에서 전달된 telegram 딕셔너리 정보 가져오기
+        // 예: {"use_yn": "Y", "token": "...", "chat_ids": [123, 456]}
+        const tgData = data.telegram || { use_yn: "N", token: "", chat_ids: [] };
+
+        // 3. HTML Input 엘리먼트 존재 여부를 검증하며 값 바인딩 (Java의 NullPointerException 방어)
+        const tgUseYnEl = document.getElementById("tgUseYn");
+        const tgTokenEl = document.getElementById("tgToken");
+        const tgChatIdsEl = document.getElementById("tgChatIds");
+
+        if (tgUseYnEl) tgUseYnEl.value = tgData.use_yn || "N";
+        if (tgTokenEl) tgTokenEl.value = tgData.token || "";
+
+        // 4. 배열(Array) 형태의 Chat ID 목록을 화면에 보기 편하게 콤마(,) 문자열로 결합하여 표현
+        if (tgChatIdsEl) {
+            tgChatIdsEl.value = Array.isArray(tgData.chat_ids) ? tgData.chat_ids.join(", ") : tgData.chat_ids || "";
+        }
+
+        // 5. 모든 데이터 세팅이 끝나면 모달 레이어 화면 표출 및 메뉴 숨김
+        document.getElementById("telegramModal").classList.remove("hidden");
+        toggleMenu();
+    } catch (e) {
+        console.error("텔레그램 설정을 불러오는데 실패했습니다:", e);
+        alert("텔레그램 설정을 서버로부터 불러오지 못했습니다. 백엔드 콘솔 로그를 확인하세요.");
+    }
 }
 
 function closeTgModal() {
