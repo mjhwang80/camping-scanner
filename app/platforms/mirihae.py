@@ -185,7 +185,7 @@ class MirihaeMonitor(CampingMonitor):
                         await self.call_api("전체 가격 체크","https://mirihae.com/campsite/totalTicketPrice.do", params, check_data) # 전체 가격
 
                         parameter = f"gubun=gugu&tocken={self.token}&selectMonth={select_month}&selectStartDate={start_dt}&selectEndDate={end_dt}&selectItemId={site.get("site_code")}"
-                        link = f"https://mjhwang80.github.io/camping-scanner/app/templates/gugu_gateway.html?{parameter}"
+                        link = f"https://mjhwang80.github.io/public_page/gugu_gateway.html?{parameter}"
 
                         logger.error(f"예약 URL: {link}")
 

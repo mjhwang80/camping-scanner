@@ -130,7 +130,7 @@ class PubcampingMonitor(CampingMonitor):
             for site in found_sites:
 
                 # 첫 번째 발견된 장소를 대표 링크로 사용
-                link = f"https://mjhwang80.github.io/camping-scanner/app/templates/pubcamping_gateway.html?camp_id={camp_id}&room_area_no={site['room_area_no']}&stay_cnt={stay_days}&check_in={start_dt}&check_out={end_dt}&roomNoArr={site['item_no']}"
+                link = f"https://mjhwang80.github.io/public_page/pubcamping_gateway.html?camp_id={camp_id}&room_area_no={site['room_area_no']}&stay_cnt={stay_days}&check_in={start_dt}&check_out={end_dt}&roomNoArr={site['item_no']}"
                 #link = f"https://gwgs.pubcamping.kr/{camp_id}/reservation"
             
 
