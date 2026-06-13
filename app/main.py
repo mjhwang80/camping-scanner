@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 from threading import Timer, Thread
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
+from contextlib import asynccontextmanager
 import uvicorn
 from fastapi.staticfiles import StaticFiles
 from fastapi import Request, HTTPException, FastAPI, WebSocket, WebSocketDisconnect, Body, BackgroundTasks
@@ -50,10 +51,21 @@ try:
 except Exception as e:
     print(f"[!] 브라우저 경로 설정 실패: {e}")
 
-app = FastAPI()
+
+# 1. lifespan 함수 정의
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # [Startup 영역] 서버가 시작될 때 실행될 코드
+    await startup_event()
+    
+    yield  # ◀ 이 yield를 기점으로 startup과 shutdown이 나뉩니다.
+    
+    # [Shutdown 영역] 서버가 종료될 때 실행될 코드
+    await shutdown_event()
+
+app = FastAPI(lifespan=lifespan)
 tray_manager = None
 
-@app.on_event("startup")
 async def startup_event():
     setup_logging()  # 여기서 한 번만 전체 로깅 환경을 초기화
     start_scheduler()
@@ -63,7 +75,7 @@ async def startup_event():
             await asyncio.sleep(60 * 3)
     asyncio.create_task(simulate_logging())
 
-@app.on_event("shutdown")
+
 async def shutdown_event():
     logger.info("[*] 애플리케이션 종료 프로세스 시작...")
 

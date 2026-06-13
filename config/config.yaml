@@ -2,10 +2,10 @@ server:
     port: 7777
     host: 0.0.0.0
 telegram:
-    use_yn: Y
-    token: 5626123:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk
+    use_yn: N
+    token: 5f626123:AAH1ZQGHP0QRIAjh50wTEUjMx6L-sZo-gBk
     chat_ids:
-        - "5616601555"
+        - "56164601555"
 info:
     email: test@test.com
     name: 홍길동
